@@ -4,8 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Kryterium progowe stabilności wilgotnościowej węzła kalenicowego w dachach z płyt PIR</title>
-<meta name="description" content="Analityczne kryterium progowe stabilności wilgotnościowej węzła kalenicowego w dachach z płyt PIR z wypełnieniem pianką otwartokomórkową. Bilans sezonowy, sprzężenie nieszczelności powietrznej z ograniczoną drogą wysychania. Wydanie interaktywne.">
+
+<meta name="description" content="Analityczne kryterium progowe stabilności wilgotnościowej węzła kalenicowego w dachach z płyt PIR z wypełnieniem pianką otwartokomórkową. Bilans sezonowy, sprzężenie nieszczelności powietrznej z ograniczoną drogą wysychania.">
 <meta name="author" content="Paweł Majsterek">
+
 <meta name="citation_title" content="Sprzężenie nieszczelności powietrznej z ograniczoną drogą wysychania w węźle kalenicowym dachu z płyt PIR — kryterium progowe oparte na bilansie sezonowym">
 <meta name="citation_author" content="Majsterek, Paweł">
 <meta name="citation_publication_date" content="2026/09">
@@ -16,338 +18,196 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
 
 <script>
-window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']],
-  processEscapes:true,processEnvironments:true,tags:'ams',tagSide:'right'},
-  options:{skipHtmlTags:['script','noscript','style','textarea','pre']},
-  chtml:{scale:.96,mathmlSpacing:true}};
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: 'ams',
+    tagSide: 'right'
+  },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] },
+  chtml: { scale: 1.0, mathmlSpacing: true }
+};
 </script>
 <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"></script>
 
 <style>
 :root{
-  --bg:#0c1113;--bg-deep:#080c0e;--panel:#141b1e;--panel-2:#1a2327;--rail:rgba(10,15,17,.94);
-  --line:rgba(180,210,210,.09);--line-2:rgba(180,210,210,.18);
-  --text:#dce5e4;--mid:#93a3a4;--mute:#5d6e70;
-  --moist:#4fa8d8;--conv:#e0604c;--dry:#f2a93b;--ok:#57c08a;--alu:#9fb0b6;
-  --pir:#d8c38a;--wood:#a8794a;--foam:#8fb8a8;
-  --accent:#f2a93b;--accent-soft:rgba(242,169,59,.08);
-  --f-ui:'IBM Plex Sans',system-ui,sans-serif;
-  --f-mono:'IBM Plex Mono',ui-monospace,monospace;
-  --f-txt:'IBM Plex Serif',Georgia,serif;
+  --ink:#1a1a18;
+  --ink-soft:#4a4a46;
+  --ink-faint:#7a7a74;
+  --rule:#cfccc4;
+  --rule-soft:#e4e1d9;
+  --paper:#fbfaf7;
+  --accent:#27476b;
+  --accent-soft:#eef1f5;
+  --flag:#8a3324;
+  --key-bg:#fdf1d9;
+  --key-bd:#c98a1f;
+  --key-tx:#6b4a05;
   box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
-}
-body.light{
-  --bg:#fbfaf7;--bg-deep:#f2f0ea;--panel:#f5f3ee;--panel-2:#eae7df;--rail:rgba(251,250,247,.95);
-  --line:rgba(26,26,24,.09);--line-2:rgba(26,26,24,.18);
-  --text:#1a1a18;--mid:#4d5250;--mute:#7d8785;
-  --moist:#2c7fb0;--conv:#b8412f;--dry:#a8731a;--ok:#2f8a5c;--alu:#6d7c82;
-  --pir:#9d8547;--wood:#8a5f34;--foam:#4f8271;
-  --accent:#a8731a;--accent-soft:rgba(168,115,26,.08);
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
 }
 *,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:calc(58px + env(safe-area-inset-top,0px))}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+html{scroll-behavior:smooth;scroll-padding-top:2rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
 body{
-  background:
-    radial-gradient(900px 500px at 12% -6%,rgba(79,168,216,.07),transparent 62%),
-    radial-gradient(760px 460px at 96% 3%,rgba(242,169,59,.06),transparent 60%),
-    var(--bg);
-  color:var(--text);font-family:var(--f-txt);font-weight:400;font-size:17px;line-height:1.72;
-  -webkit-font-smoothing:antialiased;transition:background-color .2s,color .2s;
+  font-family:Spectral,'Source Serif 4',Georgia,serif;
+  font-weight:400;font-size:17px;line-height:1.66;
+  color:var(--ink);background:var(--paper);
+  font-variant-numeric:oldstyle-nums proportional-nums;
+  -webkit-font-smoothing:antialiased;
 }
-body.light{background:var(--bg)}
+.sheet{max-width:46rem;margin:0 auto;padding:4.5rem 2.5rem 7rem}
 
-/* ── progress + nav ───────────────── */
-#prog{position:fixed;top:env(safe-area-inset-top,0px);left:0;height:2px;width:0;z-index:300;
-  background:linear-gradient(90deg,var(--moist),var(--accent));transition:width .08s linear}
-nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:200;height:48px;
-  display:flex;align-items:center;gap:0;padding:0 1rem;background:var(--rail);
-  backdrop-filter:blur(16px);border-bottom:1px solid var(--line-2);
-  font-family:var(--f-mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase}
-nav .brand{color:var(--accent);margin-right:auto;white-space:nowrap;font-weight:500;letter-spacing:.2em}
-nav a{color:var(--mute);text-decoration:none;padding:0 .62rem;height:48px;display:flex;align-items:center;
-  border-left:1px solid var(--line);transition:color .18s}
-nav a:hover{color:var(--text)}
-nav a.on{color:var(--accent)}
-nav button{background:transparent;border:none;border-left:1px solid var(--line);height:48px;padding:0 .7rem;
-  color:var(--mute);font-family:var(--f-mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
-nav button:hover{color:var(--text)}
-nav button.on{color:var(--accent)}
-@media(max-width:900px){nav .hideSm{display:none}}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-
-/* ── rail ─────────────────────────── */
-.rail{position:fixed;top:calc(48px + env(safe-area-inset-top,0px));left:0;right:0;z-index:190;
-  background:var(--rail);backdrop-filter:blur(16px);border-bottom:1px solid var(--line-2);
-  max-height:0;overflow:hidden;transition:max-height .28s ease}
-.rail.open{max-height:460px;overflow:visible}
-.rail-in{max-width:1140px;margin:0 auto;padding:.85rem 1.4rem;display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(152px,1fr));gap:.85rem 1.4rem;align-items:end}
-.ctl{display:flex;flex-direction:column;gap:.3rem;min-width:0}
-.ctl-h{display:flex;justify-content:space-between;align-items:baseline;gap:.4rem}
-.ctl-l{font-family:var(--f-mono);font-size:.54rem;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ctl-v{font-family:var(--f-mono);font-size:.72rem;color:var(--accent);white-space:nowrap}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:2px;background:var(--line-2);cursor:pointer;border-radius:2px}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
-input[type=range]::-moz-range-thumb{width:11px;height:11px;border-radius:50%;background:var(--accent);border:2px solid var(--bg)}
-select{width:100%;background:var(--panel-2);color:var(--text);border:1px solid var(--line-2);
-  border-radius:3px;padding:.3rem .45rem;font-family:var(--f-mono);font-size:.68rem}
-.railfoot{border-top:1px solid var(--line);padding:.6rem 1.4rem;display:flex;gap:1.4rem;flex-wrap:wrap;
-  max-width:1140px;margin:0 auto;font-family:var(--f-mono);font-size:.66rem;color:var(--mid);align-items:center}
-.railfoot b{font-weight:500;color:var(--text)}
-.railfoot .rst{margin-left:auto;background:transparent;border:1px solid var(--line-2);border-radius:3px;
-  color:var(--mid);font-family:var(--f-mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;
-  padding:.34rem .6rem;cursor:pointer}
-.railfoot .rst:hover{color:var(--accent);border-color:var(--accent)}
-
-/* ── layout ───────────────────────── */
-main{display:grid;grid-template-columns:1fr min(46rem,92vw) 1fr;
-  padding:calc(70px + env(safe-area-inset-top,0px)) 0 6rem}
-main>*{grid-column:2}
-main>.fig,main>.wide{grid-column:1/-1;width:min(1140px,94vw);margin:0 auto}
-
-/* ── title ────────────────────────── */
-.titleblock{border-bottom:1px solid var(--line-2);padding:2.4rem 0 2.2rem;margin-bottom:2.4rem}
-.doctype{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);margin-bottom:1.5rem}
-h1{font-family:var(--f-ui);font-weight:600;font-size:clamp(1.42rem,3.4vw,2.05rem);line-height:1.22;
-  letter-spacing:-.012em;max-width:22em;margin-bottom:.7rem}
-.subtitle{font-family:var(--f-txt);font-size:1.1rem;font-style:italic;color:var(--mid);line-height:1.5;max-width:32em}
-.title-en{font-family:var(--f-txt);font-size:.88rem;font-style:italic;color:var(--mute);margin-top:1rem;line-height:1.5;max-width:36em}
-.byline{margin-top:1.8rem;font-family:var(--f-ui);font-size:.92rem;line-height:1.75}
+.titleblock{border-bottom:1px solid var(--ink);padding-bottom:2.2rem;margin-bottom:2.6rem}
+.doctype{font-size:0.8rem;letter-spacing:0.06em;color:var(--ink-faint);margin-bottom:1.6rem;font-variant-numeric:lining-nums}
+h1{font-weight:600;font-size:1.85rem;line-height:1.24;letter-spacing:-0.012em;margin-bottom:0.7rem;max-width:32em}
+.subtitle{font-size:1.12rem;font-weight:300;font-style:italic;color:var(--ink-soft);line-height:1.45;max-width:34em}
+.title-en{font-size:0.9rem;font-style:italic;color:var(--ink-faint);margin-top:1.1rem;line-height:1.45;max-width:36em}
+.byline{margin-top:1.8rem;font-size:0.95rem;line-height:1.7}
 .byline .name{font-weight:500}
-.byline .lic{color:var(--mute);font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em}
+.byline .affil{color:var(--ink-soft);font-size:0.88rem}
 
-/* ── headline result ──────────────── */
-.headline{margin:2.6rem 0 3rem;padding:1.9rem 0;border-top:2px solid var(--accent);border-bottom:1px solid var(--line-2)}
-.headline .lead-in{font-size:.95rem;color:var(--mid);max-width:34em;margin-bottom:.9rem}
-.headline .gloss{font-size:.92rem;color:var(--mid);max-width:34em;margin-top:1rem}
-.headline .gloss strong{font-weight:500;color:var(--text);font-family:var(--f-ui);font-size:.88rem}
+.headline-result{margin:3rem 0 3.4rem;padding:2rem 0;border-top:2px solid var(--accent);border-bottom:1px solid var(--rule)}
+.headline-result .lead-in{font-size:0.92rem;color:var(--ink-soft);max-width:34em;margin-bottom:1.1rem}
+.headline-result .criterion{font-size:1.1rem;text-align:center;margin:1.3rem 0}
+.headline-result .gloss{font-size:0.9rem;color:var(--ink-soft);max-width:34em;margin-top:1.1rem}
+.headline-result .gloss strong{font-weight:500;color:var(--ink)}
 
-/* ── abstract ─────────────────────── */
-.abstract{margin-bottom:2.4rem;font-size:.96rem;line-height:1.68}
-.abstract h2{font-family:var(--f-ui);font-size:.95rem;font-weight:600;border:none;margin:0 0 .7rem;padding:0}
-.abstract p{margin-bottom:.8rem;max-width:36em}
-.keywords{font-family:var(--f-mono);font-size:.72rem;color:var(--mid);margin-top:1.1rem;padding-top:.9rem;
-  border-top:1px solid var(--line);line-height:1.8}
-.keywords span{color:var(--mute)}
+.abstract{margin-bottom:2.6rem;font-size:0.95rem;line-height:1.64}
+.abstract h2{font-size:0.95rem;font-weight:600;border:none;margin:0 0 0.7rem;padding:0}
+.abstract p{margin-bottom:0.8rem;max-width:36em}
+.keywords{font-size:0.88rem;color:var(--ink-soft);margin-top:1.1rem;padding-top:0.9rem;border-top:1px solid var(--rule-soft)}
+.keywords span{font-style:italic;color:var(--ink-faint)}
 
-/* ── headings ─────────────────────── */
-h2{font-family:var(--f-ui);font-weight:600;font-size:1.22rem;line-height:1.3;margin:3.2rem 0 1rem;
-  padding-top:.9rem;border-top:1px solid var(--line-2);scroll-margin-top:100px}
-h2 .num{display:inline-block;min-width:1.9em;color:var(--accent);font-weight:500}
-h3{font-family:var(--f-ui);font-weight:500;font-size:1.02rem;margin:1.9rem 0 .6rem}
-h3 .num{display:inline-block;min-width:2.6em;color:var(--accent);font-weight:400}
-h4{font-family:var(--f-ui);font-weight:500;font-size:.94rem;font-style:italic;margin:1.4rem 0 .4rem;color:var(--mid)}
-p{margin-bottom:.9rem;max-width:36em;text-align:justify;hyphens:auto}
-ul,ol{margin:.7rem 0 1rem 1.4rem;max-width:35em}
-li{margin-bottom:.42rem;padding-left:.2rem}
-em{font-style:italic}
-strong{font-weight:600}
+h2{font-weight:600;font-size:1.22rem;line-height:1.3;margin:3.2rem 0 1rem;padding-top:0.9rem;border-top:1px solid var(--rule)}
+h2 .num{display:inline-block;min-width:1.9em;color:var(--accent);font-weight:500;font-variant-numeric:lining-nums}
+h3{font-weight:500;font-size:1.02rem;margin:1.9rem 0 0.6rem}
+h3 .num{display:inline-block;min-width:2.6em;color:var(--accent);font-weight:400;font-variant-numeric:lining-nums}
+h4{font-weight:500;font-size:0.96rem;font-style:italic;margin:1.4rem 0 0.4rem;color:var(--ink-soft)}
+
+p{margin-bottom:0.85rem;max-width:36em;text-align:justify;hyphens:auto}
+ul,ol{margin:0.7rem 0 1rem 1.4rem;max-width:35em}
+li{margin-bottom:0.42rem;padding-left:0.2rem}
 
 mjx-container[jax="CHTML"][display="true"]{margin:1.2rem 0;overflow-x:auto;overflow-y:hidden}
-.eqnote{font-size:.88rem;color:var(--mid);max-width:35em;margin:-.4rem 0 1.1rem;padding-left:1.1rem;
-  border-left:2px solid var(--line-2)}
-.eqnote strong{font-family:var(--f-ui);font-size:.85rem;font-weight:500;color:var(--text)}
+.eqnote{font-size:0.86rem;color:var(--ink-soft);max-width:35em;margin:-0.5rem 0 1.1rem;padding-left:1.2rem;border-left:2px solid var(--rule-soft)}
 
-.statement{margin:1.7rem 0;padding:1.1rem 1.3rem;border-left:3px solid var(--accent);background:var(--accent-soft)}
-.statement p{margin-bottom:.5rem;max-width:34em}
-.statement p:last-child{margin-bottom:0}
-.aside{margin:1.6rem 0;padding:1rem 1.2rem;background:var(--panel);border-left:3px solid var(--line-2);
-  font-size:.92rem;line-height:1.6}
-.aside p{max-width:36em;margin-bottom:.5rem}
-.aside p:last-child{margin-bottom:0}
-.aside .label{font-family:var(--f-ui);font-weight:600;font-size:.88rem;color:var(--text)}
+figure{margin:1.9rem 0}
+figcaption{font-size:0.86rem;color:var(--ink-soft);line-height:1.5;margin-bottom:0.6rem;max-width:40em}
+figcaption b{font-weight:600;color:var(--ink);font-variant-numeric:lining-nums}
 
-/* ── tables ───────────────────────── */
-figure.tbl{margin:1.9rem 0}
-figcaption{font-family:var(--f-ui);font-size:.84rem;color:var(--mid);line-height:1.5;margin-bottom:.6rem;max-width:44em}
-figcaption b{font-weight:600;color:var(--text)}
-table.data{width:100%;border-collapse:collapse;font-family:var(--f-mono);font-size:.74rem;line-height:1.5}
-table.data th{text-align:left;font-weight:500;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;
-  color:var(--mute);padding:.45rem .7rem .45rem 0;border-bottom:1px solid var(--line-2);vertical-align:bottom}
-table.data td{padding:.42rem .7rem .42rem 0;border-bottom:1px solid var(--line);vertical-align:top;color:var(--mid)}
-table.data tbody tr:last-child td{border-bottom:1px solid var(--line-2)}
-table.data td.n,table.data th.n{text-align:right;padding-right:1.1rem;color:var(--text)}
-table.data td.lbl{color:var(--text)}
+table{width:100%;border-collapse:collapse;font-size:0.88rem;line-height:1.45;font-variant-numeric:lining-nums tabular-nums}
+th{text-align:left;font-weight:600;padding:0.45rem 0.7rem 0.45rem 0;border-bottom:1px solid var(--ink);vertical-align:bottom}
+td{padding:0.42rem 0.7rem 0.42rem 0;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+tbody tr:last-child td{border-bottom:1px solid var(--rule)}
+td.n,th.n{text-align:right;padding-right:1.2rem}
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.flag{color:var(--conv);font-weight:500}
-.ok{color:var(--ok);font-weight:500}
+.flag{color:var(--flag);font-weight:500}
+.ok{color:var(--accent);font-weight:500}
 
-/* ── figures with canvas ──────────── */
-.fig{margin:2.6rem auto;background:var(--panel);border:1px solid var(--line-2);border-radius:6px;overflow:hidden}
-.fig-h{padding:1rem 1.4rem .85rem;border-bottom:1px solid var(--line);display:flex;gap:1rem;align-items:baseline;flex-wrap:wrap}
-.fig-n{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.18em;color:var(--accent);
-  border:1px solid var(--line-2);padding:.2rem .5rem;border-radius:2px;white-space:nowrap}
-.fig-t{font-family:var(--f-ui);font-weight:500;font-size:1rem}
-.fig-s{font-family:var(--f-mono);font-size:.62rem;color:var(--mute);margin-left:auto}
-.cv-box{padding:.4rem .5rem 0}
-canvas{display:block;width:100%}
-.legend{display:flex;gap:1.1rem;flex-wrap:wrap;padding:.4rem 1.4rem 1rem;font-family:var(--f-mono);font-size:.62rem;color:var(--mid)}
-.lg{display:flex;align-items:center;gap:.4rem}
-.sw{width:14px;height:3px;border-radius:2px;flex:0 0 auto}
-.sw.d{border-top:2px dashed currentColor;height:0;background:none!important}
-.sw.b{width:11px;height:11px;border-radius:2px}
-.fignote{padding:0 1.4rem 1.3rem;font-family:var(--f-txt);font-size:.89rem;line-height:1.64;color:var(--mid);max-width:58em}
-.fignote b{color:var(--text);font-family:var(--f-ui);font-weight:400;font-size:.85rem}
-.inbar{display:flex;gap:.6rem;flex-wrap:wrap;padding:.2rem 1.4rem 1rem}
-.seg{display:flex;border:1px solid var(--line-2);border-radius:3px;overflow:hidden}
-.seg button{background:transparent;border:none;border-right:1px solid var(--line-2);color:var(--mid);
-  font-family:var(--f-mono);font-size:.62rem;letter-spacing:.06em;padding:.34rem .7rem;cursor:pointer;transition:.16s}
-.seg button:last-child{border-right:none}
-.seg button.on{background:var(--accent-soft);color:var(--accent)}
-.seg button:hover:not(.on){color:var(--text)}
+.statement{margin:1.7rem 0;padding:1.1rem 1.3rem 1.1rem 1.3rem;border-left:3px solid var(--accent);background:var(--accent-soft)}
+.statement p{margin-bottom:0.5rem;max-width:34em}
+.statement p:last-child{margin-bottom:0}
+.aside{margin:1.6rem 0;padding:1rem 1.2rem;background:#f4f2ec;font-size:0.9rem;line-height:1.56;border-left:3px solid var(--rule)}
+.aside p{max-width:36em;margin-bottom:0.5rem}
+.aside p:last-child{margin-bottom:0}
+.aside .label{font-weight:600;font-size:0.88rem}
 
-/* ── nomenclature ─────────────────── */
-.nomen{column-count:2;column-gap:2.2rem;font-family:var(--f-mono);font-size:.74rem;line-height:1.55;margin:1rem 0 1.6rem}
-.nomen dt{float:left;clear:left;width:5.4em;color:var(--text)}
-.nomen dd{margin-left:5.8em;margin-bottom:.3rem;color:var(--mid)}
-.nomen h4{font-family:var(--f-ui);margin:0 0 .5rem;break-after:avoid;font-size:.86rem}
+.keyfinding{margin:1.9rem 0;padding:1.15rem 1.35rem;background:var(--key-bg);border-left:4px solid var(--key-bd);border-radius:0 4px 4px 0}
+.keyfinding .kf-label{font-family:'Spectral',serif;font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;font-weight:600;color:var(--key-tx);margin-bottom:0.55rem}
+.keyfinding p{color:var(--key-tx);max-width:35em;margin-bottom:0.5rem}
+.keyfinding p:last-child{margin-bottom:0}
+.keyfinding strong{color:#4a3200}
+
+.nomen{column-count:2;column-gap:2.4rem;font-size:0.88rem;line-height:1.5;margin:1rem 0 1.6rem}
+.nomen dt{float:left;clear:left;width:5.2em;font-style:italic}
+.nomen dd{margin-left:5.6em;margin-bottom:0.3rem}
+.nomen h4{margin:0 0 0.5rem;break-after:avoid}
 .nomen .grp{break-inside:avoid-column;margin-bottom:1.1rem}
 
-/* ── refs ─────────────────────────── */
-.refs{font-size:.9rem;line-height:1.55;margin-left:1.5rem}
-.refs li{margin-bottom:.5rem;max-width:42em;color:var(--mid)}
-.refs li:target{background:var(--accent-soft);outline:.35rem solid var(--accent-soft)}
-a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--line-2)}
+.refs{font-size:0.9rem;line-height:1.5}
+.refs li{margin-bottom:0.5rem;max-width:40em}
+.refs li:target{background:var(--accent-soft);outline:0.4rem solid var(--accent-soft)}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(39,71,107,0.3)}
 a:hover{border-bottom-color:var(--accent)}
-sup a{border:none;font-size:.74em;padding:0 .08em;font-family:var(--f-mono)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+sup a{border:none;font-size:0.76em;font-variant-numeric:lining-nums;padding:0 0.08em}
 
-/* ── validation ───────────────────── */
-.vsum{padding:.9rem 1.4rem;font-family:var(--f-mono);font-size:.68rem;color:var(--mid);border-bottom:1px solid var(--line)}
-table.vt{width:100%;border-collapse:collapse;font-family:var(--f-mono);font-size:.72rem}
-table.vt th{text-align:left;font-weight:500;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;
-  color:var(--mute);padding:.5rem 1.4rem;border-bottom:1px solid var(--line-2)}
-table.vt td{padding:.4rem 1.4rem;border-bottom:1px solid var(--line);color:var(--mid)}
-table.vt td.n{text-align:right;color:var(--text)}
-.pass{color:var(--ok)}.fail{color:var(--conv)}
+footer{margin-top:4rem;padding-top:1.4rem;border-top:1px solid var(--rule);font-size:0.84rem;color:var(--ink-faint);line-height:1.6}
 
-footer{grid-column:1/-1;width:min(46rem,92vw);margin:4rem auto 0;padding-top:1.4rem;
-  border-top:1px solid var(--line-2);font-family:var(--f-mono);font-size:.7rem;color:var(--mute);line-height:1.9}
-
-@media(max-width:700px){
+@media(max-width:640px){
   body{font-size:16px}
+  .sheet{padding:2.4rem 1.2rem 4rem}
+  h1{font-size:1.42rem}
+  .subtitle{font-size:1rem}
   p{text-align:left;hyphens:none}
-  main{padding-top:calc(62px + env(safe-area-inset-top,0px))}
   .nomen{column-count:1}
-  .fig-h,.fignote,.legend,.inbar{padding-left:1rem;padding-right:1rem}
-  table.vt th,table.vt td{padding-left:1rem;padding-right:1rem}
-  .fig-s{margin-left:0;flex-basis:100%}
-  .rail-in{padding:.75rem 1rem;grid-template-columns:repeat(auto-fit,minmax(136px,1fr))}
-  .railfoot{padding:.6rem 1rem;gap:.9rem}
+  .headline-result .criterion{font-size:0.95rem}
 }
 @media print{
-  @page{size:A4;margin:20mm 18mm}
-  nav,#prog,.rail,.inbar{display:none!important}
-  body{background:#fff;font-size:10.5pt;line-height:1.5}
-  main{display:block;padding:0}
-  main>*,main>.fig,main>.wide,footer{width:auto;max-width:none;margin-left:0;margin-right:0}
-  h2,h3,h4,figcaption,.fig-h{break-after:avoid;page-break-after:avoid}
-  figure,table,.statement,.aside,.headline,.fig{break-inside:avoid;page-break-inside:avoid}
-  .fig{border:1px solid #bbb}
-  a{color:#000;border:none}
+  @page{size:A4;margin:22mm 20mm}
+  :root{--paper:#fff}
+  body{font-size:10.5pt;line-height:1.48;background:#fff}
+  .sheet{max-width:none;padding:0}
+  h2,h3,h4,figcaption{break-after:avoid;page-break-after:avoid}
+  figure,table,.statement,.aside,.keyfinding,.headline-result{break-inside:avoid;page-break-inside:avoid}
+  a{color:var(--ink);border:none}
+  .refs li:target{background:none;outline:none}
 }
 </style>
 </head>
 <body>
+<main class="sheet">
 
-<div id="prog"></div>
-
-<nav>
-  <span class="brand">Węzeł kalenicowy · PIR</span>
-  <a href="#s1" class="hideSm">1 wstęp</a>
-  <a href="#s2" class="hideSm">2 węzeł</a>
-  <a href="#s4" class="hideSm">4 mechanizmy</a>
-  <a href="#s5">5 kryterium</a>
-  <a href="#s6" class="hideSm">6 wrażliwość</a>
-  <a href="#s9">9 wnioski</a>
-  <button id="btnRail">parametry</button>
-  <button id="btnTheme" title="jasny / ciemny">◐</button>
-</nav>
-
-<div class="rail" id="rail">
-  <div class="rail-in">
-    <div class="ctl">
-      <div class="ctl-h"><span class="ctl-l">A<sub>leak</sub> nieszczelność</span><span class="ctl-v" id="vA">10,0 mm²/mb</span></div>
-      <input type="range" id="sA" min="0" max="200" value="100" aria-label="Zastępcza powierzchnia nieszczelności">
-    </div>
-    <div class="ctl">
-      <div class="ctl-h"><span class="ctl-l">ΔP na barierze</span><span class="ctl-v" id="vP">10 Pa</span></div>
-      <input type="range" id="sP" min="10" max="300" value="100" aria-label="Różnica ciśnień na barierze">
-    </div>
-    <div class="ctl">
-      <div class="ctl-h"><span class="ctl-l">ΔT ekspozycja letnia</span><span class="ctl-v" id="vTs">0 K</span></div>
-      <input type="range" id="sTs" min="-300" max="50" value="0" aria-label="Przesunięcie temperatur letnich">
-    </div>
-    <div class="ctl">
-      <div class="ctl-h"><span class="ctl-l">ΔT gradient w węźle</span><span class="ctl-v" id="vTj">25 K</span></div>
-      <input type="range" id="sTj" min="10" max="45" value="25" aria-label="Gradient temperatury w węźle">
-    </div>
-    <div class="ctl">
-      <div class="ctl-h"><span class="ctl-l">µ opór wypełnienia</span><span class="ctl-v" id="vM">3,3</span></div>
-      <input type="range" id="sM" min="30" max="50" value="33" aria-label="Współczynnik oporu dyfuzyjnego">
-    </div>
-    <div class="ctl">
-      <div class="ctl-h"><span class="ctl-l">K przepuszczalność</span><span class="ctl-v" id="vK">1,0·10⁻¹²</span></div>
-      <input type="range" id="sK" min="-133" max="-105" value="-120" aria-label="Przepuszczalność powietrzna">
-    </div>
-    <div class="ctl">
-      <div class="ctl-h"><span class="ctl-l">S nasycenie</span><span class="ctl-v" id="vS">0,30</span></div>
-      <input type="range" id="sS" min="0" max="100" value="30" aria-label="Stopień nasycenia">
-    </div>
-    <div class="ctl">
-      <div class="ctl-h"><span class="ctl-l">warstwa wewnętrzna</span></div>
-      <select id="sL" aria-label="Warstwa wewnętrzna">
-        <option value="none">bez warstwy wewnętrznej</option>
-        <option value="pe">folia PE · S_d = 15 m</option>
-        <option value="vcl">membrana zmiennooporowa</option>
-      </select>
-    </div>
-  </div>
-  <div class="railfoot">
-    <span>reżim <b id="oRegime">—</b></span>
-    <span>A<sub>leak,cr</sub> <b id="oAcr">—</b> mm²/mb</span>
-    <span>Δp<sub>res</sub> <b id="oDpres">—</b> Pa</span>
-    <span>Λ <b id="oLam">—</b> Pa</span>
-    <span>ΔM<sub>rok</sub> <b id="oDM">—</b> kg/mb</span>
-    <span>Θ <b id="oTh">—</b> Pa·h</span>
-    <button class="rst" id="btnReset">scenariusz odniesienia</button>
-  </div>
-</div>
-
-<main>
 <header class="titleblock">
-  <p class="doctype">Opracowanie techniczne · fizyka przegród budowlanych · wydanie interaktywne · wrzesień 2026</p>
+  <p class="doctype">Opracowanie techniczne · fizyka przegród budowlanych · wersja 3 · wrzesień 2026</p>
+
   <h1>Sprzężenie nieszczelności powietrznej z ograniczoną drogą wysychania w węźle kalenicowym dachu z płyt PIR</h1>
   <p class="subtitle">Kryterium progowe oparte na bilansie sezonowym</p>
+
   <p class="title-en">Coupling of air leakage with restricted drying paths in the ridge joint of a PIR-panel roof: a threshold criterion based on seasonal moisture balance</p>
+
   <div class="byline">
     <span class="name">Paweł Majsterek</span><br>
-    <span class="lic">Licencja CC BY-NC-ND 4.0</span>
+    <span class="affil">Cech Rzemiosł Budowlanych m.st. Warszawy · Piaseczno, Polska</span><br>
+    <span class="affil">Licencja CC&nbsp;BY-NC-ND&nbsp;4.0</span>
   </div>
 </header>
 
-<section class="headline">
+<section class="headline-result">
   <p class="lead-in">Wynik zasadniczy pracy sprowadza się do jednej nierówności. W przyjętym modelu sezonowym węzeł kalenicowy pozostaje stabilny wilgotnościowo dopóty, dopóki ekwiwalent ciśnieniowy nieszczelności bariery powietrznej nie przekroczy rezerwy wysychania:</p>
-  <p style="text-align:center">\[\Lambda \;<\; \Delta p_{\mathrm{res}}, \qquad \Lambda \equiv \frac{\dot m_{v,\mathrm{cond}}\,S_{d,\mathrm{zl}}}{\delta_a\,A_{\mathrm{zl}}}, \qquad \Delta p_{\mathrm{res}} \equiv \frac{\Theta}{t_z} - \overline{\Delta p}_{z}\]</p>
-  <p class="gloss">Dla scenariusza odniesienia granica przypada na <strong>A<sub>leak,cr</sub> ≈ 5 mm² nieszczelności na metr bieżący</strong>. Nie jest to wartość uniwersalna, lecz wynik przyjętego zestawu parametrów. Przy scałkowanym potencjale wysychania Θ &lt; 3,0·10⁶ Pa·h dodatnia wartość A<sub>leak,cr</sub> nie istnieje.</p>
-  <p class="gloss" style="margin-top:1.3rem;padding-top:1rem;border-top:1px solid var(--line)"><strong>Wydanie interaktywne.</strong> Wszystkie dziesięć rycin liczy się na żywo z jednego modelu, sterowanego paskiem parametrów dostępnym pod przyciskiem „parametry” w nawigacji. Wartości w tekście odpowiadają scenariuszowi odniesienia; przesunięcie suwaka zmienia rysunki, nie zmienia zdań. Aneks C zestawia wynik obliczeń z wartościami tabelarycznymi.</p>
+
+  <p class="criterion">\[\Lambda \;<\; \Delta p_{\mathrm{res}}, \qquad \Lambda \equiv \frac{\dot m_{v,\mathrm{cond}}\,S_{d,\mathrm{zl}}}{\delta_a\,A_{\mathrm{zl}}}, \qquad \Delta p_{\mathrm{res}} \equiv \frac{\Theta}{t_z} - \overline{\Delta p}_{z}\]</p>
+
+  <p class="gloss">Dla scenariusza odniesienia granica przypada na <strong>A<sub>leak,cr</sub>&nbsp;≈&nbsp;5&nbsp;mm² nieszczelności na metr bieżący</strong>. Nie jest to wartość uniwersalna, lecz wynik przyjętego zestawu parametrów. Przy scałkowanym potencjale wysychania Θ&nbsp;&lt;&nbsp;3,0·10⁶&nbsp;Pa·h dodatnia wartość A<sub>leak,cr</sub> nie istnieje.</p>
 </section>
 
 <section class="abstract">
   <h2>Streszczenie</h2>
   <p>Wypełnienie szczeliny kalenicowej w dachach z płyt PIR pianką poliuretanową otwartokomórkową (ocSPF) jest rozwiązaniem stosowanym w praktyce wykonawczej, którego konsekwencje wilgotnościowe nie zostały, w dostępnej autorowi literaturze, ujęte ilościowo. W pracy przeprowadzono analizę analityczną węzła w oparciu o równania sprzężonego transportu ciepła i wilgoci, zredukowane do bilansu sezonowego. Wyniki mają charakter analizy skalującej dla zadanego scenariusza parametrycznego; nie przeprowadzono symulacji numerycznych ani badań materiałowych.</p>
-  <p>Złącze stanowi obejście dyfuzyjne o ekwiwalentnej grubości dyfuzyjnej <i>S</i><sub>d</sub> ≈ 0,26 m w przegrodzie o <i>S</i><sub>d</sub> rzędu 10³ m; współczynnik kontrastu oporu dyfuzyjnego wynosi ≈ 4·10³. Wykazano jednak, że sam kontrast oporów nie przesądza o akumulacji: droga dyfuzyjna jest dwukierunkowa, a scałkowany sezonowo potencjał wysychania solarnego osiąga Θ ≈ 1,4·10⁷ Pa·h. Konwekcja przez matrycę pianki (Pe = 0,03–0,3), konwekcja naturalna w ośrodku porowatym (Ra<sub>D</sub> = 1,3·10⁻³ wobec Ra<sub>D,cr</sub> ≈ 39,5) oraz termodyfuzja (<i>S</i><sub>T</sub>Δ<i>T</i> ≈ 6·10⁻³) zostały wykazane jako zaniedbywalne.</p>
-  <p>Mechanizmem decydującym jest transport konwekcyjny przez nieciągłości bariery powietrznej, dla którego w przyjętym modelu sezonowym pominięto składową letnią. Sformułowano kryterium progowe Λ ≥ Δ<i>p</i><sub>res</sub>, gdzie Λ jest ekwiwalentem ciśnieniowym nieszczelności, a Δ<i>p</i><sub>res</sub> rezerwą wysychania wyprowadzoną z potencjału scałkowanego. Dla scenariusza odniesienia, przy przyjętych wartościach Δ<i>P</i>, <i>x</i><sub>int</sub>, <i>C</i><sub>d</sub>, geometrii złącza i pozostałych parametrów modelu (tab. 1), próg wynosi <i>A</i><sub>leak,cr</sub> ≈ 5 mm² na metr bieżący i zanika przy Θ &lt; 3,0·10⁶ Pa·h. Poniżej progu układ wysycha sezonowo całkowicie, w reżimie ograniczonym dostępnością wody.</p>
-  <p>Analiza wrażliwości wykazała, że opór dyfuzyjny warstwy wewnętrznej wpływa na bilans ujemnie (<i>S</i><sub>µ</sub> ≈ −1). W analizowanym węźle wysoki opór dyfuzyjny warstwy wewnętrznej, przy zachowaniu konwekcyjnej drogi dopływu i braku alternatywnej drogi wysychania, pogarsza bilans wilgotnościowy: ciągła folia paroizolacyjna obniża obliczoną wartość krytycznej powierzchni nieszczelności z 5,0 do 0,09 mm²/mb. Oznacza to, że funkcji bariery powietrznej i funkcji regulacji oporu dyfuzyjnego nie należy utożsamiać — szczelność powietrzna ogranicza źródło dopływu konwekcyjnego, podczas gdy zwiększenie <i>S</i><sub>d</sub> może jednocześnie ograniczać wysychanie.</p>
-  <p class="keywords"><span>Słowa kluczowe:</span> fizyka budowli · transport wilgoci · węzeł kalenicowy · płyty PIR · pianka otwartokomórkowa · szczelność powietrzna · potencjał wysychania · kryterium progowe · membrana zmiennooporowa</p>
+
+  <p>Złącze stanowi obejście dyfuzyjne o ekwiwalentnej grubości dyfuzyjnej <i>S</i><sub>d</sub>&nbsp;≈&nbsp;0,26&nbsp;m w przegrodzie o <i>S</i><sub>d</sub> rzędu 10³&nbsp;m; współczynnik kontrastu oporu dyfuzyjnego wynosi ≈&nbsp;4·10³. Wykazano jednak, że sam kontrast oporów nie przesądza o akumulacji: droga dyfuzyjna jest dwukierunkowa, a scałkowany sezonowo potencjał wysychania solarnego osiąga Θ&nbsp;≈&nbsp;1,4·10⁷&nbsp;Pa·h. Konwekcja przez matrycę pianki (Pe&nbsp;=&nbsp;0,03–0,3), konwekcja naturalna w ośrodku porowatym (Ra<sub>D</sub>&nbsp;=&nbsp;1,3·10⁻³ wobec Ra<sub>D,cr</sub>&nbsp;≈&nbsp;39,5) oraz termodyfuzja (<i>S</i><sub>T</sub>Δ<i>T</i>&nbsp;≈&nbsp;6·10⁻³) zostały wykazane jako zaniedbywalne.</p>
+
+  <p>Mechanizmem decydującym jest transport konwekcyjny przez nieciągłości bariery powietrznej, dla którego w przyjętym modelu sezonowym pominięto składową letnią. Sformułowano kryterium progowe Λ&nbsp;≥&nbsp;Δ<i>p</i><sub>res</sub>, gdzie Λ jest ekwiwalentem ciśnieniowym nieszczelności, a Δ<i>p</i><sub>res</sub> rezerwą wysychania wyprowadzoną z potencjału scałkowanego. Dla scenariusza odniesienia, przy przyjętych wartościach Δ<i>P</i>, <i>x</i><sub>int</sub>, <i>C</i><sub>d</sub>, geometrii złącza i pozostałych parametrów modelu (tab.&nbsp;1), próg wynosi <i>A</i><sub>leak,cr</sub>&nbsp;≈&nbsp;5&nbsp;mm² na metr bieżący i zanika przy Θ&nbsp;&lt;&nbsp;3,0·10⁶&nbsp;Pa·h. Poniżej progu układ wysycha sezonowo całkowicie, w reżimie ograniczonym dostępnością wody.</p>
+
+  <p>Analiza wrażliwości wykazała, że opór dyfuzyjny warstwy wewnętrznej wpływa na bilans ujemnie (<i>S</i><sub>µ</sub>&nbsp;≈&nbsp;−1). W analizowanym węźle wysoki opór dyfuzyjny warstwy wewnętrznej, przy zachowaniu konwekcyjnej drogi dopływu i braku alternatywnej drogi wysychania, pogarsza bilans wilgotnościowy: ciągła folia paroizolacyjna obniża obliczoną wartość krytycznej powierzchni nieszczelności z 5,0 do 0,09&nbsp;mm²/mb. Oznacza to, że funkcji bariery powietrznej i funkcji regulacji oporu dyfuzyjnego nie należy utożsamiać — szczelność powietrzna ogranicza źródło dopływu konwekcyjnego, podczas gdy zwiększenie <i>S</i><sub>d</sub> może jednocześnie ograniczać wysychanie.</p>
+
+  <p>Wykazano dodatkowo, że ta sama ekspozycja solarna, która zapewnia potencjał wysychania Θ, przyspiesza — zgodnie z kinetyką Arrheniusa — starzenie kleju łączącego zewnętrzne uszczelnienie taśmowe z powierzchnią płyt. Sprzęga to wzrost <i>A</i><sub>leak</sub> w czasie z wielkością Θ, zamiast pozostawiać je zmiennymi niezależnymi. W konsekwencji scenariusze o najwyższym potencjale wysychania — najkorzystniejsze w bilansie statycznym — nie powinny być odczytywane jako trwale bezpieczne w perspektywie wieloletniej.</p>
+
+  <p class="keywords"><span>Słowa kluczowe:</span> fizyka budowli · transport wilgoci · węzeł kalenicowy · płyty PIR · pianka otwartokomórkowa · szczelność powietrzna · potencjał wysychania · kryterium progowe · membrana zmiennooporowa · starzenie kleju</p>
 </section>
 
-<h2 id="s0"><span class="num">—</span>Nomenklatura</h2>
+<h2><span class="num">—</span>Nomenklatura</h2>
+
 <div class="nomen">
   <div class="grp">
     <h4>Symbole łacińskie</h4>
@@ -357,9 +217,11 @@ footer{grid-column:1/-1;width:min(46rem,92vw);margin:4rem auto 0;padding-top:1.4
       <dt>a<sub>w</sub></dt><dd>aktywność wody, –</dd>
       <dt>C<sub>d</sub></dt><dd>współczynnik wypływu, –</dd>
       <dt>D<sub>v</sub>, D<sub>l</sub></dt><dd>dyfuzyjność pary / cieczy, m²·s⁻¹</dd>
+      <dt>E<sub>a</sub></dt><dd>energia aktywacji starzenia kleju, J·mol⁻¹</dd>
       <dt>g</dt><dd>gęstość strumienia pary, kg·m⁻²·s⁻¹</dd>
       <dt>h</dt><dd>wysokość szczeliny, m</dd>
       <dt>K<sub>ref</sub></dt><dd>referencyjna przepuszczalność z kryterium szczelności, m²</dd>
+      <dt>L<sub>ref</sub>, L<sub>real</sub></dt><dd>żywotność uszczelnienia w temperaturze odniesienia / rzeczywista, lata</dd>
       <dt>M</dt><dd>masa wilgoci na metr bieżący, kg·m⁻¹</dd>
       <dt>ṁ<sub>a</sub></dt><dd>strumień masy powietrza przez nieszczelność, kg·s⁻¹</dd>
       <dt>ṁ<sub>v,cond</sub></dt><dd>strumień masy pary kondensującej, kg·s⁻¹</dd>
@@ -369,7 +231,9 @@ footer{grid-column:1/-1;width:min(46rem,92vw);margin:4rem auto 0;padding-top:1.4
       <dt>S<sub>d</sub></dt><dd>ekwiwalentna grubość dyfuzyjna powietrza, m</dd>
       <dt>S<sub>T</sub></dt><dd>współczynnik Soreta, K⁻¹</dd>
       <dt>S<sub>x</sub></dt><dd>znormalizowana czułość względem <i>x</i>, –</dd>
+      <dt>t<sub>eq</sub></dt><dd>czas równoważny w temperaturze odniesienia, h</dd>
       <dt>t<sub>z</sub>, t<sub>l</sub></dt><dd>czas trwania sezonu zimowego / letniego, h</dd>
+      <dt>T<sub>ref</sub></dt><dd>temperatura odniesienia dla żywotności kleju, K</dd>
       <dt>U</dt><dd>współczynnik przenikania ciepła, W·m⁻²·K⁻¹</dd>
       <dt>w, w<sub>sat</sub></dt><dd>zawartość wilgoci / nasycenie, kg·m⁻³</dd>
       <dt>x</dt><dd>zawartość wilgoci w powietrzu, kg·kg⁻¹</dd>
@@ -392,7 +256,7 @@ footer{grid-column:1/-1;width:min(46rem,92vw);margin:4rem auto 0;padding-top:1.4
       <dt>φ</dt><dd>wilgotność względna, –</dd>
       <dt>ψ</dt><dd>liniowy współczynnik przenikania ciepła, W·m⁻¹K⁻¹</dd>
     </dl>
-    <h4 style="margin-top:.9rem">Liczby bezwymiarowe i indeksy</h4>
+    <h4 style="margin-top:0.9rem">Liczby bezwymiarowe i indeksy</h4>
     <dl>
       <dt>Fo<sub>w</sub></dt><dd>liczba Fouriera dla transportu wilgoci</dd>
       <dt>Pe</dt><dd>liczba Pécleta</dd>
@@ -405,193 +269,200 @@ footer{grid-column:1/-1;width:min(46rem,92vw);margin:4rem auto 0;padding-top:1.4
   </div>
 </div>
 
-<h2 id="s1"><span class="num">1.</span>Wprowadzenie i stan wiedzy</h2>
-<p>Dachy skośne z płyt warstwowych PIR z obustronną okładziną aluminiową są rozwiązaniem o deklarowanym oporze dyfuzyjnym przekraczającym możliwości pomiarowe typowych metod normowych. Okładzina metaliczna czyni z pola połaci warstwę praktycznie paroszczelną, o ekwiwalentnej grubości dyfuzyjnej rzędu 10³ m. Projektowanie ochrony wilgotnościowej takiej przegrody nie koncentruje się zatem na polu, lecz na węzłach — miejscach, w których ciągłość okładziny zostaje przerwana.</p>
+<h2><span class="num">1.</span>Wprowadzenie i stan wiedzy</h2>
+
+<p>Dachy skośne z płyt warstwowych PIR z obustronną okładziną aluminiową są rozwiązaniem o deklarowanym oporze dyfuzyjnym przekraczającym możliwości pomiarowe typowych metod normowych. Okładzina metaliczna czyni z pola połaci warstwę praktycznie paroszczelną, o ekwiwalentnej grubości dyfuzyjnej rzędu 10³&nbsp;m. Projektowanie ochrony wilgotnościowej takiej przegrody nie koncentruje się zatem na polu, lecz na węzłach — miejscach, w których ciągłość okładziny zostaje przerwana.</p>
+
 <p>Węzeł kalenicowy jest przypadkiem szczególnym z trzech powodów. Geometria wymusza szczelinę technologiczną, którą w praktyce wykonawczej wypełnia się najczęściej pianką poliuretanową natryskową o strukturze otwartokomórkowej (ocSPF) i zakleja taśmą aluminiową od strony zewnętrznej. Jest to najwyższy punkt przegrody, w którym nadciśnienie wywołane efektem kominowym osiąga maksimum. W tym samym miejscu zbiega się większość przejść i zakończeń wewnętrznej warstwy paroizolacyjnej, co czyni go geometrycznie i wykonawczo szczególnie podatnym na nieciągłość bariery powietrznej.</p>
+
 <p>Literatura fizyki budowli opisuje każdy z tych czynników osobno. Fundamentalne sformułowanie sprzężonego transportu ciepła i wilgoci pochodzi od Künzela<sup><a href="#r1">[1]</a></sup>; systematyczne ujęcia podają Hagentoft<sup><a href="#r2">[2]</a></sup> oraz Hens<sup><a href="#r3">[3]</a></sup>. Znaczenie transportu konwekcyjnego przez nieszczelności udokumentowali Janssens i Hens<sup><a href="#r10">[10]</a></sup>, a rolę potencjału wysychania w bilansie przegrody omawiają Straube i Burnett<sup><a href="#r4">[4]</a></sup> oraz TenWolde i Carll<sup><a href="#r5">[5]</a></sup>.</p>
+
 <p>W dostępnej autorowi literaturze nie zidentyfikowano natomiast ilościowego ujęcia przypadku, w którym materiał o niskim oporze dyfuzyjnym zostaje wbudowany jako lokalne obejście w przegrodzie o wysokim oporze, przy jednoczesnym ograniczeniu dróg odprowadzenia wilgoci z obu stron. Niniejsza praca formułuje dla takiego układu kryterium progowe rozdzielające reżim wysychania sezonowego od reżimu akumulacji.</p>
+
 <p>Celem pracy nie jest wykazanie, że rozwiązanie jest wadliwe w każdych warunkach — taka teza byłaby fizycznie nieuzasadniona. Celem jest wyznaczenie granicy parametrycznej, wskazanie struktury zależności, która do niej prowadzi, oraz określenie, który z parametrów tej granicy jest w praktyce projektowej i wykonawczej sterowalny.</p>
 
-<h2 id="s2"><span class="num">2.</span>Sformułowanie problemu — geometria i warunki brzegowe</h2>
-<p>Rozpatrywana jest szczelina kalenicowa o szerokości <i>b</i> = 50 mm, wypełniona ocSPF na drodze przepływu <i>d</i> = 80 mm, w dachu z płyt PIR grubości 140 mm z obustronną okładziną aluminiową, na więźbie drewnianej. Od zewnątrz złącze zamknięte jest taśmą aluminiową; warstwa wewnętrzna, o zmiennej charakterystyce, stanowi zmienną analizy (§ 6.3).</p>
-<p>Warunki brzegowe przyjęto jako reprezentatywne dla III strefy klimatycznej Polski. Sezon zimowy: <i>T</i><sub>int</sub> = 20 °C, φ<sub>int</sub> = 55 %, średnia sezonowa różnica ciśnień cząstkowych pary Δ<i>p̄</i><sub>z</sub> = 600 Pa przy <i>t</i><sub>z</sub> = 5000 h. Scenariusz obciążenia ciśnieniowego na poziomie kalenicy: Δ<i>P</i> = 10 Pa. Sezon letni opisany jest scałkowanym potencjałem wysychania Θ, zdefiniowanym w § 5.2.</p>
+<h2><span class="num">2.</span>Sformułowanie problemu — geometria i warunki brzegowe</h2>
+
+<p>Rozpatrywana jest szczelina kalenicowa o szerokości <i>b</i>&nbsp;=&nbsp;50&nbsp;mm, wypełniona ocSPF na drodze przepływu <i>d</i>&nbsp;=&nbsp;80&nbsp;mm, w dachu z płyt PIR grubości 140&nbsp;mm z obustronną okładziną aluminiową, na więźbie drewnianej. Od zewnątrz złącze zamknięte jest taśmą aluminiową; warstwa wewnętrzna, o zmiennej charakterystyce, stanowi zmienną analizy (§&nbsp;6.3).</p>
+
+<p>Warunki brzegowe przyjęto jako reprezentatywne dla III strefy klimatycznej Polski. Sezon zimowy: <i>T</i><sub>int</sub>&nbsp;=&nbsp;20&nbsp;°C, φ<sub>int</sub>&nbsp;=&nbsp;55&nbsp;%, średnia sezonowa różnica ciśnień cząstkowych pary Δ<i>p̄</i><sub>z</sub>&nbsp;=&nbsp;600&nbsp;Pa przy <i>t</i><sub>z</sub>&nbsp;=&nbsp;5000&nbsp;h. Scenariusz obciążenia ciśnieniowego na poziomie kalenicy: Δ<i>P</i>&nbsp;=&nbsp;10&nbsp;Pa. Sezon letni opisany jest scałkowanym potencjałem wysychania Θ, zdefiniowanym w §&nbsp;5.2.</p>
+
 <div class="aside">
-  <p><span class="label">Warunki zimowe — uwaga metodyczna.</span> Wartość Δ<i>p̄</i><sub>z</sub> = 600 Pa jest średnią sezonową, nie wartością ekstremalną. Różnica obliczona dla projektowej temperatury zewnętrznej −15 °C wynosi ok. 1140 Pa i jest właściwa do sprawdzania kondensacji powierzchniowej, nie do bilansu masy w skali sezonu. Zastosowanie ekstremum do obliczeń akumulacyjnych zawyża wynik blisko dwukrotnie.</p>
-</div>
-<p>Kluczową cechą topologiczną węzła jest asymetria dróg transportu. Dopływ wilgoci odbywa się dwoma kanałami: dyfuzyjnym przez wypełnienie oraz konwekcyjnym przez nieciągłości bariery powietrznej. Odpływ w przyjętym modelu odbywa się wyłącznie kanałem dyfuzyjnym, ponieważ składową konwekcyjną poza sezonem grzewczym pominięto. Założenie to i jego kierunek omówiono w § 8.2.</p>
-
-<div class="fig">
-  <div class="fig-h"><span class="fig-n">Ryc. 1</span><span class="fig-t">Przekrój węzła — topologia dróg transportu</span><span class="fig-s">skala rzeczywista · mm</span></div>
-  <div class="inbar">
-    <div class="seg" id="segSeason"><button data-v="winter" class="on">zima</button><button data-v="summer">lato</button><button data-v="both">obie fazy</button></div>
-    <div class="seg" id="segCont"><button data-v="broken" class="on">bariera przerwana</button><button data-v="cont">bariera ciągła</button></div>
-    <div class="seg" id="segDim"><button data-v="on" class="on">wymiary</button><button data-v="off">bez wymiarów</button></div>
-  </div>
-  <div class="cv-box"><canvas id="cE" data-h="440"></canvas></div>
-  <div class="legend">
-    <span class="lg"><span class="sw b" style="background:var(--pir)"></span>rdzeń PIR 140 mm</span>
-    <span class="lg"><span class="sw b" style="background:var(--alu)"></span>okładzina i taśma Al</span>
-    <span class="lg"><span class="sw b" style="background:var(--foam)"></span>ocSPF w szczelinie</span>
-    <span class="lg"><span class="sw b" style="background:var(--wood)"></span>więźba drewniana</span>
-    <span class="lg"><span class="sw" style="background:var(--conv)"></span>konwekcja</span>
-    <span class="lg"><span class="sw" style="background:var(--moist)"></span>dyfuzja</span>
-    <span class="lg"><span class="sw" style="background:var(--dry)"></span>wysychanie solarne</span>
-  </div>
-  <p class="fignote">Rysunek pokazuje asymetrię topologiczną stanowiącą sedno zagadnienia: <b>dopływ ma dwa kanały, odpływ w przyjętym modelu jeden</b>. Taśma aluminiowa zamyka stronę zewnętrzną, więc jedyna droga wysychania prowadzi przez wypełnienie do wnętrza — i to właśnie tę drogę zamyka ciągła folia paroizolacyjna, pozostawiając nietkniętą drogę konwekcyjną. Zestawienie trybu letniego z wariantem folii PE odwzorowuje wniosek § 9.6 w jednym kadrze.</p>
+  <p><span class="label">Warunki zimowe — uwaga metodyczna.</span> Wartość Δ<i>p̄</i><sub>z</sub>&nbsp;=&nbsp;600&nbsp;Pa jest średnią sezonową, nie wartością ekstremalną. Różnica obliczona dla projektowej temperatury zewnętrznej −15&nbsp;°C wynosi ok.&nbsp;1140&nbsp;Pa i jest właściwa do sprawdzania kondensacji powierzchniowej, nie do bilansu masy w skali sezonu. Zastosowanie ekstremum do obliczeń akumulacyjnych zawyża wynik blisko dwukrotnie.</p>
 </div>
 
-<h2 id="s3"><span class="num">3.</span>Model fizyczny</h2>
+<p>Kluczową cechą topologiczną węzła jest asymetria dróg transportu. Dopływ wilgoci odbywa się dwoma kanałami: dyfuzyjnym przez wypełnienie oraz konwekcyjnym przez nieciągłości bariery powietrznej. Odpływ w przyjętym modelu odbywa się wyłącznie kanałem dyfuzyjnym, ponieważ składową konwekcyjną poza sezonem grzewczym pominięto. Założenie to i jego kierunek omówiono w §&nbsp;8.2.</p>
+
+<h2><span class="num">3.</span>Model fizyczny</h2>
+
 <h3><span class="num">3.1</span>Równania zachowawcze</h3>
+
 <p>Punktem wyjścia jest sprzężony transport ciepła i wilgoci w sformułowaniu Künzela<sup><a href="#r1">[1]</a></sup>, z potencjałami <i>T</i> i φ:</p>
+
 \begin{equation}\label{eq:kunzel-T}
 \frac{\partial H}{\partial T}\,\frac{\partial T}{\partial t}
 = \nabla\!\cdot\!\bigl(\lambda(w)\nabla T\bigr) + h_v\,\nabla\!\cdot\!\bigl(\delta_p \nabla(\varphi\,p_{\mathrm{sat}})\bigr)
 \end{equation}
+
 \begin{equation}\label{eq:kunzel-w}
 \frac{\partial w}{\partial \varphi}\,\frac{\partial \varphi}{\partial t}
 = \nabla\!\cdot\!\bigl(D_\varphi(\varphi)\nabla\varphi + \delta_p \nabla(\varphi\,p_{\mathrm{sat}})\bigr)
 \end{equation}
+
 <p>Dla defektów bariery powietrznej dochodzi człon konwekcyjny z polem prędkości wg prawa Darcy'ego:</p>
+
 \begin{equation}\label{eq:conv}
 \left.\frac{\partial w}{\partial t}\right|_{\mathrm{konw}} = -\nabla\!\cdot\!\bigl(\rho_a\,x\,\mathbf{v}\bigr),
 \qquad \mathbf{v} = -\frac{K}{\eta}\nabla p
 \end{equation}
-<p class="eqnote">Równania \eqref{eq:kunzel-T}–\eqref{eq:conv} stanowią fizyczną podstawę modelu. Wyniki ilościowe uzyskano natomiast po redukcji do jednowymiarowego bilansu sezonowego (§ 5), nie z rozwiązania numerycznego. Uprawnienie tej redukcji i jej ograniczenia omówiono w § 8.1.</p>
+
+<p class="eqnote">Równania \eqref{eq:kunzel-T}–\eqref{eq:conv} stanowią fizyczną podstawę modelu. Wyniki ilościowe uzyskano natomiast po redukcji do jednowymiarowego bilansu sezonowego (§&nbsp;5), nie z rozwiązania numerycznego. Uprawnienie tej redukcji i jej ograniczenia omówiono w §&nbsp;8.1.</p>
 
 <h3><span class="num">3.2</span>Parametry modelu</h3>
-<figure class="tbl">
+
+<figure>
   <figcaption><b>Tabela 1.</b> Parametry przyjęte do obliczeń. Kolumna „status” rozróżnia stałe fizyczne, wartości typowe dla klasy materiału i wielkości przyjęte scenariuszowo.</figcaption>
-  <div class="tw"><table class="data">
+  <div class="tw">
+  <table>
     <thead><tr><th>Symbol</th><th>Wielkość</th><th class="n">Wartość</th><th>Jednostka</th><th>Status</th></tr></thead>
     <tbody>
-      <tr><td class="lbl">δ<sub>a</sub></td><td>przepuszczalność pary w powietrzu</td><td class="n">2,0·10⁻¹⁰</td><td>kg·m⁻¹s⁻¹Pa⁻¹</td><td>stała, 10 °C</td></tr>
-      <tr><td class="lbl">D<sub>0</sub></td><td>dyfuzyjność H₂O–powietrze</td><td class="n">2,50·10⁻⁵</td><td>m²·s⁻¹</td><td>stała, 20 °C</td></tr>
-      <tr><td class="lbl">D<sub>eff</sub></td><td>dyfuzyjność efektywna w piance, D<sub>0</sub>/µ</td><td class="n">≈ 6,3·10⁻⁶</td><td>m²·s⁻¹</td><td>wyliczone, § 4.2</td></tr>
-      <tr><td class="lbl">α<sub>eff</sub></td><td>dyfuzyjność cieplna ośrodka porowatego</td><td class="n">3,4·10⁻⁶</td><td>m²·s⁻¹</td><td>klasa materiału, § 4.2</td></tr>
-      <tr><td class="lbl">η</td><td>lepkość dynamiczna powietrza</td><td class="n">1,81·10⁻⁵</td><td>Pa·s</td><td>stała</td></tr>
-      <tr><td class="lbl">ρ<sub>a</sub></td><td>gęstość powietrza</td><td class="n">1,20</td><td>kg·m⁻³</td><td>stała</td></tr>
-      <tr><td class="lbl">µ<sub>OC</sub></td><td>opór dyfuzyjny ocSPF</td><td class="n">3,3 (3–5)</td><td>–</td><td>klasa materiału<sup><a href="#r15">[15]</a></sup></td></tr>
-      <tr><td class="lbl">S<sub>d,zł</sub></td><td>opór dyfuzyjny złącza, µ·d</td><td class="n">0,264</td><td>m</td><td>wyliczone</td></tr>
-      <tr><td class="lbl">K<sub>ref</sub></td><td>referencyjna przepuszczalność powietrzna</td><td class="n">4,3·10⁻¹³ → 1·10⁻¹²</td><td>m²</td><td>poziom odniesienia, § 3.3</td></tr>
-      <tr><td class="lbl">w<sub>sat</sub></td><td>objętość dostępna dla wody</td><td class="n">0,55 (±20 %)</td><td>m³·m⁻³</td><td>klasa materiału</td></tr>
-      <tr><td class="lbl">λ<sub>dry</sub></td><td>przewodność ocSPF, stan suchy</td><td class="n">0,038</td><td>W·m⁻¹K⁻¹</td><td>klasa materiału</td></tr>
-      <tr><td class="lbl">S<sub>d,pola</sub></td><td>opór płyty PIR z okładziną Al</td><td class="n">≥ 1000</td><td>m</td><td>klasa wyrobu</td></tr>
-      <tr><td class="lbl">C<sub>d</sub></td><td>współczynnik wypływu</td><td class="n">0,6 (±15 %)</td><td>–</td><td>przyjęte<sup><a href="#r10">[10]</a></sup></td></tr>
-      <tr><td class="lbl">Δ<i>P</i></td><td>różnica ciśnień na barierze</td><td class="n">10</td><td>Pa</td><td>scenariusz, § 3.4</td></tr>
-      <tr><td class="lbl">n</td><td>wykładnik prawa przepływu</td><td class="n">0,5 (0,6–0,7)</td><td>–</td><td>idealizacja, § 3.4</td></tr>
-      <tr><td class="lbl">A<sub>zł</sub></td><td>pole złącza na metr bieżący</td><td class="n">0,05</td><td>m²·m⁻¹</td><td>geometria</td></tr>
+      <tr><td>δ<sub>a</sub></td><td>przepuszczalność pary w powietrzu</td><td class="n">2,0·10⁻¹⁰</td><td>kg·m⁻¹s⁻¹Pa⁻¹</td><td>stała, 10&nbsp;°C</td></tr>
+      <tr><td>D<sub>0</sub></td><td>dyfuzyjność H₂O–powietrze</td><td class="n">2,50·10⁻⁵</td><td>m²·s⁻¹</td><td>stała, 20&nbsp;°C</td></tr>
+      <tr><td>η</td><td>lepkość dynamiczna powietrza</td><td class="n">1,81·10⁻⁵</td><td>Pa·s</td><td>stała</td></tr>
+      <tr><td>ρ<sub>a</sub></td><td>gęstość powietrza</td><td class="n">1,20</td><td>kg·m⁻³</td><td>stała</td></tr>
+      <tr><td>µ<sub>OC</sub></td><td>opór dyfuzyjny ocSPF</td><td class="n">3,3 (3–5)</td><td>–</td><td>klasa materiału<sup><a href="#r15">[15]</a></sup></td></tr>
+      <tr><td>S<sub>d,zł</sub></td><td>opór dyfuzyjny złącza, µ·d</td><td class="n">0,264</td><td>m</td><td>wyliczone</td></tr>
+      <tr><td>K<sub>ref</sub></td><td>referencyjna przepuszczalność powietrzna</td><td class="n">4,3·10⁻¹³ → 1·10⁻¹²</td><td>m²</td><td>poziom odniesienia, §&nbsp;3.3</td></tr>
+      <tr><td>w<sub>sat</sub></td><td>objętość dostępna dla wody</td><td class="n">0,55 (±20&nbsp;%)</td><td>m³·m⁻³</td><td>klasa materiału</td></tr>
+      <tr><td>λ<sub>dry</sub></td><td>przewodność ocSPF, stan suchy</td><td class="n">0,038</td><td>W·m⁻¹K⁻¹</td><td>klasa materiału</td></tr>
+      <tr><td>S<sub>d,pola</sub></td><td>opór płyty PIR z okładziną Al</td><td class="n">≥ 1000</td><td>m</td><td>klasa wyrobu</td></tr>
+      <tr><td>C<sub>d</sub></td><td>współczynnik wypływu</td><td class="n">0,6 (±15&nbsp;%)</td><td>–</td><td>przyjęte<sup><a href="#r10">[10]</a></sup></td></tr>
+      <tr><td>Δ<i>P</i></td><td>różnica ciśnień na barierze</td><td class="n">10</td><td>Pa</td><td>scenariusz, §&nbsp;3.4</td></tr>
+      <tr><td>n</td><td>wykładnik prawa przepływu</td><td class="n">0,5 (0,6–0,7)</td><td>–</td><td>idealizacja, §&nbsp;3.4</td></tr>
+      <tr><td>A<sub>zł</sub></td><td>pole złącza na metr bieżący</td><td class="n">0,05</td><td>m²·m⁻¹</td><td>geometria</td></tr>
     </tbody>
-  </table></div>
+  </table>
+  </div>
 </figure>
-<p class="eqnote"><strong>Uzupełnienie wydania interaktywnego.</strong> Dwie pozycje — <i>D</i><sub>eff</sub> i α<sub>eff</sub> — nie występowały w pierwotnej redakcji tabeli, a bez nich liczby Pécleta i Rayleigha–Darcy'ego z tabeli 2 nie są odtwarzalne. Ich rekonstrukcję opisano w § 4.2.</p>
 
 <h3><span class="num">3.3</span>Przepuszczalność powietrzna — poziom odniesienia</h3>
-<p>Przepuszczalność powietrzną wyznaczono z progu kwalifikacyjnego dla materiałów bariery powietrznej wg ASTM E2178<sup><a href="#r20">[20]</a></sup> — 0,02 l·s⁻¹·m⁻² przy 75 Pa dla warstwy 89 mm — przez przeliczenie na postać Darcy'ego:</p>
+
+<p>Przepuszczalność powietrzną wyznaczono z progu kwalifikacyjnego dla materiałów bariery powietrznej wg ASTM&nbsp;E2178<sup><a href="#r20">[20]</a></sup> — 0,02&nbsp;l·s⁻¹·m⁻² przy 75&nbsp;Pa dla warstwy 89&nbsp;mm — przez przeliczenie na postać Darcy'ego:</p>
+
 \begin{equation}\label{eq:Kref}
 K_{\mathrm{ref}} = \frac{\dot V}{A\,\Delta P}\,\eta\,L = \frac{2\cdot10^{-5}}{75}\times 1{,}81\cdot10^{-5}\times 0{,}089 \approx 4{,}3\cdot10^{-13}\ \mathrm{m^2}
 \end{equation}
+
 <div class="aside">
-  <p><span class="label">Status wielkości K<sub>ref</sub>.</span> Do analizy scenariuszowej przyjęto <i>K</i> = 1·10⁻¹² m², odpowiadającą poziomowi wynikającemu z kryterium szczelności powietrznej. Wartość ta nie jest utożsamiana z laboratoryjnie wyznaczoną przepuszczalnością konkretnej pianki (<i>K</i><sub>mat</sub>), która nie była przedmiotem pomiaru. Przyjęto wartość wyższą od wyliczonej w \eqref{eq:Kref}, co zwiększa oszacowany transport konwekcyjny przez matrycę — jest to założenie zachowawcze względem wniosku § 4.2.</p>
+  <p><span class="label">Status wielkości K<sub>ref</sub>.</span> Do analizy scenariuszowej przyjęto <i>K</i>&nbsp;=&nbsp;1·10⁻¹²&nbsp;m², odpowiadającą poziomowi wynikającemu z kryterium szczelności powietrznej. Wartość ta nie jest utożsamiana z laboratoryjnie wyznaczoną przepuszczalnością konkretnej pianki (<i>K</i><sub>mat</sub>), która nie była przedmiotem pomiaru. Przyjęto wartość wyższą od wyliczonej w \eqref{eq:Kref}, co zwiększa oszacowany transport konwekcyjny przez matrycę — jest to założenie zachowawcze względem wniosku §&nbsp;4.2.</p>
 </div>
 
 <h3><span class="num">3.4</span>Model nieszczelności</h3>
+
 <p>Strumienie rozdzielono na dwie wielkości. Strumień masy powietrza przez nieszczelność:</p>
+
 \begin{equation}\label{eq:ma}
 \dot m_a = C_d\,A_{\mathrm{leak}}\sqrt{2\rho_a\,\Delta P}
 \end{equation}
+
 <p>oraz strumień masy pary ulegającej kondensacji na chłodnej powierzchni złącza:</p>
+
 \begin{equation}\label{eq:mvcond}
 \dot m_{v,\mathrm{cond}} = \dot m_a\bigl[x_{\mathrm{int}} - x_{\mathrm{sat}}(T_s)\bigr]
 \end{equation}
-<p>Dla <i>A</i><sub>leak</sub> = 1 mm², Δ<i>P</i> = 10 Pa: ṁ<sub>a</sub> = 2,94·10⁻⁶ kg·s⁻¹ (10,6 g·h⁻¹). Przy <i>x</i><sub>int</sub> = 8,0 g·kg⁻¹ i <i>x</i><sub>sat</sub>(−5 °C) = 2,5 g·kg⁻¹ otrzymuje się ṁ<sub>v,cond</sub> = 1,62·10⁻⁸ kg·s⁻¹ (0,058 g·h⁻¹), czyli 0,291 kg na sezon i milimetr kwadratowy.</p>
+
+<p>Dla <i>A</i><sub>leak</sub>&nbsp;=&nbsp;1&nbsp;mm², Δ<i>P</i>&nbsp;=&nbsp;10&nbsp;Pa: ṁ<sub>a</sub>&nbsp;=&nbsp;2,94·10⁻⁶&nbsp;kg·s⁻¹ (10,6&nbsp;g·h⁻¹). Przy <i>x</i><sub>int</sub>&nbsp;=&nbsp;8,0&nbsp;g·kg⁻¹ i <i>x</i><sub>sat</sub>(−5&nbsp;°C)&nbsp;=&nbsp;2,5&nbsp;g·kg⁻¹ otrzymuje się ṁ<sub>v,cond</sub>&nbsp;=&nbsp;1,62·10⁻⁸&nbsp;kg·s⁻¹ (0,058&nbsp;g·h⁻¹), czyli 0,291&nbsp;kg na sezon i milimetr kwadratowy.</p>
+
 <div class="aside">
   <p><span class="label">Rozróżnienie krytyczne.</span> Utożsamienie ṁ<sub>a</sub> z ṁ<sub>v,cond</sub> zawyża wynik stukrotnie. Kondensacji ulega wyłącznie nadwyżka ponad zawartość nasycenia przy temperaturze powierzchni, nie zaś cała wilgoć zawarta w przepływającym powietrzu.</p>
 </div>
-<p>Dla idealizowanego otworu przyjęto <i>n</i> = ½ zgodnie z \eqref{eq:ma}. Dla rzeczywistych nieszczelności liniowych możliwe jest zastosowanie prawa potęgowego ṁ<sub>a</sub> = <i>C</i>(Δ<i>P</i>)<sup><i>n</i></sup> z <i>n</i> wyznaczonym doświadczalnie; <i>n</i> jest wówczas charakterystyką nieszczelności, nie poprawką do prawa wypływu. Zakres <i>n</i> = 0,6–0,7 rozpatrzono w analizie wrażliwości (§ 6.4).</p>
+
+<p>Dla idealizowanego otworu przyjęto <i>n</i>&nbsp;=&nbsp;½ zgodnie z \eqref{eq:ma}. Dla rzeczywistych nieszczelności liniowych możliwe jest zastosowanie prawa potęgowego ṁ<sub>a</sub>&nbsp;=&nbsp;<i>C</i>(Δ<i>P</i>)<sup><i>n</i></sup> z <i>n</i> wyznaczonym doświadczalnie; <i>n</i> jest wówczas charakterystyką nieszczelności, nie poprawką do prawa wypływu. Zakres <i>n</i>&nbsp;=&nbsp;0,6–0,7 rozpatrzono w analizie wrażliwości (§&nbsp;6.4).</p>
+
 <p>Wielkość <i>A</i><sub>leak</sub> jest parametrem zastępczym: addytywność powierzchni nie implikuje addytywności strumieni, ponieważ rzeczywiste nieszczelności różnią się długością kanału, kształtem, lokalizacją i temperaturą powierzchni.</p>
 
-<h2 id="s4"><span class="num">4.</span>Analiza bezwymiarowa</h2>
+<h2><span class="num">4.</span>Analiza bezwymiarowa</h2>
+
 <h3><span class="num">4.1</span>Bilans równoległy i kontrast oporów</h3>
+
 <p>Złącze stanowi obejście równoległe względem pola połaci. Dla modelu zastępczego dwóch dróg:</p>
+
 \begin{equation}\label{eq:Sdeff}
 S_{d,\mathrm{eff}} = \frac{A_{\mathrm{tot}}}{\dfrac{A_{\mathrm{pola}}}{S_{d,\mathrm{pola}}} + \dfrac{A_{\mathrm{zl}}}{S_{d,\mathrm{zl}}}}
 \end{equation}
-<p>Przy udziale powierzchniowym złącza 0,05/6 ≈ 0,8 %, <i>S</i><sub>d,pola</sub> ≥ 1000 m i <i>S</i><sub>d,zł</sub> = 0,264 m otrzymuje się <i>S</i><sub>d,eff</sub> ≈ 31 m. Przegroda o deklarowanym oporze rzędu 10³ m zachowuje się dyfuzyjnie jak przegroda o oporze ok. 31 m.</p>
+
+<p>Przy udziale powierzchniowym złącza 0,05/6&nbsp;≈&nbsp;0,8&nbsp;%, <i>S</i><sub>d,pola</sub>&nbsp;≥&nbsp;1000&nbsp;m i <i>S</i><sub>d,zł</sub>&nbsp;=&nbsp;0,264&nbsp;m otrzymuje się <i>S</i><sub>d,eff</sub>&nbsp;≈&nbsp;31&nbsp;m. Przegroda o deklarowanym oporze rzędu 10³&nbsp;m zachowuje się dyfuzyjnie jak przegroda o oporze ok.&nbsp;31&nbsp;m.</p>
+
 \begin{equation}\label{eq:CF}
 \mathrm{CF} = \frac{S_{d,\mathrm{pola}}}{S_{d,\mathrm{zl}}} \approx 4\cdot10^{3}
 \end{equation}
+
 <p class="eqnote">Wielkość CF jest <strong>współczynnikiem kontrastu oporu dyfuzyjnego</strong> — parametrem zastępczym charakteryzującym skalę niejednorodności układu warstw. Nie jest bezpośrednią miarą koncentracji rzeczywistego strumienia, która zależy dodatkowo od geometrii, pola przekroju, długości drogi i warunków brzegowych. Równanie \eqref{eq:Sdeff} należy traktować jako model zastępczy do oceny skali kontrastu, nie jako model geometryczny węzła.</p>
 
 <h3><span class="num">4.2</span>Klasyfikacja mechanizmów transportu</h3>
-<figure class="tbl">
-  <figcaption><b>Tabela 2.</b> Liczby bezwymiarowe w węźle kalenicowym, dla parametrów tab. 1 i Δ<i>T</i> = 20–35 K.</figcaption>
-  <div class="tw"><table class="data">
+
+<figure>
+  <figcaption><b>Tabela 2.</b> Liczby bezwymiarowe w węźle kalenicowym, dla parametrów tab.&nbsp;1 i Δ<i>T</i>&nbsp;=&nbsp;20–35&nbsp;K.</figcaption>
+  <div class="tw">
+  <table>
     <thead><tr><th>Liczba</th><th>Definicja</th><th class="n">Wartość</th><th class="n">Próg</th><th>Wniosek</th></tr></thead>
     <tbody>
-      <tr><td class="lbl">Pe</td><td><i>vL</i>/<i>D</i><sub>eff</sub></td><td class="n">0,03–0,3</td><td class="n">1</td><td>dyfuzja dominuje w matrycy pianki</td></tr>
-      <tr><td class="lbl">Ra<sub>D</sub></td><td><i>gβ</i>Δ<i>T·KH</i>/(<i>ν α</i><sub>eff</sub>)</td><td class="n">1,3·10⁻³</td><td class="n">39,5</td><td>brak konwekcji naturalnej w ośrodku porowatym</td></tr>
-      <tr><td class="lbl">Ra</td><td><i>gβ</i>Δ<i>T h</i>³/(<i>ν α</i>)</td><td class="n">f(<i>h</i>)</td><td class="n">1708</td><td>próg przy <i>h</i> ≈ 7,6–9,1 mm — szczelina swobodna</td></tr>
-      <tr><td class="lbl"><i>S</i><sub>T</sub>Δ<i>T</i></td><td>Soret / Fick</td><td class="n">6·10⁻³</td><td class="n">~0,1</td><td>pomijalne</td></tr>
-      <tr><td class="lbl">Fo<sub>w</sub></td><td><i>D</i><sub>w</sub><i>t</i>/<i>L</i>²</td><td class="n">≫ 1</td><td class="n">1</td><td>redukcja sezonowa dopuszczalna, zob. § 8.1</td></tr>
-      <tr><td class="lbl">Λ/Δ<i>p</i><sub>res</sub></td><td>konwekcja przez defekty / rezerwa wysychania</td><td class="n">0,2–4,0</td><td class="n">1</td><td class="flag">mechanizm decydujący</td></tr>
+      <tr><td>Pe</td><td><i>vL</i>/<i>D</i><sub>v</sub></td><td class="n">0,03–0,3</td><td class="n">1</td><td>dyfuzja dominuje w matrycy pianki</td></tr>
+      <tr><td>Ra<sub>D</sub></td><td><i>gβ</i>Δ<i>T·KH</i>/(<i>ν α</i><sub>th</sub>)</td><td class="n">1,3·10⁻³</td><td class="n">39,5</td><td>brak konwekcji naturalnej w ośrodku porowatym</td></tr>
+      <tr><td>Ra</td><td><i>gβ</i>Δ<i>T h</i>³/(<i>ν α</i>)</td><td class="n">f(<i>h</i>)</td><td class="n">1708</td><td>próg przy <i>h</i>&nbsp;≈&nbsp;7,6–9,1&nbsp;mm — szczelina swobodna</td></tr>
+      <tr><td><i>S</i><sub>T</sub>Δ<i>T</i></td><td>Soret / Fick</td><td class="n">6·10⁻³</td><td class="n">~0,1</td><td>pomijalne</td></tr>
+      <tr><td>Fo<sub>w</sub></td><td><i>D</i><sub>w</sub><i>t</i>/<i>L</i>²</td><td class="n">≫ 1</td><td class="n">1</td><td>redukcja sezonowa dopuszczalna, zob. §&nbsp;8.1</td></tr>
+      <tr><td>Λ/Δ<i>p</i><sub>res</sub></td><td>konwekcja przez defekty / rezerwa wysychania</td><td class="n">0,3–5,8</td><td class="n">1</td><td class="flag">mechanizm decydujący</td></tr>
     </tbody>
-  </table></div>
-</figure>
-<p class="eqnote"><strong>Korekta wydania interaktywnego.</strong> Zakres Λ/Δ<i>p</i><sub>res</sub> podano tu jako 0,2–4,0 — tyle wynosi on dla scenariusza odniesienia przy <i>A</i><sub>leak</sub> = 1–20 mm²/mb i Δ<i>P</i> = 10 Pa. Podawany wcześniej zakres 0,3–5,8 odpowiadałby <i>A</i><sub>leak</sub> ≈ 29 mm²/mb lub Δ<i>P</i> ≈ 21 Pa i wymaga wskazania parametrów, przy których został wyznaczony. Wartość bieżąca, zależna od ustawień paska parametrów, pokazana jest na ryc. 2.</p>
-<p>Dla przepuszczalności przyjętej w § 3.3 prędkość filtracji wynosi <i>v</i> = <i>K</i>Δ<i>P</i>/(<i>ηL</i>) ≈ 6,9·10⁻⁶ m·s⁻¹. Liczbę Pécleta odnosi się przy tym do dyfuzyjności efektywnej w ośrodku porowatym, <i>D</i><sub>eff</sub> = <i>D</i><sub>0</sub>/µ, nie do dyfuzyjności w powietrzu swobodnym; przy µ ≈ 4 daje to Pe ≈ 0,09. W całym rozpatrywanym zakresie <i>K</i> liczba Pécleta pozostaje poniżej jedności: konwekcja przez nienaruszoną matrycę pianki jest zaniedbywalna.</p>
-<p>Dla ośrodka porowatego obowiązuje liczba Rayleigha–Darcy'ego z wartością krytyczną Ra<sub>D,cr</sub> = 4π² ≈ 39,5<sup><a href="#r6">[6]</a></sup><sup><a href="#r7">[7]</a></sup>, nie zaś Ra<sub>cr</sub> = 1708 właściwe dla warstwy płynu. W mianowniku występuje dyfuzyjność cieplna ośrodka porowatego, α<sub>eff</sub> = λ<sub>eff</sub>/(ρ<i>c</i>)<sub>eff</sub> ≈ 3,4·10⁻⁶ m²·s⁻¹, nie dyfuzyjność powietrza — podstawienie tej ostatniej zaniża wynik o ponad rząd wielkości. Obliczona wartość leży cztery i pół rzędu wielkości poniżej progu; jego osiągnięcie wymagałoby <i>K</i> ≈ 3·10⁻⁸ m², co odpowiada otwartemu kanałowi powietrznemu, nie piance.</p>
-
-<div class="fig">
-  <div class="fig-h"><span class="fig-n">Ryc. 2</span><span class="fig-t">Klasyfikacja mechanizmów — odległość od progu w rzędach wielkości</span><span class="fig-s">oś: wartość / próg</span></div>
-  <div class="cv-box"><canvas id="cF" data-h="300"></canvas></div>
-  <div class="legend">
-    <span class="lg"><span class="sw" style="background:var(--ok)"></span>poniżej progu — mechanizm zaniedbywalny</span>
-    <span class="lg"><span class="sw" style="background:var(--conv)"></span>powyżej progu — mechanizm czynny</span>
-    <span class="lg" style="color:var(--text)"><span class="sw d"></span>próg</span>
+  </table>
   </div>
-  <p class="fignote">Cztery liczby sprowadzono do jednej miary — ilorazu wartości i progu — dzięki czemu widać nie tylko, który mechanizm decyduje, lecz <b>o ile rzędów wielkości pozostałe są od progu oddalone</b>. Przesuwanie suwaka <i>K</i> przez cały dopuszczalny zakres nie zbliża Ra<sub>D</sub> do progu; przesuwanie <i>A</i><sub>leak</sub> przenosi ostatni wiersz przez próg przy kilku milimetrach kwadratowych. To jest treść tabeli 2 wyrażona operacyjnie.</p>
-</div>
+</figure>
+
+<p>Dla przepuszczalności przyjętej w §&nbsp;3.3 prędkość filtracji wynosi <i>v</i>&nbsp;=&nbsp;<i>K</i>Δ<i>P</i>/(<i>ηL</i>)&nbsp;≈&nbsp;6,9·10⁻⁶&nbsp;m·s⁻¹, skąd Pe&nbsp;≈&nbsp;0,09. W całym rozpatrywanym zakresie <i>K</i> liczba Pécleta pozostaje poniżej jedności: konwekcja przez nienaruszoną matrycę pianki jest zaniedbywalna.</p>
+
+<p>Dla ośrodka porowatego obowiązuje liczba Rayleigha–Darcy'ego z wartością krytyczną Ra<sub>D,cr</sub>&nbsp;=&nbsp;4π²&nbsp;≈&nbsp;39,5<sup><a href="#r6">[6]</a></sup><sup><a href="#r7">[7]</a></sup>, nie zaś Ra<sub>cr</sub>&nbsp;=&nbsp;1708 właściwe dla warstwy płynu. Obliczona wartość leży cztery i pół rzędu wielkości poniżej progu; jego osiągnięcie wymagałoby <i>K</i>&nbsp;≈&nbsp;3·10⁻⁸&nbsp;m², co odpowiada otwartemu kanałowi powietrznemu, nie piance.</p>
 
 <div class="statement">
   <p>Kryterium Rayleigha zachowuje znaczenie w innym miejscu fizycznym niż przyjmuje się zwyczajowo: nie dla wypełnienia, lecz dla szczeliny powstałej wskutek delaminacji interfejsu. Dla swobodnej szczeliny próg wynosi</p>
   <p style="text-align:center">\(h_{\mathrm{cr}} = \bigl[1708\,\nu\alpha/(g\beta\Delta T)\bigr]^{1/3} = 9{,}1\ \mathrm{mm}\ (\Delta T = 20\ \mathrm{K}) \rightarrow 7{,}6\ \mathrm{mm}\ (\Delta T = 35\ \mathrm{K})\)</p>
-  <p>Jest to próg dla idealizowanej szczeliny swobodnej, nie bezpośrednio próg delaminacji — sprzężenie omówiono w § 5.5.</p>
-</div>
-
-<div class="fig">
-  <div class="fig-h"><span class="fig-n">Ryc. 3</span><span class="fig-t">Kryterium Rayleigha dla szczeliny delaminacyjnej — h<sub>cr</sub>(ΔT)</span><span class="fig-s">Ra<sub>cr</sub> = 1708</span></div>
-  <div class="cv-box"><canvas id="cG" data-h="330"></canvas></div>
-  <div class="legend">
-    <span class="lg"><span class="sw" style="background:var(--conv)"></span>konwekcja naturalna czynna</span>
-    <span class="lg"><span class="sw" style="background:var(--ok)"></span>przewodzenie</span>
-    <span class="lg" style="color:var(--alu)"><span class="sw d"></span>ciśnienie krystalizacji</span>
-  </div>
-  <p class="fignote">Prawa oś zestawia próg geometryczny z mechanizmem, który go uruchamia: <b>ciśnienie krystalizacji przy promieniu menisku rzędu chropowatości powierzchni osiąga ok. 66 kPa wobec wytrzymałości adhezji 15–40 kPa</b>. Sprzężenie jest jednokierunkowe — delaminacja otwiera szczelinę, a szczelina powyżej h<sub>cr</sub> uruchamia konwekcję naturalną, której w matrycy pianki nie było.</p>
+  <p>Jest to próg dla idealizowanej szczeliny swobodnej, nie bezpośrednio próg delaminacji — sprzężenie omówiono w §&nbsp;5.5.</p>
 </div>
 
 <h3><span class="num">4.3</span>Mechanizmy pominięte</h3>
-<p>Termodyfuzja bywa przywoływana jako niezależny napęd transportu wilgoci w gradiencie temperatury. Miarą właściwą jest stosunek do członu fickowskiego, równy <i>S</i><sub>T</sub>Δ<i>T</i>. Dla współczynnika wynikającego z teorii kinetycznej gazów (<i>k</i><sub>T</sub> ≈ 0,05, <i>S</i><sub>T</sub> ≈ 1,7·10⁻⁴ K⁻¹) i Δ<i>T</i> = 35 K daje to 6·10⁻³ — poniżej jednego procenta członu dyfuzyjnego. Wyprowadzenie w aneksie B.</p>
-<p>Efekt mrozowy w matrycy pianki nie występuje. Ciśnienie krystalizacji wg równania Everetta<sup><a href="#r8">[8]</a></sup>, <i>P</i> = 2γ<sub>sl</sub>/<i>r</i>, dla promienia komórki 50 µm daje ok. 1,3 kPa. Wartości rzędu megapaskali wymagają nanoporów i odnoszą się do betonu i kamienia. Przy porowatości 0,92 ekspansja lodu o 9 % jest akomodowana przez fazę gazową. Mechanizm pozostaje istotny na granicach faz (§ 5.5).</p>
 
-<h2 id="s5"><span class="num">5.</span>Bilans sezonowy i kryterium progowe</h2>
+<p>Termodyfuzja bywa przywoływana jako niezależny napęd transportu wilgoci w gradiencie temperatury. Miarą właściwą jest stosunek do członu fickowskiego, równy <i>S</i><sub>T</sub>Δ<i>T</i>. Dla współczynnika wynikającego z teorii kinetycznej gazów (<i>k</i><sub>T</sub>&nbsp;≈&nbsp;0,05, <i>S</i><sub>T</sub>&nbsp;≈&nbsp;1,7·10⁻⁴&nbsp;K⁻¹) i Δ<i>T</i>&nbsp;=&nbsp;35&nbsp;K daje to 6·10⁻³ — poniżej jednego procenta członu dyfuzyjnego. Wyprowadzenie w aneksie&nbsp;B.</p>
+
+<p>Efekt mrozowy w matrycy pianki nie występuje. Ciśnienie krystalizacji wg równania Everetta<sup><a href="#r8">[8]</a></sup>, <i>P</i>&nbsp;=&nbsp;2γ<sub>sl</sub>/<i>r</i>, dla promienia komórki 50&nbsp;µm daje ok.&nbsp;1,3&nbsp;kPa. Wartości rzędu megapaskali wymagają nanoporów i odnoszą się do betonu i kamienia. Przy porowatości 0,92 ekspansja lodu o 9&nbsp;% jest akomodowana przez fazę gazową. Mechanizm pozostaje istotny na granicach faz (§&nbsp;5.5).</p>
+
+<h2><span class="num">5.</span>Bilans sezonowy i kryterium progowe</h2>
+
 <h3><span class="num">5.1</span>Źródła asymetrii</h3>
+
 <p>Rozumowanie, zgodnie z którym materiał o niskim oporze dyfuzyjnym stanowi sam przez się „pułapkę wilgoci”, nie wytrzymuje sprawdzenia. Droga dyfuzyjna jest dwukierunkowa: strumień zmienia kierunek wraz ze zmianą warunków brzegowych, a o rocznym bilansie decyduje jego całka, nie chwilowy dopływ zimowy. Asymetria pochodzi z trzech innych źródeł.</p>
-<p><em>(a) Napęd letni jest solarny, nie klimatyczny.</em> Pod ciemnym pokryciem temperatura złącza osiąga w szczycie 55–70 °C. Przy obecności fazy ciekłej <i>p</i><sub>v</sub> = <i>p</i><sub>sat</sub>(<i>T</i><sub>zł</sub>), wobec <i>p</i><sub>v,int</sub> ≈ 1400 Pa. Napęd skierowany jest do wnętrza i jest o rząd wielkości silniejszy niż zimowy, lecz działa krótko.</p>
-<p><em>(b) Składowa konwekcyjna ujęta jednokierunkowo.</em> W przyjętym modelu sezonowym założono dodatni netto transport konwekcyjny zimą i pomijalny netto transport konwekcyjny latem. Jest to założenie modelowe, nie właściwość samego węzła; jego uzasadnienie i kierunek błędu omówiono w § 8.2.</p>
+
+<p><em>(a) Napęd letni jest solarny, nie klimatyczny.</em> Pod ciemnym pokryciem temperatura złącza osiąga w szczycie 55–70&nbsp;°C. Przy obecności fazy ciekłej <i>p</i><sub>v</sub>&nbsp;=&nbsp;<i>p</i><sub>sat</sub>(<i>T</i><sub>zł</sub>), wobec <i>p</i><sub>v,int</sub>&nbsp;≈&nbsp;1400&nbsp;Pa. Napęd skierowany jest do wnętrza i jest o rząd wielkości silniejszy niż zimowy, lecz działa krótko.</p>
+
+<p><em>(b) Składowa konwekcyjna ujęta jednokierunkowo.</em> W przyjętym modelu sezonowym założono dodatni netto transport konwekcyjny zimą i pomijalny netto transport konwekcyjny latem. Jest to założenie modelowe, nie właściwość samego węzła; jego uzasadnienie i kierunek błędu omówiono w §&nbsp;8.2.</p>
+
 <p><em>(c) Magazynowanie w drewnie sąsiadującym.</em> Krokiew i płyty drewnopochodne przy złączu działają jako bufor sorpcyjny o stałej czasowej rzędu miesięcy, przesuwając część ładunku poza okno letniego wysychania.</p>
+
 <div class="aside">
-  <p><span class="label">Aktywność wody w złączu.</span> Przyjęcie <i>p</i><sub>v</sub> = <i>p</i><sub>sat</sub>(<i>T</i>) wymaga <i>a</i><sub>w</sub> ≈ 1. Z równania Kelvina, <i>a</i><sub>w</sub> = exp[−2γ<i>V</i><sub>m</sub>/(<i>rRT</i>)], dla promienia komórki 1 µm otrzymuje się 0,9991, a dla 50 µm — 0,99998. W piance o komórkach 100–300 µm kondensat jest wodą wolną, nie sorpcyjnie związaną, więc założenie jest uprawnione zawsze, gdy faza ciekła jest obecna. Model nie opisuje natomiast fazy przedkondensacyjnej, w której <i>p</i><sub>v</sub> = φ·<i>p</i><sub>sat</sub> z φ wynikającą z izotermy sorpcji — pominięcie to czyni oszacowanie wysychania optymistycznym, a kryterium zachowawczym.</p>
+  <p><span class="label">Aktywność wody w złączu.</span> Przyjęcie <i>p</i><sub>v</sub>&nbsp;=&nbsp;<i>p</i><sub>sat</sub>(<i>T</i>) wymaga <i>a</i><sub>w</sub>&nbsp;≈&nbsp;1. Z równania Kelvina, <i>a</i><sub>w</sub>&nbsp;=&nbsp;exp[−2γ<i>V</i><sub>m</sub>/(<i>rRT</i>)], dla promienia komórki 1&nbsp;µm otrzymuje się 0,9991, a dla 50&nbsp;µm — 0,99998. W piance o komórkach 100–300&nbsp;µm kondensat jest wodą wolną, nie sorpcyjnie związaną, więc założenie jest uprawnione zawsze, gdy faza ciekła jest obecna. Model nie opisuje natomiast fazy przedkondensacyjnej, w której <i>p</i><sub>v</sub>&nbsp;=&nbsp;φ·<i>p</i><sub>sat</sub> z φ wynikającą z izotermy sorpcji — pominięcie to czyni oszacowanie wysychania optymistycznym, a kryterium zachowawczym.</p>
 </div>
 
 <h3><span class="num">5.2</span>Scałkowany potencjał wysychania</h3>
+
 <p>Maksymalna temperatura złącza nie jest właściwą zmienną stanu do bilansu sezonowego. Znaczenie ma czas przebywania w poszczególnych zakresach temperatury, ujęty potencjałem scałkowanym:</p>
+
 \begin{equation}\label{eq:theta}
 \Theta = \sum_i \bigl[p_{\mathrm{sat}}(T_i) - p_{v,\mathrm{int}}\bigr]\,\Delta t_i
 \qquad [\mathrm{Pa\cdot h}]
 \end{equation}
-<figure class="tbl">
+
+<figure>
   <figcaption><b>Tabela 3.</b> Rozkład godzinowy temperatury złącza dla scenariusza odniesienia (pokrycie ciemne, ekspozycja południowa, sezon maj–wrzesień) i wynikający z niego potencjał.</figcaption>
-  <div class="tw"><table class="data">
+  <div class="tw">
+  <table>
     <thead><tr><th class="n">T<sub>zł</sub>, °C</th><th class="n">czas, h</th><th class="n">p<sub>sat</sub>−p<sub>v,int</sub>, Pa</th><th class="n">wkład, Pa·h</th></tr></thead>
     <tbody>
       <tr><td class="n">60</td><td class="n">60</td><td class="n">18 546</td><td class="n">1,11·10⁶</td></tr>
@@ -601,306 +472,367 @@ S_{d,\mathrm{eff}} = \frac{A_{\mathrm{tot}}}{\dfrac{A_{\mathrm{pola}}}{S_{d,\mat
       <tr><td class="n">25</td><td class="n">1500</td><td class="n">1 769</td><td class="n">2,65·10⁶</td></tr>
       <tr><td class="n"><strong>Σ</strong></td><td class="n">3060</td><td class="n">—</td><td class="n"><strong>1,359·10⁷</strong></td></tr>
     </tbody>
-  </table></div>
-</figure>
-<p>Dla porównania: model oparty na temperaturze szczytowej (18 500 Pa przez 700 h) daje 1,295·10⁷ Pa·h, czyli o 4,9 % mniej. Uproszczenie szczytowe zaniżało potencjał wysychania w stopniu pomijalnym, lecz nie było metodycznie uprawnione; postać \eqref{eq:theta} zastępuje je w całej pracy.</p>
-
-<div class="fig">
-  <div class="fig-h"><span class="fig-n">Ryc. 4</span><span class="fig-t">Struktura godzinowa potencjału wysychania Θ</span><span class="fig-s">Θ = Σ [p_sat(T) − p_v,int]·Δt</span></div>
-  <div class="cv-box"><canvas id="cC" data-h="360"></canvas></div>
-  <div class="legend">
-    <span class="lg"><span class="sw" style="background:var(--dry)"></span>wkład przedziału [Pa·h]</span>
-    <span class="lg"><span class="sw" style="background:var(--moist)"></span>suma narastająco</span>
-    <span class="lg" style="color:var(--conv)"><span class="sw d"></span>granica wykonalności Θ = 3,0·10⁶</span>
+  </table>
   </div>
-  <p class="fignote">Szerokość słupka odpowiada czasowi trwania przedziału, wysokość — wkładowi do całki. <b>Największy wkład wnosi nie szczyt temperaturowy, lecz przedział 35 °C</b>, ponieważ trwa piętnaście razy dłużej. Ciśnienia nasycenia liczone są wzorem Magnusa, co odtwarza tabelę 3 z dokładnością 0,02 %. Przesuwanie ΔT odwzorowuje scenariusze ekspozycji z tabeli 10; ujemne różnice ciśnień są zerowane, nie odejmowane — bez tego zastrzeżenia scenariusz północny daje 2,07·10⁶ zamiast 2,67·10⁶ Pa·h.</p>
-</div>
+</figure>
+
+<p>Dla porównania: model oparty na temperaturze szczytowej (18&nbsp;500&nbsp;Pa przez 700&nbsp;h) daje 1,295·10⁷&nbsp;Pa·h, czyli o 4,9&nbsp;% mniej. Uproszczenie szczytowe zaniżało potencjał wysychania w stopniu pomijalnym, lecz nie było metodycznie uprawnione; postać \eqref{eq:theta} zastępuje je w całej pracy.</p>
 
 <h3><span class="num">5.3</span>Kryterium progowe</h3>
+
 <p>Bilans roczny na metr bieżący węzła, przy quasi-stacjonarności w obu oknach sezonowych:</p>
+
 \begin{equation}\label{eq:balance}
 M_{z} = \left[\frac{\delta_a \overline{\Delta p}_z}{S_{d,\mathrm{zl}}} + \frac{\dot m_{v,\mathrm{cond}}}{A_{\mathrm{zl}}}\right] t_z A_{\mathrm{zl}},
 \qquad
-M_{l} = \frac{\delta_a\,\Theta\,A_{\mathrm{zl}}}{S_{d,\mathrm{zl}}}
+M_{l} = \frac{\delta_a\,\Theta}{S_{d,\mathrm{zl}}\,t_z}\, t_z A_{\mathrm{zl}}
 \end{equation}
-<p>Warunek <i>M</i><sub>l</sub> ≥ <i>M</i><sub>z</sub>, po podzieleniu obustronnie przez δ<sub>a</sub><i>t</i><sub>z</sub><i>A</i><sub>zł</sub>/<i>S</i><sub>d,zł</sub>, przyjmuje postać ciśnieniową:</p>
+
+<p>Warunek <i>M</i><sub>l</sub>&nbsp;≥&nbsp;<i>M</i><sub>z</sub>, po podzieleniu obustronnie przez δ<sub>a</sub><i>t</i><sub>z</sub><i>A</i><sub>zł</sub>/<i>S</i><sub>d,zł</sub>, przyjmuje postać ciśnieniową:</p>
+
 \begin{equation}\label{eq:criterion}
 \underbrace{\frac{\Theta}{t_z} - \overline{\Delta p}_z}_{\Delta p_{\mathrm{res}}}
 \;\geq\;
 \underbrace{\frac{\dot m_{v,\mathrm{cond}}\, S_{d,\mathrm{zl}}}{\delta_a A_{\mathrm{zl}}}}_{\Lambda}
 \end{equation}
+
 <p class="eqnote">Λ ma wymiar ciśnienia i interpretację ekwiwalentu ciśnieniowego nieszczelności: wyraża, ilu paskalom gradientu dyfuzyjnego odpowiada dana powierzchnia nieciągłości bariery. Δ<i>p</i><sub>res</sub> jest rezerwą wysychania układu. Istotne, że <i>S</i><sub>d,zł</sub> nie znika z wyrażenia — pozostaje w definicji Λ, ponieważ opór dyfuzyjny decyduje o tym, jak trudno usunąć wilgoć wniesioną drogą konwekcyjną.</p>
-<div class="statement">
-  <p><strong>Uogólnienie na warstwę sezonowo zmienną.</strong> Postać \eqref{eq:criterion} zakłada, że opór dyfuzyjny drogi wysychania jest w obu sezonach ten sam. Gdy warstwa wewnętrzna zmienia <i>S</i><sub>d</sub> sezonowo — jak membrana zmiennooporowa — wspólnego czynnika nie da się wyłączyć przed nawias i kryterium przyjmuje postać</p>
-  <p style="text-align:center">\(\Lambda = \dfrac{\dot m_{v,\mathrm{cond}}\,S_{d,\mathrm{lato}}}{\delta_a A_{\mathrm{zl}}}, \qquad \Delta p_{\mathrm{res}} = \dfrac{\Theta}{t_z} - \overline{\Delta p}_z\,\dfrac{S_{d,\mathrm{lato}}}{S_{d,\mathrm{zima}}}\)</p>
-  <p>Dla wariantu bazowego, w którym oba opory są równe, wyrażenie redukuje się do \eqref{eq:criterion}. W tej postaci liczone są wszystkie ryciny wydania interaktywnego.</p>
-</div>
-<p>Dla scenariusza odniesienia Δ<i>p</i><sub>res</sub> = 1,359·10⁷/5000 − 600 = 2117 Pa. Przy <i>A</i><sub>leak</sub> = 10 mm²/mb otrzymuje się Λ = 4268 Pa, czyli dwukrotne przekroczenie. Powierzchnia krytyczna:</p>
+
+<p>Dla scenariusza odniesienia Δ<i>p</i><sub>res</sub>&nbsp;=&nbsp;1,359·10⁷/5000&nbsp;−&nbsp;600&nbsp;=&nbsp;2117&nbsp;Pa. Przy <i>A</i><sub>leak</sub>&nbsp;=&nbsp;10&nbsp;mm²/mb otrzymuje się Λ&nbsp;=&nbsp;4268&nbsp;Pa, czyli dwukrotne przekroczenie. Powierzchnia krytyczna:</p>
+
 \begin{equation}\label{eq:Acr}
-A_{\mathrm{leak,cr}} = \frac{\delta_a\,A_{\mathrm{zl}}}{\dot m_{v,\mathrm{cond}}^{(1)} t_z\,S_{d,\mathrm{zl}}}\left[\Theta - \overline{\Delta p}_z t_z\right] = 4{,}96\ \mathrm{mm^2/mb}
+A_{\mathrm{leak,cr}} = \frac{1}{\dot m_{v,\mathrm{cond}}^{(1)} t_z}\left[\frac{\delta_a\,\Theta\,A_{\mathrm{zl}}}{S_{d,\mathrm{zl}}} - \frac{\delta_a \overline{\Delta p}_z A_{\mathrm{zl}} t_z}{S_{d,\mathrm{zl}}}\right] = 4{,}96\ \mathrm{mm^2/mb}
 \end{equation}
 
-<div class="fig">
-  <div class="fig-h"><span class="fig-n">Ryc. 5</span><span class="fig-t">Kryterium progowe — Λ wobec Δp<sub>res</sub></span><span class="fig-s">Λ &lt; Δp_res ⟹ stabilność</span></div>
-  <div class="cv-box"><canvas id="cA" data-h="250"></canvas></div>
-  <div class="legend">
-    <span class="lg"><span class="sw" style="background:var(--dry)"></span>rezerwa wysychania Δp<sub>res</sub></span>
-    <span class="lg"><span class="sw" style="background:var(--conv)"></span>ekwiwalent nieszczelności Λ</span>
-    <span class="lg" style="color:var(--dry)"><span class="sw d"></span>próg</span>
-  </div>
-  <p class="fignote">Oba człony sprowadzone są do jednej skali ciśnieniowej. <b>Λ rośnie liniowo z A<sub>leak</sub> i jak √ΔP</b>, podczas gdy Δp<sub>res</sub> zależy wyłącznie od potencjału wysychania i oporu warstw — parametry te są rozłączne, co jest formalnym wyrazem wniosku 9.3. Dolny pasek lokalizuje bieżącą nieszczelność względem wartości krytycznej i marginesu projektowego A<sub>leak,cr</sub>/3.</p>
-</div>
-
-<figure class="tbl">
+<figure>
   <figcaption><b>Tabela 4.</b> Składowe bilansu rocznego, scenariusz odniesienia. Wielkości w kg na metr bieżący węzła i rok.</figcaption>
-  <div class="tw"><table class="data">
+  <div class="tw">
+  <table>
     <thead><tr><th class="n">A<sub>leak</sub>, mm²/mb</th><th class="n">dopływ dyfuzyjny</th><th class="n">dopływ konwekcyjny</th><th class="n">odpływ letni</th><th class="n">ΔM<sub>rok</sub></th></tr></thead>
     <tbody>
       <tr><td class="n">5</td><td class="n">0,409</td><td class="n">1,455</td><td class="n">1,853</td><td class="n ok">+0,011</td></tr>
       <tr><td class="n">10</td><td class="n">0,409</td><td class="n">2,910</td><td class="n">1,853</td><td class="n flag">+1,466</td></tr>
       <tr><td class="n">20</td><td class="n">0,409</td><td class="n">5,820</td><td class="n">1,853</td><td class="n flag">+4,376</td></tr>
     </tbody>
-  </table></div>
+  </table>
+  </div>
 </figure>
 
-<div class="fig">
-  <div class="fig-h"><span class="fig-n">Ryc. 6</span><span class="fig-t">Bilans roczny w funkcji nieszczelności</span><span class="fig-s">kg / mb · rok</span></div>
-  <div class="cv-box"><canvas id="cB" data-h="360"></canvas></div>
-  <div class="legend">
-    <span class="lg"><span class="sw" style="background:var(--conv)"></span>dopływ konwekcyjny</span>
-    <span class="lg"><span class="sw" style="background:var(--moist)"></span>dopływ dyfuzyjny</span>
-    <span class="lg"><span class="sw" style="background:var(--dry)"></span>odpływ letni</span>
-    <span class="lg"><span class="sw" style="background:var(--text)"></span>bilans netto ΔM</span>
-    <span class="lg" style="color:var(--alu)"><span class="sw d"></span>pojemność M<sub>cap</sub></span>
-  </div>
-  <p class="fignote">Dopływ dyfuzyjny i odpływ letni są stałe względem A<sub>leak</sub>; cała zależność od nieszczelności siedzi w członie konwekcyjnym, a <b>przecięcie krzywej netto z osią zera wyznacza A<sub>leak,cr</sub></b>. Człon liniowy obowiązuje na progu i powyżej niego — poniżej progu układ wchodzi w reżim ograniczony dostępnością wody (§ 5.4) i krzywa netto jest wyłącznie wskazaniem kierunku.</p>
-</div>
-
 <h3><span class="num">5.4</span>Reżim ograniczony dostępnością wody i charakter progu</h3>
-<p>Potencjał wysychania letniego wynosi 1,853 kg/mb, podczas gdy pojemność złącza do przyjętego stanu granicznego (§ 5.6) — 1,540 kg/mb. Potencjał przewyższa zatem pojemność, co oznacza, że poniżej progu złącze wysycha w sezonie letnim całkowicie, a strumień wysychania jest ograniczony dostępnością wody, nie gradientem. Poprawna postać członu letniego:</p>
+
+<p>Potencjał wysychania letniego wynosi 1,853&nbsp;kg/mb, podczas gdy pojemność złącza do przyjętego stanu granicznego (§&nbsp;5.6) — 1,540&nbsp;kg/mb. Potencjał przewyższa zatem pojemność, co oznacza, że poniżej progu złącze wysycha w sezonie letnim całkowicie, a strumień wysychania jest ograniczony dostępnością wody, nie gradientem. Poprawna postać członu letniego:</p>
+
 \begin{equation}\label{eq:supply}
 M_l = \min\bigl(M_{l,\mathrm{pot}},\; M_{\mathrm{dostepna}}\bigr)
 \end{equation}
+
 <div class="statement">
   <p>W przyjętym modelu przejście przez próg ma charakter ostry: po przekroczeniu warunku stabilności bilans przechodzi z reżimu ograniczonego potencjałem wysychania do reżimu ograniczonego dostępnością wody. Nie występuje pośredni reżim powolnego dryfu.</p>
   <p>Nie oznacza to, że rzeczywisty przebieg wilgotności materiału musi wykazywać równie ostrą granicę — sorpcja, retencja kapilarna oraz zależność przewodności i przepuszczalności od zawilgocenia mogą przejście wygładzić. Człon liniowy \eqref{eq:balance} obowiązuje na progu i powyżej niego.</p>
 </div>
 
 <h3><span class="num">5.5</span>Mechanizm degradacji i sprzężenie zwrotne</h3>
-<p>Woda ciekła gromadzi się preferencyjnie na granicy pianka–okładzina aluminiowa, gdzie brak sorpcji po stronie metalu wymusza kondensację powierzchniową. Promień krzywizny menisku odpowiada tam chropowatości powierzchni, rzędu 1 µm, co daje ciśnienie krystalizacji ok. 66 kPa, wobec wytrzymałości adhezji ocSPF na podłożu metalicznym rzędu 15–40 kPa.</p>
-<p>Delaminacja interfejsu jest zatem mechanizmem możliwym, w odróżnieniu od destrukcji matrycy wykluczonej w § 4.3. Przejście od ciśnienia w menisku do siły odrywającej wymaga jednak określenia geometrii menisku, warunku ograniczenia ekspansji, kierunku działania siły i rzeczywistej powierzchni kontaktu; w niniejszej pracy mechanizm wskazano, nie wykazano. Jego znaczenie polega na sprzężeniu: szczelina powietrzna o wysokości przekraczającej 7,6–9,1 mm spełnia kryterium Rayleigha dla warstwy swobodnej, uruchamiając konwekcję naturalną (ryc. 3).</p>
+
+<p>Woda ciekła gromadzi się preferencyjnie na granicy pianka–okładzina aluminiowa, gdzie brak sorpcji po stronie metalu wymusza kondensację powierzchniową. Promień krzywizny menisku odpowiada tam chropowatości powierzchni, rzędu 1&nbsp;µm, co daje ciśnienie krystalizacji ok.&nbsp;66&nbsp;kPa, wobec wytrzymałości adhezji ocSPF na podłożu metalicznym rzędu 15–40&nbsp;kPa.</p>
+
+<p>Delaminacja interfejsu jest zatem mechanizmem możliwym, w odróżnieniu od destrukcji matrycy wykluczonej w §&nbsp;4.3. Przejście od ciśnienia w menisku do siły odrywającej wymaga jednak określenia geometrii menisku, warunku ograniczenia ekspansji, kierunku działania siły i rzeczywistej powierzchni kontaktu; w niniejszej pracy mechanizm wskazano, nie wykazano. Jego znaczenie polega na sprzężeniu: szczelina powietrzna o wysokości przekraczającej 7,6–9,1&nbsp;mm spełnia kryterium Rayleigha dla warstwy swobodnej, uruchamiając konwekcję naturalną.</p>
+
 <p>Wpływ zawilgocenia na przewodność cieplną opisano modelem równoległym, stanowiącym górne oszacowanie Wienera:</p>
+
 \begin{equation}\label{eq:lambda}
 \lambda_{\mathrm{eff}}(S) = \lambda_{\mathrm{dry}} + S\,\phi_{\mathrm{por}}(\lambda_w - \lambda_{\mathrm{air}})
 \end{equation}
-<p>Dla <i>S</i> = 0,1; 0,3; 0,7 otrzymuje się odpowiednio 0,091; 0,196; 0,408 W·m⁻¹K⁻¹. Rzeczywiste wartości leżą poniżej — model równoległy zakłada ciągłość fazy ciekłej w kierunku strumienia.</p>
+
+<p>Dla <i>S</i>&nbsp;=&nbsp;0,1; 0,3; 0,7 otrzymuje się odpowiednio 0,091; 0,196; 0,408&nbsp;W·m⁻¹K⁻¹. Rzeczywiste wartości leżą poniżej — model równoległy zakłada ciągłość fazy ciekłej w kierunku strumienia.</p>
+
 <p>Złącze opisano jako liniowy mostek termiczny wg PN-EN ISO 10211<sup><a href="#r14">[14]</a></sup>:</p>
+
 \begin{equation}\label{eq:psi}
 \psi \approx \frac{\lambda_{\mathrm{eff}}}{d}\,b\,f_{\mathrm{geom}} = \frac{0{,}196}{0{,}14}\times 0{,}05 \times 1{,}3 \approx 0{,}091\ \mathrm{W\,m^{-1}K^{-1}}
 \end{equation}
-<p>Przy jednym metrze bieżącym kalenicy na 6 m² połaci odpowiada to Δ<i>U</i> = 0,0152 W·m⁻²K⁻¹, czyli ok. 15 % wobec <i>U</i> = 0,10. Skutek energetyczny pozostaje drugorzędny wobec wilgotnościowego.</p>
 
-<div class="fig">
-  <div class="fig-h"><span class="fig-n">Ryc. 7</span><span class="fig-t">Skutek energetyczny — λ<sub>eff</sub>(S) i liniowy mostek termiczny</span><span class="fig-s">górne oszacowanie Wienera</span></div>
-  <div class="cv-box"><canvas id="cJ" data-h="330"></canvas></div>
-  <div class="legend">
-    <span class="lg"><span class="sw" style="background:var(--dry)"></span>λ<sub>eff</sub>(S)</span>
-    <span class="lg"><span class="sw" style="background:var(--moist)"></span>ψ i ΔU</span>
-    <span class="lg" style="color:var(--alu)"><span class="sw d"></span>λ<sub>dry</sub> stan suchy</span>
-  </div>
-  <p class="fignote">Model równoległy zakłada ciągłość fazy ciekłej w kierunku strumienia, więc <b>wartości rzeczywiste leżą poniżej krzywej</b> — to jest oszacowanie od góry, nie prognoza. Nawet przy nasyceniu 0,7 udział mostka w współczynniku przenikania połaci pozostaje umiarkowany, co usprawiedliwia podporządkowanie całej analizy bilansowi masy.</p>
-</div>
+<p>Przy jednym metrze bieżącym kalenicy na 6&nbsp;m² połaci odpowiada to Δ<i>U</i>&nbsp;=&nbsp;0,0152&nbsp;W·m⁻²K⁻¹, czyli ok.&nbsp;15&nbsp;% wobec <i>U</i>&nbsp;=&nbsp;0,10. Skutek energetyczny pozostaje drugorzędny wobec wilgotnościowego.</p>
 
 <h3><span class="num">5.6</span>Przyjęty stan graniczny i kryterium ryzyka biologicznego</h3>
-<figure class="tbl">
+
+<figure>
   <figcaption><b>Tabela 5.</b> Definicje przyjętych progów. Obie wielkości są progami operacyjnymi modelu, nie kategoriami normowymi.</figcaption>
-  <div class="tw"><table class="data">
+  <div class="tw">
+  <table>
     <thead><tr><th>Próg</th><th>Kryterium</th><th>Charakter</th></tr></thead>
     <tbody>
-      <tr><td class="lbl"><strong>SLS<sub>h</sub></strong></td><td><i>w</i><sub>OC</sub> ≥ 0,7·<i>w</i><sub>sat</sub> utrzymane &gt; 60 dni/rok; pojemność <i>M</i><sub>cap</sub> = 1,540 kg/mb</td><td>przyjęty stan graniczny wilgotnościowy; utrata pojemności buforowej złącza</td></tr>
-      <tr><td class="lbl"><strong>ryzyko degradacji biologicznej</strong></td><td><i>w</i><sub>dr</sub> ≥ 20 % m/m utrzymane &gt; 30 dni/rok przy <i>T</i> &gt; 5 °C</td><td>operacyjny próg ostrzegawczy przyjęty za Viitanenem<sup><a href="#r9">[9]</a></sup></td></tr>
+      <tr>
+        <td><strong>SLS<sub>h</sub></strong></td>
+        <td><i>w</i><sub>OC</sub>&nbsp;≥&nbsp;0,7·<i>w</i><sub>sat</sub> utrzymane &gt;&nbsp;60&nbsp;dni/rok; pojemność <i>M</i><sub>cap</sub>&nbsp;=&nbsp;1,540&nbsp;kg/mb</td>
+        <td>przyjęty stan graniczny wilgotnościowy; utrata pojemności buforowej złącza</td>
+      </tr>
+      <tr>
+        <td><strong>kryterium ryzyka<br>degradacji biologicznej</strong></td>
+        <td><i>w</i><sub>dr</sub>&nbsp;≥&nbsp;20&nbsp;%&nbsp;m/m utrzymane &gt;&nbsp;30&nbsp;dni/rok przy <i>T</i>&nbsp;&gt;&nbsp;5&nbsp;°C</td>
+        <td>operacyjny próg ostrzegawczy przyjęty za Viitanenem<sup><a href="#r9">[9]</a></sup></td>
+      </tr>
     </tbody>
-  </table></div>
+  </table>
+  </div>
 </figure>
+
 \begin{equation}\label{eq:Mcap}
 M_{\mathrm{cap}} = 0{,}7\,w_{\mathrm{sat}} V_{\mathrm{zl}} \rho_w = 0{,}7 \times 0{,}55 \times (0{,}05 \times 0{,}08 \times 1{,}0) \times 1000 = 1{,}540\ \mathrm{kg/mb}
 \end{equation}
+
 <div class="aside">
-  <p><span class="label">Zakres obu definicji.</span> Wartość 0,7·<i>w</i><sub>sat</sub> jest progiem przyjętym; nie utożsamia się jej z określoną wilgotnością względną, ponieważ relacja <i>w</i>(φ,<i>T</i>) wymaga izotermy sorpcji konkretnego materiału, która nie była przedmiotem pomiaru. Próg 20 % m/m przyjęto jako operacyjne kryterium ostrzegawcze na podstawie literatury biologicznej<sup><a href="#r9">[9]</a></sup>; nie wywodzi się go z klas użytkowania wg PN-EN 1995-1-1<sup><a href="#r17">[17]</a></sup>, które są klasyfikacją środowiska pracy konstrukcji, nie kryterium liczbowym. Nie stosuje się oznaczenia ULS, zarezerwowanego dla stanów granicznych nośności.</p>
+  <p><span class="label">Zakres obu definicji.</span> Wartość 0,7·<i>w</i><sub>sat</sub> jest progiem przyjętym; nie utożsamia się jej z określoną wilgotnością względną, ponieważ relacja <i>w</i>(φ,<i>T</i>) wymaga izotermy sorpcji konkretnego materiału, która nie była przedmiotem pomiaru. Próg 20&nbsp;%&nbsp;m/m przyjęto jako operacyjne kryterium ostrzegawcze na podstawie literatury biologicznej<sup><a href="#r9">[9]</a></sup>; nie wywodzi się go z klas użytkowania wg PN-EN 1995-1-1<sup><a href="#r17">[17]</a></sup>, które są klasyfikacją środowiska pracy konstrukcji, nie kryterium liczbowym. Nie stosuje się oznaczenia ULS, zarezerwowanego dla stanów granicznych nośności.</p>
 </div>
 
 <h3><span class="num">5.7</span>Reżimy zachowania</h3>
-<figure class="tbl">
-  <figcaption><b>Tabela 6.</b> Klasyfikacja zachowania węzła. Czasu osiągnięcia progu nie podaje się — uzasadnienie w § 6.2 i § 8.5.</figcaption>
-  <div class="tw"><table class="data">
+
+<figure>
+  <figcaption><b>Tabela 6.</b> Klasyfikacja zachowania węzła. Czasu osiągnięcia progu nie podaje się — uzasadnienie w §&nbsp;6.2 i §&nbsp;8.5.</figcaption>
+  <div class="tw">
+  <table>
     <thead><tr><th>Reżim</th><th>Warunek</th><th>Zachowanie w modelu</th></tr></thead>
     <tbody>
-      <tr><td class="ok">wysychania sezonowego</td><td><i>A</i><sub>leak</sub> &lt; <i>A</i><sub>leak,cr</sub></td><td>brak akumulacji rocznej; całkowite wysychanie w sezonie letnim, ograniczone dostępnością wody</td></tr>
-      <tr><td class="lbl">graniczny</td><td><i>A</i><sub>leak</sub> ≈ <i>A</i><sub>leak,cr</sub></td><td>bilans bliski zeru; σ<sub>rel</sub> &gt; 1, wynik czasowy nieoznaczony</td></tr>
-      <tr><td class="flag">akumulacji</td><td><i>A</i><sub>leak</sub> &gt; <i>A</i><sub>leak,cr</sub></td><td>dodatni bilans roczny; model poza zakresem ważności dla prognozy czasowej</td></tr>
+      <tr><td class="ok">wysychania sezonowego</td><td><i>A</i><sub>leak</sub>&nbsp;&lt;&nbsp;<i>A</i><sub>leak,cr</sub></td><td>brak akumulacji rocznej; całkowite wysychanie w sezonie letnim, ograniczone dostępnością wody</td></tr>
+      <tr><td>graniczny</td><td><i>A</i><sub>leak</sub>&nbsp;≈&nbsp;<i>A</i><sub>leak,cr</sub></td><td>bilans bliski zeru; σ<sub>rel</sub>&nbsp;&gt;&nbsp;1, wynik czasowy nieoznaczony</td></tr>
+      <tr><td class="flag">akumulacji</td><td><i>A</i><sub>leak</sub>&nbsp;&gt;&nbsp;<i>A</i><sub>leak,cr</sub></td><td>dodatni bilans roczny; model poza zakresem ważności dla prognozy czasowej</td></tr>
     </tbody>
-  </table></div>
+  </table>
+  </div>
 </figure>
-<h2 id="s6"><span class="num">6.</span>Analiza wrażliwości i niepewności</h2>
+
+<h3><span class="num">5.8</span>Czasowa zmienność A<sub>leak</sub>: sprzężenie z potencjałem termicznym Θ</h3>
+
+<p>Kryteria §&nbsp;5.3–5.7 traktują <i>A</i><sub>leak</sub> jako parametr stały w czasie — stan węzła w chwili wykonania. Jest to uproszczenie, które wymaga uzupełnienia. Zewnętrzne uszczelnienie złącza (taśma aluminiowa, §&nbsp;2) poddane jest tej samej cyklicznej ekspozycji solarnej, która w §&nbsp;5.2 generuje potencjał wysychania Θ. Klej łączący taśmę z powierzchnią płyt — typowo akrylowy klej samoprzylepny — ulega pod tym obciążeniem starzeniu chemicznemu, którego przebieg jest, w odróżnieniu od losowych uszkodzeń mechanicznych, deterministyczny i opisywalny kinetyką termicznie aktywowaną. Oznacza to, że <i>A</i><sub>leak</sub> nie jest wielkością stałą, lecz <strong>rosnącą w czasie</strong>, a tempo tego wzrostu jest skorelowane z tą samą zmienną Θ, która w §&nbsp;5.2–5.4 działa na korzyść stabilności.</p>
+
+<p>Standardowym narzędziem opisu takiego starzenia jest równanie Arrheniusa dla stałej szybkości procesu degradacji<sup><a href="#r21">[21]</a></sup>:</p>
+
+\begin{equation}\label{eq:arrhenius-k}
+k(T) = A_0\,e^{-E_a/RT}
+\end{equation}
+
+<p>Metoda przesunięcia czasowo-temperaturowego pozwala wyrazić rzeczywistą ekspozycję jako czas równoważny w przyjętej temperaturze odniesienia <i>T</i><sub>ref</sub>:</p>
+
+\begin{equation}\label{eq:arrhenius-teq}
+t_{\mathrm{eq}}(T_{\mathrm{ref}}) = \sum_i \Delta t_i \exp\!\left[\frac{E_a}{R}\left(\frac{1}{T_{\mathrm{ref}}} - \frac{1}{T_i}\right)\right]
+\end{equation}
+
+<p>gdzie sumowanie przebiega po rozkładzie godzinowym temperatury złącza (tab.&nbsp;3). Stosunek <i>t</i><sub>eq</sub> do liczby godzin w roku jest mnożnikiem przyspieszenia starzenia; przy zadeklarowanej żywotności <i>L</i><sub>ref</sub> w temperaturze odniesienia rzeczywista żywotność wynosi <i>L</i><sub>real</sub>&nbsp;=&nbsp;<i>L</i><sub>ref</sub>&nbsp;/&nbsp;mnożnik.</p>
+
+<div class="aside">
+  <p><span class="label">Status obliczenia.</span> Energię aktywacji przyjęto w zakresie 60–100&nbsp;kJ/mol, typowym dla degradacji oksydacyjnej klejów akrylowych w literaturze starzenia polimerów<sup><a href="#r21">[21]</a></sup>, bez danych produktowych dla konkretnego wyrobu. Temperaturę odniesienia przyjęto <i>T</i><sub>ref</sub>&nbsp;=&nbsp;23&nbsp;°C, żywotność referencyjną <i>L</i><sub>ref</sub>&nbsp;=&nbsp;15&nbsp;lat — wartość ilustracyjna. Godziny poza sezonem letnim (tab.&nbsp;3 obejmuje 3060&nbsp;h) przybliżono jednolitą temperaturą 10&nbsp;°C dla pozostałych 5700&nbsp;h roku; jest to założenie zgrubne, przyjęte wyłącznie do ilustracji kierunku efektu.</p>
+</div>
+
+<figure>
+  <figcaption><b>Tabela 7.</b> Mnożnik przyspieszenia starzenia i żywotność rzeczywista uszczelnienia w funkcji scenariusza ekspozycji (rozkłady jak w tab.&nbsp;11), przy <i>E</i><sub>a</sub>&nbsp;=&nbsp;80&nbsp;kJ/mol, <i>L</i><sub>ref</sub>&nbsp;=&nbsp;15&nbsp;lat.</figcaption>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Scenariusz</th><th class="n">mnożnik przyspieszenia</th><th class="n">L<sub>real</sub>, lata</th></tr></thead>
+    <tbody>
+      <tr><td>ciemne pokrycie, ekspozycja południowa</td><td class="n flag">1,92×</td><td class="n flag">7,8</td></tr>
+      <tr><td>pokrycie jasne (−10 K)</td><td class="n">0,71×</td><td class="n">21,2</td></tr>
+      <tr><td>orientacja północna (−18 K)</td><td class="n ok">0,31×</td><td class="n ok">49,1</td></tr>
+      <tr><td>zacienienie, dach zielony (−25 K)</td><td class="n ok">0,14×</td><td class="n ok">105,8</td></tr>
+    </tbody>
+  </table>
+  </div>
+</figure>
+
+<p>Kierunek wyniku nie zależy od doboru <i>E</i><sub>a</sub> w rozpatrywanym zakresie: dla 60&nbsp;kJ/mol mnożnik w scenariuszu odniesienia wynosi 1,26× (<i>L</i><sub>real</sub>&nbsp;=&nbsp;11,9&nbsp;roku), dla 100&nbsp;kJ/mol — 3,32× (<i>L</i><sub>real</sub>&nbsp;=&nbsp;4,5&nbsp;roku). Ranking scenariuszy pozostaje identyczny przy każdej wartości <i>E</i><sub>a</sub>.</p>
+
+<div class="keyfinding">
+  <div class="kf-label">◆ Sprzężenie o przeciwnym znaku</div>
+  <p><strong>Scenariusz o najwyższym potencjale wysychania Θ jest jednocześnie scenariuszem najszybszego starzenia uszczelnienia zewnętrznego.</strong> Ekspozycja słoneczna, korzystna dla bilansu wilgoci w danym roku (tab.&nbsp;11), skraca czas, w którym <i>A</i><sub>leak</sub> pozostaje na poziomie założonym w projekcie. Węzeł oceniony jako stabilny przy <i>A</i><sub>leak</sub>(0)&nbsp;&lt;&nbsp;<i>A</i><sub>leak,cr</sub> może z czasem migrować w stronę niestabilności w miarę wzrostu <i>A</i><sub>leak</sub>(<i>t</i>) — i to tym szybciej, im korzystniejszy był scenariusz przyjęty w §&nbsp;6.4. Progi wyznaczone w §&nbsp;5.3–5.7 należy zatem czytać jako warunek początkowy, nie jako gwarancję trwałą.</p>
+</div>
+
+<p>Warto odnotować ograniczenie samej metody ekstrapolacji Arrheniusa: udokumentowano w literaturze starzenia polimerów<sup><a href="#r21">[21]</a></sup> zjawisko odchylenia od prostej zależności Arrheniusa przy niższych temperaturach starzenia (tzw. non-Arrhenius behaviour, wynikające z konkurencji dwóch procesów degradacyjnych o różnej energii aktywacji), które zwykle spłaszcza ekstrapolację w stronę niższych efektywnych <i>E</i><sub>a</sub> dla długotrwałej ekspozycji w umiarkowanej temperaturze. Oznacza to, że rzeczywiste tempo starzenia w warunkach polowych może być niższe od tego sugerowanego prostą ekstrapolacją wysokotemperaturową — efekt wskazany kierunkowo w tab.&nbsp;7 pozostaje jednak jakościowo aktualny.</p>
+
+<h2><span class="num">6.</span>Analiza wrażliwości i niepewności</h2>
+
 <h3><span class="num">6.1</span>Czułości znormalizowane</h3>
-<p>Definicja czułości, wyprowadzana analitycznie z <i>t</i> = <i>M</i><sub>cap</sub>/Δ<i>M</i>(<i>x</i>):</p>
+
+<p>Definicja czułości, wyprowadzana analitycznie z <i>t</i>&nbsp;=&nbsp;<i>M</i><sub>cap</sub>/Δ<i>M</i>(<i>x</i>):</p>
+
 \begin{equation}\label{eq:sens}
 S_x = \frac{\partial t}{\partial x}\,\frac{x}{t} = -\frac{x}{\Delta M}\,\frac{\partial \Delta M}{\partial x}
 \end{equation}
+
 <p>Bilans w postaci jawnej względem µ, przy czym człon konwekcyjny od µ nie zależy:</p>
+
 \begin{equation}\label{eq:dMmu}
 \Delta M(\mu) = -\frac{\delta_a A_{\mathrm{zl}} t_z}{\mu\,d}\,\Delta p_{\mathrm{res}} + \dot m_{v,\mathrm{cond}}^{(1)} A_{\mathrm{leak}} t_z
 \end{equation}
-<p>Stąd ∂Δ<i>M</i>/∂µ &gt; 0: wzrost oporu dyfuzyjnego wypełnienia zwiększa akumulację, ponieważ ogranicza wyłącznie drogę wyjścia.</p>
-<figure class="tbl">
-  <figcaption><b>Tabela 7.</b> Czułości i wkłady do niepewności w punkcie odniesienia <i>A</i><sub>leak</sub> = 10 mm²/mb, Δ<i>M</i> = 1,466 kg/mb. Kolumna udziałów podana jest w postaci znormalizowanej — zob. uwagę pod tabelą.</figcaption>
-  <div class="tw"><table class="data">
-    <thead><tr><th>Parametr</th><th class="n">zakres</th><th class="n">σ/x</th><th class="n">S<sub>x</sub></th><th class="n">udział w σ² (znorm.)</th><th class="n">(S·σ/x)²</th></tr></thead>
+
+<p>Stąd ∂Δ<i>M</i>/∂µ&nbsp;&gt;&nbsp;0: wzrost oporu dyfuzyjnego wypełnienia zwiększa akumulację, ponieważ ogranicza wyłącznie drogę wyjścia.</p>
+
+<figure>
+  <figcaption><b>Tabela 8.</b> Czułości i wkłady do niepewności w punkcie odniesienia <i>A</i><sub>leak</sub>&nbsp;=&nbsp;10&nbsp;mm²/mb, Δ<i>M</i>&nbsp;=&nbsp;1,466&nbsp;kg/mb.</figcaption>
+  <div class="tw">
+  <table>
+    <thead><tr><th>Parametr</th><th class="n">zakres</th><th class="n">σ/x</th><th class="n">S<sub>x</sub></th><th class="n">wkład do σ²</th></tr></thead>
     <tbody>
-      <tr><td class="lbl"><strong>A<sub>leak</sub></strong></td><td class="n">±50 %</td><td class="n">0,289</td><td class="n flag">−1,985</td><td class="n">76,9 %</td><td class="n">32,8 %</td></tr>
-      <tr><td class="lbl">Θ</td><td class="n">±25 %</td><td class="n">0,144</td><td class="n">+1,264</td><td class="n">7,8 %</td><td class="n">3,3 %</td></tr>
-      <tr><td class="lbl">C<sub>d</sub></td><td class="n">±15 %</td><td class="n">0,087</td><td class="n">−1,985</td><td class="n">6,9 %</td><td class="n">3,0 %</td></tr>
-      <tr><td class="lbl">µ</td><td class="n">3–5</td><td class="n">0,144</td><td class="n">−0,985</td><td class="n">4,7 %</td><td class="n">2,0 %</td></tr>
-      <tr><td class="lbl">w<sub>sat</sub></td><td class="n">±20 %</td><td class="n">0,115</td><td class="n">+1,000</td><td class="n">3,1 %</td><td class="n">1,3 %</td></tr>
-      <tr><td class="lbl">Δ<i>p̄</i><sub>z</sub></td><td class="n">±30 %</td><td class="n">0,173</td><td class="n">−0,279</td><td class="n">0,5 %</td><td class="n">0,2 %</td></tr>
+      <tr><td><strong>A<sub>leak</sub></strong></td><td class="n">±50 %</td><td class="n">0,289</td><td class="n flag">−1,985</td><td class="n">32,8 %</td></tr>
+      <tr><td>Θ</td><td class="n">±25 %</td><td class="n">0,144</td><td class="n">+1,264</td><td class="n">3,3 %</td></tr>
+      <tr><td>C<sub>d</sub></td><td class="n">±15 %</td><td class="n">0,087</td><td class="n">−1,985</td><td class="n">3,0 %</td></tr>
+      <tr><td>µ</td><td class="n">3–5</td><td class="n">0,144</td><td class="n">−0,985</td><td class="n">2,0 %</td></tr>
+      <tr><td>w<sub>sat</sub></td><td class="n">±20 %</td><td class="n">0,115</td><td class="n">+1,000</td><td class="n">1,3 %</td></tr>
+      <tr><td>Δ<i>p̄</i><sub>z</sub></td><td class="n">±30 %</td><td class="n">0,173</td><td class="n">−0,279</td><td class="n">0,2 %</td></tr>
     </tbody>
-  </table></div>
+  </table>
+  </div>
 </figure>
-<p class="eqnote"><strong>Korekta wydania interaktywnego.</strong> W pierwotnej redakcji kolumna udziałów zawierała surowe kwadraty (S·σ/x)², które sumują się do 42,6 %, nie do stu procent. Obie postacie zestawiono tu obok siebie: znormalizowana odpowiada na pytanie „jaki ułamek wariancji wnosi ten parametr”, surowa jest wkładem bezwzględnym do σ²<sub>rel</sub> = 0,427, czyli σ<sub>rel</sub> = 0,65.</p>
-<p>Stosunek |<i>S</i><sub>A</sub>/<i>S</i><sub>µ</sub>| = 2,0. Oba parametry działają w tę samą stronę: zarówno wzrost nieszczelności, jak i wzrost oporu dyfuzyjnego wypełnienia pogarszają bilans.</p>
+
+<p>Stosunek |<i>S</i><sub>A</sub>/<i>S</i><sub>µ</sub>|&nbsp;=&nbsp;2,0. Oba parametry działają w tę samą stronę: zarówno wzrost nieszczelności, jak i wzrost oporu dyfuzyjnego wypełnienia pogarszają bilans.</p>
 
 <h3><span class="num">6.2</span>Propagacja niepewności</h3>
-<p>Założenia: rozkłady równomierne na podanych zakresach, σ = połowa zakresu/√3, parametry wzajemnie niezależne, propagacja liniowa:</p>
+
+<p>Założenia: rozkłady równomierne na podanych zakresach, σ&nbsp;=&nbsp;połowa zakresu/√3, parametry wzajemnie niezależne, propagacja liniowa:</p>
+
 \begin{equation}\label{eq:sigma}
 \sigma_{\mathrm{rel}}^2 = \sum_i \left(S_{x_i}\,\frac{\sigma_{x_i}}{x_i}\right)^{\!2}
 \end{equation}
-<figure class="tbl">
-  <figcaption><b>Tabela 8.</b> Niepewność względna wyniku czasowego w funkcji odległości od progu.</figcaption>
-  <div class="tw"><table class="data">
+
+<figure>
+  <figcaption><b>Tabela 9.</b> Niepewność względna wyniku czasowego w funkcji odległości od progu.</figcaption>
+  <div class="tw">
+  <table>
     <thead><tr><th class="n">A<sub>leak</sub>, mm²/mb</th><th class="n">ΔM, kg/mb</th><th class="n">σ<sub>rel</sub></th><th>Interpretacja</th></tr></thead>
     <tbody>
       <tr><td class="n">6</td><td class="n">0,302</td><td class="n flag">2,09</td><td>przedział 1σ obejmuje wartości ujemne — wynik nieoznaczony</td></tr>
       <tr><td class="n">8</td><td class="n">0,884</td><td class="n">0,89</td><td>niepewność rzędu wyniku</td></tr>
       <tr><td class="n">10</td><td class="n">1,466</td><td class="n">0,65</td><td>najniższa w rozpatrywanym zakresie</td></tr>
     </tbody>
-  </table></div>
+  </table>
+  </div>
 </figure>
-<p>Ponieważ <i>t</i> = <i>M</i><sub>cap</sub>/Δ<i>M</i>, a Δ<i>M</i> jest różnicą wielkości tego samego rzędu, wszystkie czułości rozbiegają się jak 1/Δ<i>M</i> w pobliżu progu. Z tego powodu w pracy nie podaje się czasów osiągnięcia stanu granicznego (§ 5.7).</p>
+
+<p>Ponieważ <i>t</i>&nbsp;=&nbsp;<i>M</i><sub>cap</sub>/Δ<i>M</i>, a Δ<i>M</i> jest różnicą wielkości tego samego rzędu, wszystkie czułości rozbiegają się jak 1/Δ<i>M</i> w pobliżu progu. Z tego powodu w pracy nie podaje się czasów osiągnięcia stanu granicznego (§&nbsp;5.7).</p>
+
 <p>Założenie niezależności jest wątpliwe dla pary (<i>C</i><sub>d</sub>, <i>A</i><sub>leak</sub>), opisującej tę samą nieszczelność; pominięcie korelacji zaniża σ<sub>rel</sub>.</p>
 
-<div class="fig">
-  <div class="fig-h"><span class="fig-n">Ryc. 8</span><span class="fig-t">Czułości znormalizowane i propagacja niepewności</span><span class="fig-s">liczone dla bieżącego A<sub>leak</sub></span></div>
-  <div class="cv-box"><canvas id="cH" data-h="400"></canvas></div>
-  <div class="legend">
-    <span class="lg"><span class="sw" style="background:var(--conv)"></span>S<sub>x</sub> &lt; 0 — wzrost pogarsza bilans</span>
-    <span class="lg"><span class="sw" style="background:var(--ok)"></span>S<sub>x</sub> &gt; 0 — wzrost poprawia bilans</span>
-    <span class="lg"><span class="sw" style="background:var(--moist)"></span>udział w wariancji</span>
-  </div>
-  <p class="fignote">Czułości liczone są na żywo, więc przy zbliżaniu A<sub>leak</sub> do progu widać ich jednoczesne rozbieganie — wszystkie skalują się jak 1/ΔM. <b>Kierunek S<sub>µ</sub> jest tu najważniejszy: ujemny</b>, czyli wzrost oporu dyfuzyjnego wypełnienia pogarsza bilans, bo ogranicza wyłącznie drogę wyjścia. Prawy panel pokazuje, gdzie przedział jednego odchylenia obejmuje wartości ujemne i wynik czasowy przestaje być oznaczony.</p>
-</div>
-
 <h3><span class="num">6.3</span>Wpływ warstwy wewnętrznej</h3>
+
 <p>Warstwa wewnętrzna wchodzi szeregowo w drogę dyfuzyjną złącza w obu sezonach. Ponieważ od zewnątrz złącze zamyka taśma aluminiowa, jedyną drogą wysychania uwzględnioną w modelu jest kierunek do wnętrza.</p>
-<figure class="tbl">
-  <figcaption><b>Tabela 9.</b> Próg krytyczny w funkcji charakterystyki warstwy wewnętrznej, scenariusz odniesienia. Wielkości bilansowe w kg/mb·rok.</figcaption>
-  <div class="tw"><table class="data">
+
+<figure>
+  <figcaption><b>Tabela 10.</b> Próg krytyczny w funkcji charakterystyki warstwy wewnętrznej, scenariusz odniesienia. Wielkości bilansowe w kg/mb·rok.</figcaption>
+  <div class="tw">
+  <table>
     <thead><tr><th>Wariant</th><th class="n">S<sub>d</sub> zima, m</th><th class="n">S<sub>d</sub> lato, m</th><th class="n">dopływ dyf.</th><th class="n">odpływ</th><th class="n">A<sub>leak,cr</sub></th></tr></thead>
     <tbody>
-      <tr><td class="lbl">bez warstwy wewnętrznej</td><td class="n">0,264</td><td class="n">0,264</td><td class="n">0,409</td><td class="n">1,853</td><td class="n ok">4,96</td></tr>
-      <tr><td class="lbl">folia PE, S<sub>d</sub> = 15 m</td><td class="n">15,26</td><td class="n">15,26</td><td class="n">0,007</td><td class="n">0,032</td><td class="n flag">0,086</td></tr>
-      <tr><td class="lbl">membrana zmiennooporowa</td><td class="n">25,26</td><td class="n">0,564</td><td class="n">0,004</td><td class="n">0,867</td><td class="n">2,97</td></tr>
+      <tr><td>bez warstwy wewnętrznej</td><td class="n">0,264</td><td class="n">0,264</td><td class="n">0,409</td><td class="n">1,853</td><td class="n ok">4,96</td></tr>
+      <tr><td>folia PE, S<sub>d</sub> = 15 m</td><td class="n">15,26</td><td class="n">15,26</td><td class="n">0,007</td><td class="n">0,032</td><td class="n flag">0,086</td></tr>
+      <tr><td>membrana zmiennooporowa</td><td class="n">25,26</td><td class="n">0,564</td><td class="n">0,004</td><td class="n">0,867</td><td class="n">2,97</td></tr>
     </tbody>
-  </table></div>
+  </table>
+  </div>
 </figure>
+
 <div class="statement">
-  <p>W analizowanym modelu zastosowanie ciągłej folii PE o wysokim <i>S</i><sub>d</sub>, przy pozostawieniu konwekcyjnej drogi dopływu i braku alternatywnej drogi wysychania, prowadzi do istotnego pogorszenia bilansu wilgotnościowego: próg krytyczny spada z 4,96 do 0,086 mm²/mb.</p>
+  <p>W analizowanym modelu zastosowanie ciągłej folii PE o wysokim <i>S</i><sub>d</sub>, przy pozostawieniu konwekcyjnej drogi dopływu i braku alternatywnej drogi wysychania, prowadzi do istotnego pogorszenia bilansu wilgotnościowego: próg krytyczny spada z 4,96 do 0,086&nbsp;mm²/mb.</p>
   <p>Membrana zmiennooporowa zwiększa obliczoną wartość krytycznej powierzchni nieszczelności ponad trzydziestokrotnie względem folii PE, pozostając jednak poniżej wariantu bez warstwy wewnętrznej. Wynik ten należy czytać przy zadanej szczelności powietrznej: wariant „bez warstwy” nie oznacza braku bariery powietrznej, przy którym <i>A</i><sub>leak</sub> przestaje być małym parametrem i porównanie traci sens.</p>
 </div>
 
-<div class="fig">
-  <div class="fig-h"><span class="fig-n">Ryc. 9</span><span class="fig-t">Warstwa wewnętrzna — próg krytyczny w skali logarytmicznej</span><span class="fig-s">mm²/mb</span></div>
-  <div class="cv-box"><canvas id="cI" data-h="320"></canvas></div>
-  <div class="legend">
-    <span class="lg"><span class="sw" style="background:var(--ok)"></span>A<sub>leak,cr</sub></span>
-    <span class="lg"><span class="sw" style="background:rgba(159,176,182,.55)"></span>wymaganie projektowe A<sub>cr</sub>/3</span>
-    <span class="lg" style="color:var(--conv)"><span class="sw d"></span>granica możliwości wykonawczych</span>
-  </div>
-  <p class="fignote">Skala logarytmiczna jest konieczna, bo warianty różnią się o niemal dwa rzędy wielkości. <b>Wymaganie dla folii PE — 0,03 mm²/mb — leży poniżej granicy możliwości wykonawczych</b>, co jest właściwą treścią wniosku 9.6: nie chodzi o to, że folia jest zła, lecz o to, że jednoczesne realizowanie funkcji bariery powietrznej i regulacji oporu dyfuzyjnego jedną warstwą zamyka jedyną uwzględnioną drogę wysychania.</p>
-</div>
-
 <h3><span class="num">6.4</span>Scenariusze ekspozycji i uśrednianie ciśnienia</h3>
-<figure class="tbl">
-  <figcaption><b>Tabela 10.</b> Próg krytyczny w funkcji scałkowanego potencjału wysychania. Scenariusze uzyskano przez przesunięcie rozkładu z tab. 3.</figcaption>
-  <div class="tw"><table class="data">
+
+<figure>
+  <figcaption><b>Tabela 11.</b> Próg krytyczny w funkcji scałkowanego potencjału wysychania. Scenariusze uzyskano przez przesunięcie rozkładu z tab.&nbsp;3.</figcaption>
+  <div class="tw">
+  <table>
     <thead><tr><th>Scenariusz</th><th class="n">Θ, Pa·h</th><th class="n">Δp<sub>res</sub>, Pa</th><th class="n">A<sub>leak,cr</sub>, mm²/mb</th></tr></thead>
     <tbody>
-      <tr><td class="lbl">pokrycie ciemne, ekspozycja południowa</td><td class="n">1,36·10⁷</td><td class="n">+2117</td><td class="n">4,96</td></tr>
-      <tr><td class="lbl">pokrycie jasne (−10 K)</td><td class="n">5,94·10⁶</td><td class="n">+588</td><td class="n">1,38</td></tr>
-      <tr><td class="lbl">orientacja północna (−18 K)</td><td class="n">2,67·10⁶</td><td class="n flag">−66</td><td class="n flag">brak</td></tr>
-      <tr><td class="lbl">zacienienie, dach zielony (−25 K)</td><td class="n">1,16·10⁶</td><td class="n flag">−369</td><td class="n flag">brak</td></tr>
+      <tr><td>pokrycie ciemne, ekspozycja południowa</td><td class="n">1,36·10⁷</td><td class="n">+2117</td><td class="n">4,96</td></tr>
+      <tr><td>pokrycie jasne (−10 K)</td><td class="n">5,94·10⁶</td><td class="n">+588</td><td class="n">1,38</td></tr>
+      <tr><td>orientacja północna (−18 K)</td><td class="n">2,67·10⁶</td><td class="n flag">−66</td><td class="n flag">brak</td></tr>
+      <tr><td>zacienienie, dach zielony (−25 K)</td><td class="n">1,16·10⁶</td><td class="n flag">−369</td><td class="n flag">brak</td></tr>
     </tbody>
-  </table></div>
-</figure>
-<p>Granica wykonalności przypada przy Θ ≈ 3,0·10⁶ Pa·h. Poniżej tej wartości, w analizowanym wariancie wysychania jednostronnego, nie istnieje dodatnia wartość <i>A</i><sub>leak,cr</sub> zapewniająca stabilność bilansu.</p>
-<p>Przyjęcie stałego Δ<i>P</i> wymaga komentarza. Funkcja (Δ<i>P</i>)<sup><i>n</i></sup> jest dla <i>n</i> &lt; 1 wklęsła, więc z nierówności Jensena ⟨(Δ<i>P</i>)<sup><i>n</i></sup>⟩ ≤ ⟨Δ<i>P</i>⟩<sup><i>n</i></sup>. Dla reprezentatywnego rozkładu zimowego (1000 h przy 4 Pa, 1500 h przy 8 Pa, 1500 h przy 12 Pa, 800 h przy 18 Pa, 200 h przy 30 Pa) iloraz wynosi 0,966 dla <i>n</i> = 0,5 oraz 0,971 dla <i>n</i> = 0,7. Podstawienie średniego ciśnienia zawyża zatem strumień o ok. 3 % — założenie jest zachowawcze w stopniu pomijalnym wobec pozostałych niepewności.</p>
-
-<div class="fig">
-  <div class="fig-h"><span class="fig-n">Ryc. 10</span><span class="fig-t">Mapa reżimów — przestrzeń (Θ, A<sub>leak</sub>)</span><span class="fig-s">barwa = znak i wielkość ΔM</span></div>
-  <div class="cv-box"><canvas id="cD" data-h="400"></canvas></div>
-  <div class="legend">
-    <span class="lg"><span class="sw" style="background:var(--ok)"></span>wysychanie sezonowe (ΔM &lt; 0)</span>
-    <span class="lg"><span class="sw" style="background:var(--conv)"></span>akumulacja (ΔM &gt; 0)</span>
-    <span class="lg" style="color:var(--text)"><span class="sw d"></span>granica A<sub>leak,cr</sub>(Θ)</span>
-    <span class="lg" style="color:var(--alu)"><span class="sw d"></span>margines A<sub>cr</sub>/3</span>
+  </table>
   </div>
-  <p class="fignote">Granica jest linią prostą, ponieważ A<sub>leak,cr</sub> zależy od Θ liniowo. <b>Pionowa granica wykonalności odcina obszar, w którym żadna dodatnia nieszczelność nie zapewnia stabilności</b>; przy wysychaniu jednostronnym leży ona przy Θ = Δp̄<sub>z</sub>·t<sub>z</sub>. Punkty oznaczają cztery scenariusze z tabeli 10, krzyż — stan bieżący. Przełączenie warstwy wewnętrznej na folię PE przesuwa granicę w dół o niemal dwa rzędy wielkości, co czyni cały wykres nieczytelnym w skali liniowej — i to jest właśnie treść ryciny 9.</p>
-</div>
+</figure>
+
+<p>Granica wykonalności przypada przy Θ&nbsp;≈&nbsp;3,0·10⁶&nbsp;Pa·h. Poniżej tej wartości, w analizowanym wariancie wysychania jednostronnego, nie istnieje dodatnia wartość <i>A</i><sub>leak,cr</sub> zapewniająca stabilność bilansu. Te same scenariusze ekspozycji decydują równocześnie o tempie starzenia uszczelnienia zewnętrznego — zależność tę, o kierunku przeciwnym do korzyści wysychania, rozwinięto w §&nbsp;5.8.</p>
+
+<p>Przyjęcie stałego Δ<i>P</i> wymaga komentarza. Funkcja (Δ<i>P</i>)<sup><i>n</i></sup> jest dla <i>n</i>&nbsp;&lt;&nbsp;1 wklęsła, więc z nierówności Jensena ⟨(Δ<i>P</i>)<sup><i>n</i></sup>⟩&nbsp;≤&nbsp;⟨Δ<i>P</i>⟩<sup><i>n</i></sup>. Dla reprezentatywnego rozkładu zimowego (1000&nbsp;h przy 4&nbsp;Pa, 1500&nbsp;h przy 8&nbsp;Pa, 1500&nbsp;h przy 12&nbsp;Pa, 800&nbsp;h przy 18&nbsp;Pa, 200&nbsp;h przy 30&nbsp;Pa) iloraz wynosi 0,966 dla <i>n</i>&nbsp;=&nbsp;0,5 oraz 0,971 dla <i>n</i>&nbsp;=&nbsp;0,7. Podstawienie średniego ciśnienia zawyża zatem strumień o ok.&nbsp;3&nbsp;% — założenie jest zachowawcze w stopniu pomijalnym wobec pozostałych niepewności.</p>
 
 <h3><span class="num">6.5</span>Weryfikacja szczelności — konsekwencja metodyczna</h3>
-<p>Kryterium \eqref{eq:criterion} odnosi się do nieszczelności zlokalizowanej w jednym węźle. Wielkość <i>n</i><sub>50</sub>, mierzona wg PN-EN ISO 9972<sup><a href="#r16">[16]</a></sup>, jest wielkością zagregowaną dla całej bryły budynku. Budynek o <i>n</i><sub>50</sub> = 1,0 h⁻¹ może mieć całą dopuszczalną nieszczelność skupioną w kalenicy i mimo formalnej zgodności znajdować się po niestabilnej stronie granicy. Weryfikacja wymaga metod lokalizacyjnych: termografii pod wymuszonym podciśnieniem, anemometrii przy przejściach instalacyjnych lub metody gazu znacznikowego.</p>
 
-<h2 id="s7"><span class="num">7.</span>Implikacje dla jakości środowiska wewnętrznego</h2>
+<p>Kryterium \eqref{eq:criterion} odnosi się do nieszczelności zlokalizowanej w jednym węźle. Wielkość <i>n</i><sub>50</sub>, mierzona wg PN-EN ISO 9972<sup><a href="#r16">[16]</a></sup>, jest wielkością zagregowaną dla całej bryły budynku. Budynek o <i>n</i><sub>50</sub>&nbsp;=&nbsp;1,0&nbsp;h⁻¹ może mieć całą dopuszczalną nieszczelność skupioną w kalenicy i mimo formalnej zgodności znajdować się po niestabilnej stronie granicy. Weryfikacja wymaga metod lokalizacyjnych: termografii pod wymuszonym podciśnieniem, anemometrii przy przejściach instalacyjnych lub metody gazu znacznikowego.</p>
+
+<h2><span class="num">7.</span>Implikacje dla jakości środowiska wewnętrznego</h2>
+
 <p>Przekroczenie przyjętego kryterium ryzyka degradacji biologicznej oznacza utrzymywanie się w obrębie węzła i elementów przyległych warunków wilgotnościowych sprzyjających rozwojowi mikroflory. Wytyczne Światowej Organizacji Zdrowia<sup><a href="#r11">[11]</a></sup> wskazują, że zawilgocenie przegród i obecność pleśni w budynkach wiążą się ze zwiększonym ryzykiem wystąpienia objawów ze strony układu oddechowego, przy czym dostępne dane nie pozwalają na określenie progowych stężeń poszczególnych czynników, a zaleceniem operacyjnym pozostaje eliminacja zawilgocenia jako takiego. W kontekście niniejszej analizy oznacza to, że kryterium to należy traktować nie wyłącznie jako próg trwałości konstrukcyjnej, lecz również jako granicę akceptowalności higienicznej rozwiązania. Kwantyfikacja emisji produktów degradacji materiałów poliuretanowych w warunkach wbudowania wykracza poza zakres pracy.</p>
 
-<h2 id="s8"><span class="num">8.</span>Dyskusja — ograniczenia i zakres ważności</h2>
+<h2><span class="num">8.</span>Dyskusja — ograniczenia i zakres ważności</h2>
+
 <h3><span class="num">8.1</span>Redukcja sezonowa</h3>
-<p>Analiza ma charakter quasi-stacjonarny w skali sezonu. Warunek Fo<sub>w</sub> ≫ 1 uzasadnia uproszczenie czasowe w przyjętej skali długości, lecz nie dowodzi sam w sobie poprawności sezonowego bilansu netto. Model nie opisuje dynamiki dobowej, zjawisk przejściowych po opadzie ani lokalnego odwracania gradientów w godzinach nocnych.</p>
+<p>Analiza ma charakter quasi-stacjonarny w skali sezonu. Warunek Fo<sub>w</sub>&nbsp;≫&nbsp;1 uzasadnia uproszczenie czasowe w przyjętej skali długości, lecz nie dowodzi sam w sobie poprawności sezonowego bilansu netto. Model nie opisuje dynamiki dobowej, zjawisk przejściowych po opadzie ani lokalnego odwracania gradientów w godzinach nocnych.</p>
+
 <h3><span class="num">8.2</span>Pominięcie letniej składowej konwekcyjnej</h3>
-<p>W modelu założono pomijalny netto transport konwekcyjny poza sezonem grzewczym. Jest to założenie modelowe, nie właściwość węzła: rzeczywisty przepływ przez nieszczelność jest funkcją Δ<i>P</i>(<i>t</i>) i nie zanika wraz z końcem sezonu grzewczego, lecz może zmieniać kierunek. Kierunek wpływu tego pominięcia jest jednak określony. Powietrze zewnętrzne przy 30 °C i φ = 60 % zawiera <i>x</i> ≈ 16 g·kg⁻¹, podczas gdy złącze zawierające fazę ciekłą przy 60 °C odpowiada <i>x</i> ≈ 150 g·kg⁻¹. Każdy letni przepływ przez złącze działa zatem wysuszająco, a pominięcie tego członu czyni model pesymistycznym, a próg <i>A</i><sub>leak,cr</sub> zachowawczym.</p>
+<p>W modelu założono pomijalny netto transport konwekcyjny poza sezonem grzewczym. Jest to założenie modelowe, nie właściwość węzła: rzeczywisty przepływ przez nieszczelność jest funkcją Δ<i>P</i>(<i>t</i>) i nie zanika wraz z końcem sezonu grzewczego, lecz może zmieniać kierunek. Kierunek wpływu tego pominięcia jest jednak określony. Powietrze zewnętrzne przy 30&nbsp;°C i φ&nbsp;=&nbsp;60&nbsp;% zawiera <i>x</i>&nbsp;≈&nbsp;16&nbsp;g·kg⁻¹, podczas gdy złącze zawierające fazę ciekłą przy 60&nbsp;°C odpowiada <i>x</i>&nbsp;≈&nbsp;150&nbsp;g·kg⁻¹. Każdy letni przepływ przez złącze działa zatem wysuszająco, a pominięcie tego członu czyni model pesymistycznym, a próg <i>A</i><sub>leak,cr</sub> zachowawczym.</p>
+
 <h3><span class="num">8.3</span>Parametry materiałowe</h3>
-<p>Wszystkie wartości przyjęto jako typowe literaturowe, deklarowane dla klasy materiału lub scenariuszowe. Nie przeprowadzono badań laboratoryjnych ani pomiarów in situ. <i>K</i><sub>ref</sub> jest poziomem odniesienia z kryterium szczelności powietrznej, nie zmierzoną charakterystyką materiału (§ 3.3). Izoterma sorpcji ocSPF nie była dostępna, co ogranicza definicję przyjętego stanu granicznego (§ 5.6). Dyfuzyjność cieplna ośrodka porowatego α<sub>eff</sub>, wchodząca do Ra<sub>D</sub>, jest oszacowaniem dla klasy materiału, nie wartością zmierzoną — przy porowatości rzędu 0,92 jej niepewność nie zmienia jednak wniosku, ponieważ odległość od progu wynosi ponad cztery rzędy wielkości.</p>
+<p>Wszystkie wartości przyjęto jako typowe literaturowe, deklarowane dla klasy materiału lub scenariuszowe. Nie przeprowadzono badań laboratoryjnych ani pomiarów in situ. <i>K</i><sub>ref</sub> jest poziomem odniesienia z kryterium szczelności powietrznej, nie zmierzoną charakterystyką materiału (§&nbsp;3.3). Izoterma sorpcji ocSPF nie była dostępna, co ogranicza definicję przyjętego stanu granicznego (§&nbsp;5.6).</p>
+
 <h3><span class="num">8.4</span>Brak walidacji numerycznej</h3>
-<p>Praca nie obejmuje symulacji HAM przy użyciu solwerów klasy WUFI lub DELPHIN. Wyniki mają charakter analizy skalującej z kryterium progowym; weryfikacja solwerem dwuwymiarowym dla geometrii węzła, zgodnie z PN-EN 15026<sup><a href="#r12">[12]</a></sup>, wskazana jest jako kierunek dalszych prac. Interaktywność rycin nie zastępuje takiej walidacji — odtwarza ten sam model analityczny, nie rozwiązuje równań \eqref{eq:kunzel-T}–\eqref{eq:conv}.</p>
+<p>Praca nie obejmuje symulacji HAM przy użyciu solwerów klasy WUFI lub DELPHIN. Wyniki mają charakter analizy skalującej z kryterium progowym; weryfikacja solwerem dwuwymiarowym dla geometrii węzła, zgodnie z PN-EN 15026<sup><a href="#r12">[12]</a></sup>, wskazana jest jako kierunek dalszych prac.</p>
+
 <h3><span class="num">8.5</span>Nieoznaczoność czasowa</h3>
-<p>W pobliżu progu σ<sub>rel</sub> przekracza jedność (§ 6.2), a daleko powyżej progu szybkie nagromadzenie wody zmienia warunki brzegowe, które model zakłada jako stałe. Z obu powodów prezentowany jest wyłącznie znak bilansu rocznego. Model przewiduje moment przekroczenia progu wilgotnościowego, nie tempo degradacji; kwantyfikacja utraty przekroju wymagałaby modelu kinetycznego<sup><a href="#r9">[9]</a></sup>, niekalibrowanego dla tej geometrii.</p>
+<p>W pobliżu progu σ<sub>rel</sub> przekracza jedność (§&nbsp;6.2), a daleko powyżej progu szybkie nagromadzenie wody zmienia warunki brzegowe, które model zakłada jako stałe. Z obu powodów prezentowany jest wyłącznie znak bilansu rocznego. Model przewiduje moment przekroczenia progu wilgotnościowego, nie tempo degradacji; kwantyfikacja utraty przekroju wymagałaby modelu kinetycznego<sup><a href="#r9">[9]</a></sup>, niekalibrowanego dla tej geometrii.</p>
+
 <h3><span class="num">8.6</span>Model nieszczelności</h3>
-<p><i>A</i><sub>leak</sub> jest parametrem skupionym przy stałym Δ<i>P</i> i <i>n</i> = ½. Rozkład nieszczelności jest w rzeczywistości losowy, a ich charakterystyki przepływowe niejednakowe; oszacowania mają charakter wartości oczekiwanych.</p>
+<p><i>A</i><sub>leak</sub> jest parametrem skupionym przy stałym Δ<i>P</i> i <i>n</i>&nbsp;=&nbsp;½. Rozkład nieszczelności jest w rzeczywistości losowy, a ich charakterystyki przepływowe niejednakowe; oszacowania mają charakter wartości oczekiwanych.</p>
+
 <h3><span class="num">8.7</span>Zasięg zjawiska i hydroliza</h3>
 <p>Praca analizuje pojedynczy typ węzła w określonych warunkach brzegowych. Ekstrapolacja na populację budynków wymagałaby badania próby losowej, którego nie przeprowadzono. Rozkład wiązań uretanowych przy wysokiej wilgotności i temperaturze jest udokumentowany jakościowo, lecz brak stałych kinetycznych dla warunków przegrody uniemożliwia włączenie go do bilansu — pominięcie to czyni wynik zachowawczym.</p>
 
-<h2 id="s9"><span class="num">9.</span>Wnioski</h2>
-<p><strong>9.1</strong>&nbsp;&nbsp;Złącze kalenicowe z wypełnieniem ocSPF tworzy potencjalne obejście dyfuzyjne o współczynniku kontrastu oporu ≈ 4·10³ względem pola połaci. Kontrast ten wynika z przyjętej geometrii i właściwości materiałowych; jego rzeczywisty wpływ na transport wilgoci zależy natomiast od wykonania oraz od warunków brzegowych węzła.</p>
-<p><strong>9.2</strong>&nbsp;&nbsp;Sam kontrast oporów nie powoduje akumulacji. Dyfuzyjny strumień wilgoci zmienia kierunek wraz ze zmianą warunków brzegowych, dlatego o rocznym bilansie nie decyduje wyłącznie zimowy dopływ, lecz jego całka wraz z sezonowym odpływem. Mechanizmy przywoływane zwyczajowo jako uzasadnienie szkodliwości pianki otwartokomórkowej — konwekcja w matrycy, ciśnienie krystalizacji w komórkach, termodyfuzja — zostały wykazane jako liczbowo zaniedbywalne (ryc. 2).</p>
-<p><strong>9.3</strong>&nbsp;&nbsp;O stabilności węzła decyduje bilans trzech wielkości o rozłącznych zależnościach parametrycznych: akumulacja = dopływ konwekcyjny + dopływ dyfuzyjny − sezonowa zdolność wysychania. Dopływ konwekcyjny zależy od nieciągłości bariery powietrznej, odpływ dyfuzyjny od oporu warstw na drodze wysychania, a zdolność wysychania od scałkowanego potencjału termicznego złącza. Rozdzielenie tych trzech wielkości jest zasadniczą treścią pracy.</p>
-<p><strong>9.4</strong>&nbsp;&nbsp;Istnienie krytycznej powierzchni nieszczelności <i>A</i><sub>leak,cr</sub> = <i>f</i>(Δ<i>P</i>, <i>S</i><sub>d</sub>, Θ, <i>x</i><sub>int</sub>, <i>T</i><sub>s</sub>, <i>C</i><sub>d</sub>, <i>M</i><sub>cap</sub>) wynika ze struktury bilansu. Wartość 4,96 mm²/mb odnosi się wyłącznie do scenariusza odniesienia i nie stanowi progu konstrukcyjnego o charakterze ogólnym. Granica zanika przy Θ &lt; 3,0·10⁶ Pa·h.</p>
+<h3><span class="num">8.8</span>Model starzenia bariery zewnętrznej</h3>
+<p>Model Arrheniusa w §&nbsp;5.8 użyto do wykazania kierunku sprzężenia Θ z <i>A</i><sub>leak</sub>(<i>t</i>), nie do ilościowej prognozy żywotności. Energia aktywacji i żywotność referencyjna są wartościami ilustracyjnymi z ogólnej literatury starzenia polimerów, nie danymi karty konkretnego wyrobu. Pominięto fotodegradację UV, która dla klejów eksponowanych na zewnątrz zwykle współwystępuje z czystym starzeniem termicznym i nie podlega opisowi w postaci \eqref{eq:arrhenius-k}. Udokumentowane w literaturze odchylenia od prostej ekstrapolacji Arrheniusa przy niższych temperaturach<sup><a href="#r21">[21]</a></sup> sugerują, że rzeczywiste tempo starzenia w warunkach polowych może być niższe niż wskazane w tab.&nbsp;7; kierunek efektu pozostaje jednak niezależny od tych niepewności.</p>
+
+<h2><span class="num">9.</span>Wnioski</h2>
+
+<p><strong>9.1</strong>&nbsp;&nbsp;Złącze kalenicowe z wypełnieniem ocSPF tworzy potencjalne obejście dyfuzyjne o współczynniku kontrastu oporu ≈&nbsp;4·10³ względem pola połaci. Kontrast ten wynika z przyjętej geometrii i właściwości materiałowych; jego rzeczywisty wpływ na transport wilgoci zależy natomiast od wykonania oraz od warunków brzegowych węzła.</p>
+
+<p><strong>9.2</strong>&nbsp;&nbsp;Sam kontrast oporów nie powoduje akumulacji. Dyfuzyjny strumień wilgoci zmienia kierunek wraz ze zmianą warunków brzegowych, dlatego o rocznym bilansie nie decyduje wyłącznie zimowy dopływ, lecz jego całka wraz z sezonowym odpływem. Mechanizmy przywoływane zwyczajowo jako uzasadnienie szkodliwości pianki otwartokomórkowej — konwekcja w matrycy, ciśnienie krystalizacji w komórkach, termodyfuzja — zostały wykazane jako liczbowo zaniedbywalne.</p>
+
+<p><strong>9.3</strong>&nbsp;&nbsp;O stabilności węzła decyduje bilans trzech wielkości o rozłącznych zależnościach parametrycznych: akumulacja&nbsp;=&nbsp;dopływ konwekcyjny&nbsp;+&nbsp;dopływ dyfuzyjny&nbsp;−&nbsp;sezonowa zdolność wysychania. Dopływ konwekcyjny zależy od nieciągłości bariery powietrznej, odpływ dyfuzyjny od oporu warstw na drodze wysychania, a zdolność wysychania od scałkowanego potencjału termicznego złącza. Rozdzielenie tych trzech wielkości jest zasadniczą treścią pracy.</p>
+
+<p><strong>9.4</strong>&nbsp;&nbsp;Istnienie krytycznej powierzchni nieszczelności <i>A</i><sub>leak,cr</sub>&nbsp;=&nbsp;<i>f</i>(Δ<i>P</i>,&nbsp;<i>S</i><sub>d</sub>,&nbsp;Θ,&nbsp;<i>x</i><sub>int</sub>,&nbsp;<i>T</i><sub>s</sub>,&nbsp;<i>C</i><sub>d</sub>,&nbsp;<i>M</i><sub>cap</sub>) wynika ze struktury bilansu. Wartość 4,96&nbsp;mm²/mb odnosi się wyłącznie do scenariusza odniesienia i nie stanowi progu konstrukcyjnego o charakterze ogólnym. Granica zanika przy Θ&nbsp;&lt;&nbsp;3,0·10⁶&nbsp;Pa·h.</p>
+
 <p><strong>9.5</strong>&nbsp;&nbsp;W przyjętym modelu przejście przez próg ma charakter ostry: bilans przechodzi z reżimu ograniczonego potencjałem wysychania do reżimu ograniczonego dostępnością wody. Nie oznacza to, że rzeczywisty przebieg wilgotności materiału musi wykazywać równie ostrą granicę.</p>
-<p><strong>9.6</strong>&nbsp;&nbsp;Opór dyfuzyjny warstwy wewnętrznej wpływa na bilans ujemnie (<i>S</i><sub>µ</sub> ≈ −1). Ciągła folia paroizolacyjna ogranicza dopływ dyfuzyjny, lecz pozostawia nietkniętym dopływ konwekcyjny przez własne nieszczelności, odcinając równocześnie jedyną drogę wysychania uwzględnioną w modelu. W analizowanym węźle szczelność powietrzna i wysoki opór dyfuzyjny warstwy wewnętrznej pełnią odmienne funkcje, których jednoczesne zrealizowanie jedną warstwą może prowadzić do niekorzystnego ograniczenia drogi wysychania. Funkcję bariery powietrznej i funkcję regulacji oporu dyfuzyjnego należy zatem rozpatrywać rozdzielnie.</p>
-<p><strong>9.7</strong>&nbsp;&nbsp;Czas osiągnięcia stanu granicznego nie jest w tym modelu wielkością wyznaczalną. W pobliżu progu niepewność względna przekracza jedność (σ<sub>rel</sub> = 2,09 przy <i>A</i><sub>leak</sub> = 6 mm²/mb; metodyka i wkłady w § 6.2), a daleko powyżej progu model wykracza poza zakres ważności. Prezentowany jest wyłącznie znak bilansu rocznego.</p>
+
+<p><strong>9.6</strong>&nbsp;&nbsp;Opór dyfuzyjny warstwy wewnętrznej wpływa na bilans ujemnie (<i>S</i><sub>µ</sub>&nbsp;≈&nbsp;−1). Ciągła folia paroizolacyjna ogranicza dopływ dyfuzyjny, lecz pozostawia nietkniętym dopływ konwekcyjny przez własne nieszczelności, odcinając równocześnie jedyną drogę wysychania uwzględnioną w modelu. W analizowanym węźle szczelność powietrzna i wysoki opór dyfuzyjny warstwy wewnętrznej pełnią odmienne funkcje, których jednoczesne zrealizowanie jedną warstwą może prowadzić do niekorzystnego ograniczenia drogi wysychania. Funkcję bariery powietrznej i funkcję regulacji oporu dyfuzyjnego należy zatem rozpatrywać rozdzielnie.</p>
+
+<p><strong>9.7</strong>&nbsp;&nbsp;Czas osiągnięcia stanu granicznego nie jest w tym modelu wielkością wyznaczalną. W pobliżu progu niepewność względna przekracza jedność (σ<sub>rel</sub>&nbsp;=&nbsp;2,09 przy <i>A</i><sub>leak</sub>&nbsp;=&nbsp;6&nbsp;mm²/mb; metodyka i wkłady w §&nbsp;6.2), a daleko powyżej progu model wykracza poza zakres ważności. Prezentowany jest wyłącznie znak bilansu rocznego.</p>
+
 <p><strong>9.8</strong>&nbsp;&nbsp;Wielkość <i>n</i><sub>50</sub> nie rozstrzyga o stanie węzła, ponieważ agreguje szczelność całej bryły. Weryfikacja wymaga metod lokalizacyjnych. Wniosek ten jest niezależny od pozostałych rezultatów i pozostaje ważny także przy odmiennej kalibracji modelu.</p>
 
-<h3><span class="num">9.9</span>Hierarchia zaleceń</h3>
-<p><strong>1. Rozdzielenie szczelności powietrznej od oporu dyfuzyjnego.</strong> Warstwa wewnętrzna w strefie kalenicy powinna być szczelna powietrznie i otwarta dyfuzyjnie w sezonie letnim. Membrana zmiennooporowa zwiększa obliczoną wartość krytycznej powierzchni nieszczelności do 2,97 mm²/mb wobec 0,086 mm²/mb dla folii PE o <i>S</i><sub>d</sub> = 15 m — ponad trzydziestokrotnie.</p>
-<p><strong>2. Ciągłość bariery powietrznej w węźle.</strong> Przyjmując margines projektowy <i>A</i><sub>leak</sub> ≤ <i>A</i><sub>leak,cr</sub>/3, co przy σ(<i>A</i><sub>leak</sub>)/<i>A</i><sub>leak</sub> = 0,289 odpowiada ok. 3,5σ, dla wariantu z membraną zmiennooporową otrzymuje się wymaganie <i>A</i><sub>leak</sub> ≤ 1,0 mm²/mb. Dla wariantu z folią PE analogiczne wymaganie wynosi 0,03 mm²/mb i leży poniżej możliwości wykonawczych. Środki: przeprowadzenie warstwy przez kalenicę bez zakończenia przed nią, złącza na klej butylowy lub MS-polimer, uszczelnienie przejść manszetami.</p>
-<p><strong>3. Zapewnienie drogi wysychania.</strong> Przy Θ &lt; 3,0·10⁶ Pa·h w analizowanym wariancie wysychania jednostronnego nie istnieje dodatnia wartość <i>A</i><sub>leak,cr</sub> zapewniająca stabilność bilansu. Alternatywą jest otwarcie strony zewnętrznej — rezygnacja z ciągłej taśmy aluminiowej na rzecz uszczelnienia paroprzepuszczalnego z wentylowaną szczeliną nad złączem.</p>
-<p><strong>4. Ciągłość termiczna przekroju.</strong> Kliny PIR zapewniające <i>T</i><sub>min</sub> &gt; <i>T</i><sub>dew</sub> obniżają <i>x</i><sub>sat</sub>(<i>T</i><sub>s</sub>) w \eqref{eq:mvcond}, redukując dopływ konwekcyjny przy niezmienionym <i>A</i><sub>leak</sub>. Nie usuwają natomiast samej nieszczelności.</p>
-<p><strong>5. Zamiana materiału wypełnienia — ze względu na szczelność powietrzną.</strong> Pianka zamkniętokomórkowa lub kształtka EPDM poprawiają bilans o tyle, o ile zmniejszają <i>A</i><sub>leak</sub>. Sam wzrost µ działa na niekorzyść (§ 6.1).</p>
-<p><strong>6. Weryfikacja lokalizacyjna zamiast pomiaru globalnego</strong> (§ 6.5).</p>
+<div class="keyfinding">
+  <div class="kf-label">◆ 9.9 — Sprzężenie ekspozycji słonecznej z żywotnością bariery zewnętrznej</div>
+  <p>Ekspozycja solarna, korzystna dla bilansu wilgoci w danym roku, przyspiesza zgodnie z kinetyką Arrheniusa starzenie kleju uszczelnienia zewnętrznego (§&nbsp;5.8), zwiększając <i>A</i><sub>leak</sub> w czasie. Scenariusz o najwyższej rezerwie wysychania (tab.&nbsp;11) jest jednocześnie scenariuszem najszybszej degradacji szczelności powietrznej (tab.&nbsp;7). <strong>Progi wyznaczone w §&nbsp;5–6 opisują stan początkowy węzła, nie gwarancję trwałą</strong> — ocena długoterminowa wymaga uwzględnienia wzrostu <i>A</i><sub>leak</sub>(<i>t</i>), skorelowanego z tą samą zmienną Θ, która w analizie statycznej działa na korzyść stabilności.</p>
+</div>
+
+<h3><span class="num">9.10</span>Hierarchia zaleceń</h3>
+
+<p><strong>1. Rozdzielenie szczelności powietrznej od oporu dyfuzyjnego.</strong> Warstwa wewnętrzna w strefie kalenicy powinna być szczelna powietrznie i otwarta dyfuzyjnie w sezonie letnim. Membrana zmiennooporowa zwiększa obliczoną wartość krytycznej powierzchni nieszczelności do 2,97&nbsp;mm²/mb wobec 0,086&nbsp;mm²/mb dla folii PE o <i>S</i><sub>d</sub>&nbsp;=&nbsp;15&nbsp;m — ponad trzydziestokrotnie.</p>
+
+<p><strong>2. Ciągłość bariery powietrznej w węźle.</strong> Przyjmując margines projektowy <i>A</i><sub>leak</sub>&nbsp;≤&nbsp;<i>A</i><sub>leak,cr</sub>/3, co przy σ(<i>A</i><sub>leak</sub>)/<i>A</i><sub>leak</sub>&nbsp;=&nbsp;0,289 odpowiada ok.&nbsp;3,5σ, dla wariantu z membraną zmiennooporową otrzymuje się wymaganie <i>A</i><sub>leak</sub>&nbsp;≤&nbsp;1,0&nbsp;mm²/mb. Dla wariantu z folią PE analogiczne wymaganie wynosi 0,03&nbsp;mm²/mb i leży poniżej możliwości wykonawczych. Środki: przeprowadzenie warstwy przez kalenicę bez zakończenia przed nią, złącza na klej butylowy lub MS-polimer, uszczelnienie przejść manszetami.</p>
+
+<p><strong>3. Zapewnienie drogi wysychania.</strong> Przy Θ&nbsp;&lt;&nbsp;3,0·10⁶&nbsp;Pa·h w analizowanym wariancie wysychania jednostronnego nie istnieje dodatnia wartość <i>A</i><sub>leak,cr</sub> zapewniająca stabilność bilansu. Alternatywą jest otwarcie strony zewnętrznej — rezygnacja z ciągłej taśmy aluminiowej na rzecz uszczelnienia paroprzepuszczalnego z wentylowaną szczeliną nad złączem. Rozwiązanie to nie jest odporne na sprzężenie opisane w §&nbsp;5.8: ekspozycja zapewniająca wysoki potencjał Θ jednocześnie przyspiesza starzenie dowolnego uszczelnienia w tym miejscu, więc korzyść z otwarcia strony zewnętrznej wymaga zestawienia z zaleceniem 7.</p>
+
+<p><strong>4. Ciągłość termiczna przekroju.</strong> Kliny PIR zapewniające <i>T</i><sub>min</sub>&nbsp;&gt;&nbsp;<i>T</i><sub>dew</sub> obniżają <i>x</i><sub>sat</sub>(<i>T</i><sub>s</sub>) w \eqref{eq:mvcond}, redukując dopływ konwekcyjny przy niezmienionym <i>A</i><sub>leak</sub>. Nie usuwają natomiast samej nieszczelności.</p>
+
+<p><strong>5. Zamiana materiału wypełnienia — ze względu na szczelność powietrzną.</strong> Pianka zamkniętokomórkowa lub kształtka EPDM poprawiają bilans o tyle, o ile zmniejszają <i>A</i><sub>leak</sub>. Sam wzrost µ działa na niekorzyść (§&nbsp;6.1).</p>
+
+<p><strong>6. Weryfikacja lokalizacyjna zamiast pomiaru globalnego</strong> (§&nbsp;6.5).</p>
+
+<p><strong>7. Dobór i konserwacja uszczelnienia zewnętrznego z uwzględnieniem starzenia termicznego.</strong> W strefach o wysokiej ekspozycji solarnej kalenicy klej łączący taśmę uszczelniającą starzeje się szybciej niż w warunkach umiarkowanych (§&nbsp;5.8, tab.&nbsp;7). Kleje o wyższej odporności termicznej niż standardowy akryl (np. systemy butylowe lub silikonowe) oraz harmonogram przeglądów skorelowany z oszacowaną żywotnością — nie z jednolitym cyklem konserwacyjnym — ograniczają ryzyko migracji węzła w stronę niestabilności po latach eksploatacji.</p>
+
 <div class="statement">
   <p>Korzyść z zamiany pianki otwartokomórkowej na zamkniętokomórkową nie wynika z jej wyższego oporu dyfuzyjnego — ten działa przeciwnie — lecz w przyjętym modelu przede wszystkim z tego, że pianka zamkniętokomórkowa jest materiałem bariery powietrznej.</p>
   <p>Model nie uwzględnia pozostałych różnic materiałowych — przewodności, retencji wody, geometrii kontaktu — które mogą wpływać na bilans niezależnie.</p>
 </div>
 
-<h2 id="sbib"><span class="num">—</span>Bibliografia</h2>
+<h2><span class="num">—</span>Bibliografia</h2>
+
 <h3>Monografie i artykuły</h3>
 <ol class="refs">
   <li id="r1">Künzel H.M., <i>Simultaneous Heat and Moisture Transport in Building Components</i>, IRB Verlag, Stuttgart 1995.</li>
@@ -915,6 +847,7 @@ S_x = \frac{\partial t}{\partial x}\,\frac{x}{t} = -\frac{x}{\Delta M}\,\frac{\p
   <li id="r10">Janssens A., Hens H., „Interstitial condensation due to air leakage”, <i>J. Therm. Envelope Build. Sci.</i> 27(1), 2003, s. 15–29.</li>
   <li id="r11">WHO, <i>Guidelines for Indoor Air Quality: Dampness and Mould</i>, WHO Regional Office for Europe, Kopenhaga 2009.</li>
 </ol>
+
 <h3>Normy i przepisy</h3>
 <ol class="refs" start="12">
   <li id="r12">PN-EN 15026 — Ocena przenoszenia wilgoci przez symulację numeryczną.</li>
@@ -924,1035 +857,40 @@ S_x = \frac{\partial t}{\partial x}\,\frac{x}{t} = -\frac{x}{\Delta M}\,\frac{\p
   <li id="r16">PN-EN ISO 9972 — Przepuszczalność powietrzna budynków. Metoda pomiaru ciśnieniowego.</li>
   <li id="r17">PN-EN 1995-1-1 — Eurokod 5. Projektowanie konstrukcji drewnianych; klasy użytkowania.</li>
   <li id="r18">PN-EN 1990 — Eurokod. Podstawy projektowania konstrukcji.</li>
-  <li id="r19">Rozporządzenie w sprawie warunków technicznych, jakim powinny odpowiadać budynki i ich usytuowanie (WT 2021).</li>
+  <li id="r19">Rozporządzenie w sprawie warunków technicznych, jakim powinny odpowiadać budynki i ich usytuowanie (WT&nbsp;2021).</li>
   <li id="r20">ASTM E2178 — Standard Test Method for Air Permeance of Building Materials.</li>
 </ol>
 
-<h2 id="anxA"><span class="num">A.</span>Wyprowadzenie kryterium progowego</h2>
-<p>Bilans masy wilgoci w złączu w cyklu rocznym, przy quasi-stacjonarności w obu oknach sezonowych, jest sumą przyczynków dopływu i odpływu. Dopływ zimowy składa się z członu dyfuzyjnego i konwekcyjnego; odpływ letni w przyjętym modelu wyłącznie z dyfuzyjnego (§ 8.2):</p>
-\begin{equation}\label{eq:annexA}
-\Delta M_{\mathrm{rok}} = \underbrace{\frac{\delta_a \overline{\Delta p}_z A_{\mathrm{zl}} t_z}{S_{d,\mathrm{zima}}}}_{\text{dyfuzja, zima}} + \underbrace{\dot m_{v,\mathrm{cond}} t_z}_{\text{konwekcja, zima}} - \underbrace{\frac{\delta_a\,\Theta\,A_{\mathrm{zl}}}{S_{d,\mathrm{lato}}}}_{\text{dyfuzja, lato}}
-\end{equation}
-<p>Podzielenie obustronne przez czynnik δ<sub>a</sub><i>A</i><sub>zł</sub><i>t</i><sub>z</sub>/<i>S</i><sub>d,lato</sub> sprowadza bilans do postaci ciśnieniowej. Warunek Δ<i>M</i><sub>rok</sub> ≤ 0 jest wówczas równoważny nierówności z § 5.3 w postaci uogólnionej. Gdy oba opory są równe, czynnik <i>S</i><sub>d,lato</sub>/<i>S</i><sub>d,zima</sub> znika i odtwarza się \eqref{eq:criterion}. Istotne, że <i>S</i><sub>d</sub> nie znika z wyrażenia — pozostaje w definicji Λ. Jest to formalne ujęcie obserwacji, że problem nie leży ani w samym materiale wypełnienia, ani w samej nieszczelności, lecz w ich współwystępowaniu.</p>
+<h3>Źródła uzupełniające</h3>
+<ol class="refs" start="21">
+  <li id="r21">Celina M., Gillen K.T., Assink R.A., „Accelerated aging and lifetime prediction: Review of non-Arrhenius behaviour due to two competing processes”, <i>Polymer Degradation and Stability</i>, 90(3), 2005, s.&nbsp;395–404, DOI:&nbsp;10.1016/j.polymdegradstab.2005.05.004.</li>
+</ol>
 
-<h2 id="anxB"><span class="num">B.</span>Oszacowanie udziału termodyfuzji</h2>
-<p>Strumień termodyfuzyjny w mieszaninie gazowej opisuje <b>J</b><sub>S</sub> = −<i>S</i><sub>T</sub>ρ<sub>v</sub><i>D</i><sub>eff</sub>∇<i>T</i>. Porównanie z członem fickowskim <b>J</b><sub>D</sub> = −<i>D</i><sub>eff</sub>∇ρ<sub>v</sub> prowadzi do stosunku bezwymiarowego:</p>
+<h2><span class="num">A.</span>Wyprowadzenie kryterium progowego</h2>
+
+<p>Bilans masy wilgoci w złączu w cyklu rocznym, przy quasi-stacjonarności w obu oknach sezonowych, jest sumą przyczynków dopływu i odpływu. Dopływ zimowy składa się z członu dyfuzyjnego i konwekcyjnego; odpływ letni w przyjętym modelu wyłącznie z dyfuzyjnego (§&nbsp;8.2):</p>
+
+\begin{equation}\label{eq:annexA}
+\Delta M_{\mathrm{rok}} = \underbrace{\frac{\delta_a \overline{\Delta p}_z A_{\mathrm{zl}} t_z}{S_{d,\mathrm{zl}}}}_{\text{dyfuzja, zima}} + \underbrace{\dot m_{v,\mathrm{cond}} t_z}_{\text{konwekcja, zima}} - \underbrace{\frac{\delta_a\,\Theta\,A_{\mathrm{zl}}}{S_{d,\mathrm{zl}}}}_{\text{dyfuzja, lato}}
+\end{equation}
+
+<p>Podzielenie obustronne przez czynnik δ<sub>a</sub><i>A</i><sub>zł</sub><i>t</i><sub>z</sub>/<i>S</i><sub>d,zł</sub>, wspólny dla członów dyfuzyjnych, sprowadza bilans do postaci ciśnieniowej. Warunek Δ<i>M</i><sub>rok</sub>&nbsp;≤&nbsp;0 jest wówczas równoważny nierówności \eqref{eq:criterion}. Istotne, że <i>S</i><sub>d,zł</sub> nie znika z wyrażenia — pozostaje w definicji Λ. Jest to formalne ujęcie obserwacji, że problem nie leży ani w samym materiale wypełnienia, ani w samej nieszczelności, lecz w ich współwystępowaniu.</p>
+
+<h2><span class="num">B.</span>Oszacowanie udziału termodyfuzji</h2>
+
+<p>Strumień termodyfuzyjny w mieszaninie gazowej opisuje <b>J</b><sub>S</sub>&nbsp;=&nbsp;−<i>S</i><sub>T</sub>ρ<sub>v</sub><i>D</i><sub>eff</sub>∇<i>T</i>. Porównanie z członem fickowskim <b>J</b><sub>D</sub>&nbsp;=&nbsp;−<i>D</i><sub>eff</sub>∇ρ<sub>v</sub> prowadzi do stosunku bezwymiarowego:</p>
+
 \begin{equation}\label{eq:annexB}
 \frac{|\mathbf{J}_S|}{|\mathbf{J}_D|} \approx S_T\,\Delta T
 \end{equation}
-<p>Dla mieszaniny H₂O–powietrze stosunek termodyfuzyjny z teorii kinetycznej wynosi <i>k</i><sub>T</sub> ≈ 0,05, skąd <i>S</i><sub>T</sub> = <i>k</i><sub>T</sub>/<i>T</i> ≈ 1,7·10⁻⁴ K⁻¹. Przy Δ<i>T</i> = 35 K daje to 6·10⁻³, czyli 0,6 % członu dyfuzyjnego — poniżej niepewności wyznaczenia δ<sub>p</sub>(<i>T</i>,φ). Wartości <i>S</i><sub>T</sub> rzędu 10⁻³ K⁻¹ odnoszą się do roztworów ciekłych i mieszanin koloidalnych, nie do dyfuzji pary wodnej w powietrzu.</p>
 
-<h2 id="anxC"><span class="num">C.</span>Weryfikacja numeryczna wydania interaktywnego</h2>
-<p>Ryciny nie odtwarzają wartości tabelarycznych z pamięci, lecz liczą je z równań podanych w tekście. Poniższe zestawienie porównuje wynik tych obliczeń z wartościami opublikowanymi w tabelach; wykonuje się ono przy każdym otwarciu dokumentu, na parametrach scenariusza odniesienia, niezależnie od ustawień paska. Ciśnienia nasycenia liczone są wzorem Magnusa, <i>p</i><sub>sat</sub> = 610,94·exp[17,625<i>T</i>/(<i>T</i>+243,04)].</p>
-
-<div class="fig">
-  <div class="fig-h"><span class="fig-n">Aneks C</span><span class="fig-t">Zestawienie kontrolne</span><span class="fig-s">tolerancja 3 %</span></div>
-  <div class="vsum" id="vsum">—</div>
-  <div class="tw"><table class="vt">
-    <thead><tr><th>Wielkość</th><th style="text-align:right">obliczone</th><th style="text-align:right">tabela</th><th style="text-align:right">odchyłka</th><th style="width:4.5em"></th></tr></thead>
-    <tbody id="vbody"></tbody>
-  </table></div>
-  <p class="fignote">Trzy pozycje wymagały rekonstrukcji stałych nieobecnych w pierwotnej redakcji tabeli 1: <b>Pe zgadza się przy dyfuzyjności efektywnej D₀/µ</b>, <b>Ra<sub>D</sub> przy dyfuzyjności cieplnej ośrodka porowatego</b> α<sub>eff</sub> ≈ 3,4·10⁻⁶ m²·s⁻¹, a próg h<sub>cr</sub> przy własnościach powietrza w temperaturze około 10 °C. Rekonstrukcje te nie zmieniają żadnego z wniosków — zmieniają wyłącznie odtwarzalność rachunku przez czytelnika.</p>
-</div>
+<p>Dla mieszaniny H₂O–powietrze stosunek termodyfuzyjny z teorii kinetycznej wynosi <i>k</i><sub>T</sub>&nbsp;≈&nbsp;0,05, skąd <i>S</i><sub>T</sub>&nbsp;=&nbsp;<i>k</i><sub>T</sub>/<i>T</i>&nbsp;≈&nbsp;1,7·10⁻⁴&nbsp;K⁻¹. Przy Δ<i>T</i>&nbsp;=&nbsp;35&nbsp;K daje to 6·10⁻³, czyli 0,6&nbsp;% członu dyfuzyjnego — poniżej niepewności wyznaczenia δ<sub>p</sub>(<i>T</i>,φ). Wartości <i>S</i><sub>T</sub> rzędu 10⁻³&nbsp;K⁻¹ odnoszą się do roztworów ciekłych i mieszanin koloidalnych, nie do dyfuzji pary wodnej w powietrzu.</p>
 
 <footer>
-  Wydanie interaktywne — dziesięć rycin liczonych na żywo z jednego modelu analitycznego.<br>
-  Analiza analityczna bez walidacji numerycznej i badań materiałowych; zakres i ograniczenia zgodnie z § 8.<br>
-  Paweł Majsterek, wrzesień 2026. Licencja Creative Commons BY-NC-ND 4.0.
+  <p>Wersja 3 — z uwzględnieniem czasowego sprzężenia ekspozycji solarnej ze starzeniem uszczelnienia zewnętrznego (§&nbsp;5.8). Analiza analityczna bez walidacji numerycznej i badań materiałowych; zakres i ograniczenia zgodnie z §&nbsp;8.<br>
+  Paweł Majsterek, Piaseczno, wrzesień 2026. Licencja Creative Commons BY-NC-ND 4.0.</p>
 </footer>
+
 </main>
-
-<script>
-'use strict';
-const TAU=Math.PI*2,G=id=>document.getElementById(id);
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const lerp=(a,b,t)=>a+(b-a)*t;
-const SUP={'-':'⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
-const pl=(x,d=2)=>x.toFixed(d).replace('.',',');
-function sci(x,d=2){if(!isFinite(x))return '—';if(x===0)return '0';
-  const e=Math.floor(Math.log10(Math.abs(x)));
-  return pl(x/Math.pow(10,e),d)+'·10'+String(e).split('').map(c=>SUP[c]).join('');}
-
-/* ══════ STAŁE MODELU ══════ */
-const DA=2.0e-10, A_J=0.05, TZ_H=5000, TZ=5000*3600, DPZ=600, PVI=1400;
-const CD=0.6, RHO=1.20, XI=8.0e-3, XS=2.5e-3, D_FILL=0.08, MCAP=1.540;
-const ETA=1.81e-5, D0=2.50e-5, GACC=9.81, NU=1.46e-5, AL_AIR=2.05e-5, AL_POR=3.4e-6, BETA=1/293;
-const BINS=[[60,60],[55,180],[45,420],[35,900],[25,1500]];
-const LAYERS={none:{w:0,s:0,n:'bez warstwy'},pe:{w:15,s:15,n:'folia PE'},vcl:{w:25,s:0.3,n:'membrana'}};
-const SIG={A:.5/Math.sqrt(3),Th:.25/Math.sqrt(3),Cd:.15/Math.sqrt(3),
-           mu:1/Math.sqrt(3)/4,w:.2/Math.sqrt(3),dp:.3/Math.sqrt(3)};
-
-const psat=T=>610.94*Math.exp(17.625*T/(T+243.04));
-function theta(dT){let s=0;for(const[T,h]of BINS)s+=Math.max(0,psat(T+dT)-PVI)*h;return s;}
-function binContrib(dT){return BINS.map(([T,h])=>({T:T+dT,h,dp:Math.max(0,psat(T+dT)-PVI),
-  c:Math.max(0,psat(T+dT)-PVI)*h}));}
-const mdot1=dP=>CD*1e-6*Math.sqrt(2*RHO*dP)*(XI-XS);
-
-function model(p){
-  const L=LAYERS[p.layer]||LAYERS.none, SW=p.mu*D_FILL+L.w, SS=p.mu*D_FILL+L.s;
-  const TH=theta(p.dTs||0), m1=mdot1(p.dP);
-  const inD=DA*DPZ*A_J*TZ/SW;
-  const out=DA*TH*3600*A_J/SS;
-  const inC=m1*TZ*p.A;
-  const lam1=m1*SS/(DA*A_J);
-  const dpres=TH/TZ_H-DPZ*SS/SW;
-  return {SW,SS,TH,inD,out,inC,lam1,dpres,m1,mv:m1,
-    ma:CD*1e-6*Math.sqrt(2*RHO*p.dP),
-    Lam:lam1*p.A, Acr:dpres/lam1, dM:inD+inC-out,
-    net:a=>inD+m1*TZ*a-out};
-}
-function sens(p){
-  const c=model(p), d=D_FILL, dM=c.dM;
-  const Sx={A:-p.A/dM*c.m1*TZ, Th:c.out/dM, Cd:-p.A/dM*c.m1*TZ,
-    mu:-p.mu/dM*(-c.inD*d/c.SW+c.out*d/c.SS), w:1, dp:-c.inD/dM};
-  let v=0;for(const k in Sx)v+=Math.pow(Sx[k]*SIG[k],2);
-  return {Sx,sigma:Math.sqrt(v),var:v,dM};
-}
-const vFilt=(K,dP=10,L=D_FILL)=>K*dP/(ETA*L);
-const Pe=(K,mu)=>vFilt(K)*D_FILL/(D0/mu);
-const RaD=(K,dT)=>GACC*BETA*dT*K*D_FILL/(NU*AL_POR);
-const hcr=dT=>Math.pow(1708*NU*AL_AIR/(GACC*BETA*dT),1/3);
-const lamEff=s=>0.038+s*0.92*(0.60-0.026);
-const psiOf=s=>lamEff(s)/0.14*0.05*1.3;
-
-/* ══════ STAN ══════ */
-const S={A:10,dP:10,dTs:0,dTj:25,K:1e-12,mu:3.3,sat:.30,
-         layer:'none',season:'winter',cont:'broken',dim:'on'};
-const DEF={...S};
-const REF={A:10,dP:10,dTs:0,dTj:25,mu:3.3,layer:'none'};
-
-/* ══════ CANVAS ══════ */
-function fit(cv){
-  const r=cv.getBoundingClientRect(),dpr=window.devicePixelRatio||1,h=+cv.dataset.h;
-  cv.style.height=h+'px';
-  cv.width=Math.max(1,Math.round(r.width*dpr));
-  cv.height=Math.max(1,Math.round(h*dpr));
-  const c=cv.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);
-  c.clearRect(0,0,r.width,h);return {c,W:r.width,H:h};
-}
-const CSSV=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-let COL={};
-function loadColors(){
-  COL={};['text','mid','mute','moist','conv','dry','ok','alu','pir','wood','foam','panel']
-    .forEach(k=>COL[k]=CSSV('--'+k));
-  COL['bg-deep']=CSSV('--bg-deep');COL.bg=CSSV('--bg');
-  const lt=document.body.classList.contains('light');
-  COL.line=lt?'rgba(26,26,24,.1)':'rgba(180,210,210,.09)';
-  COL.line2=lt?'rgba(26,26,24,.2)':'rgba(180,210,210,.2)';
-}
-function mono(c,px,w){c.font=(w||400)+' '+px+"px 'IBM Plex Mono',monospace";}
-function arrow(c,x1,y1,x2,y2,col,wd,head){
-  c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.strokeStyle=col;c.lineWidth=wd;
-  c.lineCap='round';c.stroke();c.lineCap='butt';
-  const a=Math.atan2(y2-y1,x2-x1),h=head||7;
-  c.beginPath();c.moveTo(x2,y2);
-  c.lineTo(x2-h*Math.cos(a-.42),y2-h*Math.sin(a-.42));
-  c.lineTo(x2-h*Math.cos(a+.42),y2-h*Math.sin(a+.42));
-  c.closePath();c.fillStyle=col;c.fill();
-}
-
-/* ══════ RYCINY 5,6,4,10 ══════ */
-/* ════════ A — KRYTERIUM ════════ */
-function drawA(m){
-  const cv=G('cA'); if(!cv)return; const {c,W,H}=fit(cv);
-  const padL=14,padR=16,bw=W-padL-padR;
-  const top=34, barH=30, gap=20;
-  const scaleMax=Math.max(m.dpres,m.Lam,300)*1.18;
-  const x=v=>padL+clamp(v/scaleMax,0,1)*bw;
-
-  // oś Pa
-  mono(c,9.5); c.fillStyle=COL.mute; c.textAlign='left';
-  c.fillText('skala ciśnieniowa [Pa]',padL,16);
-  const ticks=5;
-  for(let i=0;i<=ticks;i++){
-    const v=scaleMax*i/ticks, px=x(v);
-    c.beginPath();c.moveTo(px,22);c.lineTo(px,top+2*barH+gap+10);
-    c.strokeStyle=COL.line;c.lineWidth=1;c.stroke();
-    c.textAlign=i===0?'left':(i===ticks?'right':'center');
-    c.fillStyle=COL.mute;c.fillText(Math.round(v),px,top+2*barH+gap+24);
-  }
-
-  // słupek 1 — Δp_res
-  const y1=top;
-  c.fillStyle='rgba(242,169,59,.14)';c.fillRect(padL,y1,bw,barH);
-  const w1=Math.max(0,x(m.dpres)-padL);
-  c.fillStyle=COL.dry;c.fillRect(padL,y1,w1,barH);
-  mono(c,10.5,500);c.textAlign='left';c.fillStyle='#1a1205';
-  if(w1>170)c.fillText('Δp_res  rezerwa wysychania',padL+10,y1+barH/2+4);
-  else{c.fillStyle=COL.dry;c.fillText('Δp_res  rezerwa wysychania',padL+w1+10,y1+barH/2+4);}
-  mono(c,11,600);c.textAlign='right';c.fillStyle=COL.dry;
-  c.fillText(pl(m.dpres,0)+' Pa',W-padR,y1-6);
-
-  // słupek 2 — Λ
-  const y2=top+barH+gap;
-  c.fillStyle='rgba(224,96,76,.12)';c.fillRect(padL,y2,bw,barH);
-  const over=m.Lam>=m.dpres;
-  const w2=Math.max(0,x(m.Lam)-padL);
-  c.fillStyle=over?COL.conv:'rgba(224,96,76,.62)';c.fillRect(padL,y2,w2,barH);
-  mono(c,10.5,500);c.textAlign='left';
-  if(w2>150){c.fillStyle='#1a0806';c.fillText('Λ  ekwiwalent nieszczelności',padL+10,y2+barH/2+4);}
-  else{c.fillStyle=COL.conv;c.fillText('Λ  ekwiwalent nieszczelności',padL+w2+10,y2+barH/2+4);}
-  mono(c,11,600);c.textAlign='right';c.fillStyle=over?COL.conv:COL.ok;
-  c.fillText(pl(m.Lam,0)+' Pa',W-padR,y2+barH+16);
-
-  // linia progu
-  if(m.dpres>0){
-    const xp=x(m.dpres);
-    c.setLineDash([4,4]);c.beginPath();c.moveTo(xp,y1-2);c.lineTo(xp,y2+barH+4);
-    c.strokeStyle=COL.dry;c.lineWidth=1.4;c.stroke();c.setLineDash([]);
-  }
-
-  // pasek A_leak
-  const yb=top+2*barH+gap+46, tbH=8;
-  const Amax=Math.max(20,S.A*1.2,(isFinite(m.Acr)&&m.Acr>0?m.Acr*1.6:0));
-  const xa=v=>padL+clamp(v/Amax,0,1)*bw;
-  c.fillStyle='rgba(180,210,210,.08)';c.fillRect(padL,yb,bw,tbH);
-  if(m.Acr>0){
-    c.fillStyle='rgba(87,192,138,.22)';c.fillRect(padL,yb,Math.max(0,xa(m.Acr)-padL),tbH);
-    c.fillStyle='rgba(87,192,138,.42)';c.fillRect(padL,yb,Math.max(0,xa(m.Acr/3)-padL),tbH);
-  }
-  // znaczniki
-  const mark=(v,col,lbl,side)=>{
-    if(!(v>0)||v>Amax)return;
-    const px=xa(v);
-    c.beginPath();c.moveTo(px,yb-6);c.lineTo(px,yb+tbH+6);c.strokeStyle=col;c.lineWidth=1.6;c.stroke();
-    mono(c,9);c.textAlign=side;c.fillStyle=col;
-    c.fillText(lbl,side==='left'?px+5:px-5,yb+tbH+18);
-  };
-  if(m.Acr>0){mark(m.Acr/3,COL.ok,'margines '+pl(m.Acr/3,2),'right');mark(m.Acr,COL.alu,'A_cr '+pl(m.Acr,2),'left');}
-  // bieżące A
-  const pc=xa(S.A);
-  c.beginPath();c.arc(pc,yb+tbH/2,6,0,TAU);
-  c.fillStyle=over?COL.conv:COL.ok;c.fill();
-  c.strokeStyle=COL.bg;c.lineWidth=2;c.stroke();
-  mono(c,9.5,500);c.textAlign='left';c.fillStyle=COL.text;
-  c.fillText('A_leak = '+pl(S.A,1)+' mm²/mb',padL,yb-12);
-  mono(c,9);c.textAlign='right';c.fillStyle=COL.mute;
-  c.fillText('Λ/Δp_res = '+(m.dpres>0?pl(m.Lam/m.dpres,2):'—'),W-padR,yb-12);
-}
-
-/* ════════ B — BILANS ════════ */
-function drawB(m){
-  const cv=G('cB'); if(!cv)return; const {c,W,H}=fit(cv);
-  const P={l:60,r:22,t:26,b:42}, pw=W-P.l-P.r, ph=H-P.t-P.b;
-  const Amax=Math.max(20,S.A*1.15,(m.Acr>0?m.Acr*1.5:0));
-  const vals=[m.net(0),m.net(Amax),m.inD,m.out,MCAP];
-  let yMax=Math.max(...vals,1)*1.15, yMin=Math.min(...vals,-0.4)*1.2;
-  const X=a=>P.l+a/Amax*pw, Y=v=>P.t+ph*(1-(v-yMin)/(yMax-yMin));
-
-  // siatka
-  c.strokeStyle=COL.line;c.lineWidth=1;mono(c,9);c.fillStyle=COL.mute;
-  const step=(yMax-yMin)/6;
-  for(let i=0;i<=6;i++){
-    const v=yMin+step*i, y=Y(v);
-    c.beginPath();c.moveTo(P.l,y);c.lineTo(P.l+pw,y);c.stroke();
-    c.textAlign='right';c.fillText(pl(v,1),P.l-8,y+3);
-  }
-  for(let i=0;i<=5;i++){
-    const a=Amax*i/5, x=X(a);
-    c.beginPath();c.moveTo(x,P.t);c.lineTo(x,P.t+ph);c.strokeStyle=COL.line;c.stroke();
-    c.textAlign='center';c.fillStyle=COL.mute;c.fillText(pl(a,0),x,P.t+ph+18);
-  }
-  c.textAlign='center';c.fillStyle=COL.mute;mono(c,9);
-  c.fillText('A_leak [mm²/mb]',P.l+pw/2,P.t+ph+34);
-  c.save();c.translate(15,P.t+ph/2);c.rotate(-Math.PI/2);c.textAlign='center';
-  c.fillText('kg / mb · rok',0,0);c.restore();
-
-  // obszar stabilny
-  const y0=Y(0);
-  c.fillStyle='rgba(87,192,138,.05)';c.fillRect(P.l,y0,pw,P.t+ph-y0);
-  c.fillStyle='rgba(224,96,76,.04)';c.fillRect(P.l,P.t,pw,y0-P.t);
-
-  const line=(fn,col,wd,dash)=>{
-    c.beginPath();
-    for(let i=0;i<=120;i++){const a=Amax*i/120;const y=Y(fn(a));i===0?c.moveTo(X(a),y):c.lineTo(X(a),y);}
-    c.setLineDash(dash||[]);c.strokeStyle=col;c.lineWidth=wd;c.stroke();c.setLineDash([]);
-  };
-  // składowe
-  line(()=>m.inD,COL.moist,1.8);
-  line(()=>m.out,COL.dry,1.8);
-  line(a=>mdot1(S.dP)*TZ*a,COL.conv,1.8);
-  line(()=>MCAP,COL.alu,1,[3,4]);
-
-  // netto — wypełnienie
-  c.beginPath();c.moveTo(P.l,y0);
-  for(let i=0;i<=120;i++){const a=Amax*i/120;c.lineTo(X(a),Y(m.net(a)));}
-  c.lineTo(P.l+pw,y0);c.closePath();
-  const grad=c.createLinearGradient(0,P.t,0,P.t+ph);
-  grad.addColorStop(0,'rgba(224,96,76,.22)');grad.addColorStop((y0-P.t)/ph,'rgba(224,96,76,.02)');
-  grad.addColorStop(Math.min(1,(y0-P.t)/ph+.001),'rgba(87,192,138,.02)');grad.addColorStop(1,'rgba(87,192,138,.18)');
-  c.fillStyle=grad;c.fill();
-  line(a=>m.net(a),COL.text,2.4);
-
-  // oś zero
-  c.beginPath();c.moveTo(P.l,y0);c.lineTo(P.l+pw,y0);c.strokeStyle=COL.line2;c.lineWidth=1.4;c.stroke();
-
-  // A_cr
-  if(m.Acr>0&&m.Acr<=Amax){
-    const xc=X(m.Acr);
-    c.setLineDash([4,4]);c.beginPath();c.moveTo(xc,P.t);c.lineTo(xc,P.t+ph);
-    c.strokeStyle=COL.ok;c.lineWidth=1.4;c.stroke();c.setLineDash([]);
-    c.beginPath();c.arc(xc,y0,5,0,TAU);c.fillStyle=COL.ok;c.fill();
-    mono(c,9.5,500);c.fillStyle=COL.ok;c.textAlign='left';
-    c.fillText('A_cr = '+pl(m.Acr,2),xc+7,P.t+14);
-  }
-  // punkt bieżący
-  const xs=X(clamp(S.A,0,Amax)), ys=Y(m.dM);
-  c.beginPath();c.moveTo(xs,P.t);c.lineTo(xs,P.t+ph);c.strokeStyle='rgba(220,229,228,.2)';c.lineWidth=1;c.stroke();
-  c.beginPath();c.arc(xs,ys,6,0,TAU);c.fillStyle=m.dM>0?COL.conv:COL.ok;c.fill();
-  c.strokeStyle=COL.panel;c.lineWidth=2;c.stroke();
-  mono(c,10,600);c.fillStyle=m.dM>0?COL.conv:COL.ok;
-  c.textAlign=xs>P.l+pw*.72?'right':'left';
-  c.fillText((m.dM>0?'+':'')+pl(m.dM,3)+' kg',xs+(xs>P.l+pw*.72?-9:9),ys-10);
-
-  // etykiety składowych
-  mono(c,9);c.textAlign='right';
-  c.fillStyle=COL.moist;c.fillText('dyfuzja '+pl(m.inD,3),P.l+pw-6,Y(m.inD)-5);
-  c.fillStyle=COL.dry;c.fillText('wysychanie '+pl(m.out,3),P.l+pw-6,Y(m.out)-5);
-  c.fillStyle=COL.alu;c.fillText('M_cap '+pl(MCAP,2),P.l+pw-6,Y(MCAP)+12);
-}
-
-/* ════════ C — POTENCJAŁ Θ ════════ */
-function drawC(m){
-  const cv=G('cC'); if(!cv)return; const {c,W,H}=fit(cv);
-  const P={l:62,r:64,t:30,b:58}, pw=W-P.l-P.r, ph=H-P.t-P.b;
-  const bins=binContrib(S.dTs);
-  const totH=bins.reduce((s,b)=>s+b.h,0);
-  const cMax=Math.max(...bins.map(b=>b.c),1e5)*1.2;
-  const TH=m.TH, cumMax=Math.max(TH,3.4e6)*1.12;
-
-  c.strokeStyle=COL.line;mono(c,9);c.fillStyle=COL.mute;
-  for(let i=0;i<=4;i++){
-    const y=P.t+ph*i/4;
-    c.beginPath();c.moveTo(P.l,y);c.lineTo(P.l+pw,y);c.stroke();
-    c.textAlign='right';c.fillStyle=COL.dry;
-    c.fillText(sci(cMax*(1-i/4),1),P.l-8,y+3);
-    c.textAlign='left';c.fillStyle=COL.moist;
-    c.fillText(sci(cumMax*(1-i/4),1),P.l+pw+8,y+3);
-  }
-  c.textAlign='left';c.fillStyle=COL.dry;mono(c,8.6);
-  c.fillText('wkład [Pa·h]',P.l-52,P.t-12);
-  c.textAlign='right';c.fillStyle=COL.moist;
-  c.fillText('Θ narastająco',P.l+pw+58,P.t-12);
-
-  // słupki o szerokości ∝ czas
-  let cursor=P.l, cum=0; const cumPts=[[P.l,P.t+ph]];
-  bins.forEach((b,i)=>{
-    const bwid=b.h/totH*pw, x=cursor+2, w=Math.max(2,bwid-4);
-    const hgt=b.c/cMax*ph, y=P.t+ph-hgt;
-    const g=c.createLinearGradient(0,y,0,P.t+ph);
-    g.addColorStop(0,'rgba(242,169,59,.92)');g.addColorStop(1,'rgba(242,169,59,.28)');
-    c.fillStyle=b.c>0?g:'rgba(224,96,76,.18)';
-    c.fillRect(x,y,w,hgt);
-    c.strokeStyle=b.c>0?'rgba(242,169,59,.5)':'rgba(224,96,76,.4)';c.lineWidth=1;
-    c.strokeRect(x+.5,y+.5,w-1,Math.max(1,hgt-1));
-    // etykiety
-    mono(c,9.5,500);c.textAlign='center';c.fillStyle=b.c>0?COL.text:COL.conv;
-    if(w>30)c.fillText(pl(b.T,0)+' °C',x+w/2,P.t+ph+18);
-    mono(c,8.6);c.fillStyle=COL.mute;
-    if(w>30)c.fillText(b.h+' h',x+w/2,P.t+ph+31);
-    if(w>44&&hgt>26){mono(c,8.8);c.fillStyle='rgba(20,14,4,.85)';
-      c.fillText(sci(b.c,2),x+w/2,y+15);}
-    if(b.c===0&&w>40){mono(c,8.4);c.fillStyle=COL.conv;c.textAlign='center';
-      c.fillText('Δp ≤ 0',x+w/2,P.t+ph-8);}
-    cum+=b.c;cursor+=bwid;
-    cumPts.push([cursor,P.t+ph*(1-cum/cumMax)]);
-  });
-  // linia narastająca
-  c.beginPath();cumPts.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));
-  c.strokeStyle=COL.moist;c.lineWidth=2.2;c.stroke();
-  cumPts.slice(1).forEach(([x,y])=>{c.beginPath();c.arc(x,y,3.2,0,TAU);c.fillStyle=COL.moist;c.fill();});
-
-  // granica wykonalności
-  const yMin=P.t+ph*(1-3.0e6/cumMax);
-  c.setLineDash([5,4]);c.beginPath();c.moveTo(P.l,yMin);c.lineTo(P.l+pw,yMin);
-  c.strokeStyle=COL.conv;c.lineWidth=1.4;c.stroke();c.setLineDash([]);
-  mono(c,9);c.textAlign='left';c.fillStyle=COL.conv;
-  c.fillText('Θ_min = 3,0·10⁶ Pa·h',P.l+6,yMin-6);
-
-  // odczyt
-  mono(c,11,600);c.textAlign='left';c.fillStyle=COL.dry;
-  c.fillText('Θ = '+sci(TH,3)+' Pa·h',P.l,P.t-12);
-  mono(c,9);c.textAlign='center';c.fillStyle=COL.mute;
-  const sc=S.dTs===0?'odniesienie':(S.dTs<=-24?'zacienienie / dach zielony':S.dTs<=-17?'orientacja północna':S.dTs<=-9?'pokrycie jasne':'przesunięcie '+pl(S.dTs,0)+' K');
-  c.fillText('ΔT = '+pl(S.dTs,0)+' K  ·  '+sc+'  ·  A_cr = '+(m.Acr>0?pl(m.Acr,2)+' mm²/mb':'brak'),P.l+pw/2,P.t+ph+48);
-}
-
-/* ════════ D — MAPA REŻIMÓW ════════ */
-function drawD(m){
-  const cv=G('cD'); if(!cv)return; const {c,W,H}=fit(cv);
-  const P={l:62,r:24,t:28,b:52}, pw=W-P.l-P.r, ph=H-P.t-P.b;
-  const ThMax=1.7e7, AMax=Math.max(20,S.A*1.15);
-  const X=t=>P.l+t/ThMax*pw, Y=a=>P.t+ph*(1-a/AMax);
-
-  const L=LAYERS[S.layer], SW=S.mu*D_FILL+L.w, SS=S.mu*D_FILL+L.s;
-  const inD=DA*DPZ*A_J*TZ/SW, m1=mdot1(S.dP);
-  const lam1=m1*SS/(DA*A_J);
-  const netAt=(th,a)=>inD+m1*TZ*a-DA*th*3600*A_J/SS;
-  const acrAt=th=>(th/TZ_H-DPZ*SS/SW)/lam1;
-
-  // heatmapa
-  const iw=Math.max(2,Math.round(pw)), ih=Math.max(2,Math.round(ph));
-  const img=c.createImageData(iw,ih);
-  let scale=Math.abs(netAt(theta(0),AMax));scale=Math.max(scale,0.2);
-  for(let py=0;py<ih;py++){
-    const a=AMax*(1-py/ih);
-    for(let px=0;px<iw;px++){
-      const th=ThMax*px/iw, n=netAt(th,a);
-      const t=Math.tanh(Math.abs(n)/(scale*0.45));
-      let r,g,b;
-      if(n>0){r=110+t*128;g=42+t*20;b=36+t*16;}
-      else    {r=26+t*24; g=74+t*102;b=54+t*62;}
-      const i=(py*iw+px)*4;
-      img.data[i]=r;img.data[i+1]=g;img.data[i+2]=b;img.data[i+3]=Math.round(150+t*70);
-    }
-  }
-  // rysunek przez bufor pomocniczy (skalowanie do DPI)
-  const off=document.createElement('canvas');off.width=iw;off.height=ih;
-  off.getContext('2d').putImageData(img,0,0);
-  c.drawImage(off,P.l,P.t,pw,ph);
-
-  // siatka
-  c.strokeStyle='rgba(255,255,255,.07)';c.lineWidth=1;mono(c,9);
-  for(let i=0;i<=5;i++){
-    const th=ThMax*i/5,x=X(th);
-    c.beginPath();c.moveTo(x,P.t);c.lineTo(x,P.t+ph);c.stroke();
-    c.textAlign='center';c.fillStyle=COL.mute;c.fillText(i?sci(th,1):'0',x,P.t+ph+18);
-  }
-  for(let i=0;i<=4;i++){
-    const a=AMax*i/4,y=Y(a);
-    c.beginPath();c.moveTo(P.l,y);c.lineTo(P.l+pw,y);c.stroke();
-    c.textAlign='right';c.fillStyle=COL.mute;c.fillText(pl(a,0),P.l-8,y+3);
-  }
-  c.textAlign='center';c.fillStyle=COL.mute;mono(c,9);
-  c.fillText('Θ — scałkowany potencjał wysychania [Pa·h]',P.l+pw/2,P.t+ph+34);
-  c.save();c.translate(15,P.t+ph/2);c.rotate(-Math.PI/2);c.textAlign='center';
-  c.fillText('A_leak [mm²/mb]',0,0);c.restore();
-
-  // granice
-  const curve=(fn,col,wd,dash)=>{
-    c.beginPath();let started=false;
-    for(let i=0;i<=200;i++){
-      const th=ThMax*i/200, a=fn(th);
-      if(a<0||a>AMax){started=false;continue;}
-      const x=X(th),y=Y(a);
-      started?c.lineTo(x,y):(c.moveTo(x,y),started=true);
-    }
-    c.setLineDash(dash||[]);c.strokeStyle=col;c.lineWidth=wd;c.stroke();c.setLineDash([]);
-  };
-  curve(acrAt,COL.text,2.2,[6,4]);
-  curve(th=>acrAt(th)/3,COL.alu,1.4,[3,4]);
-
-  // granica wykonalności
-  const xm=X(DPZ*TZ_H*(SS/SW));  // Θ przy Δp_res = 0
-  if(xm>P.l&&xm<P.l+pw){
-    c.setLineDash([5,5]);c.beginPath();c.moveTo(xm,P.t);c.lineTo(xm,P.t+ph);
-    c.strokeStyle=COL.conv;c.lineWidth=1.6;c.stroke();c.setLineDash([]);
-    mono(c,9,500);c.save();c.translate(xm-7,P.t+14);c.rotate(Math.PI/2);
-    c.textAlign='left';c.fillStyle=COL.conv;c.fillText('granica wykonalności',0,0);c.restore();
-  }
-
-  // scenariusze
-  const SCEN=[[0,'odniesienie'],[-10,'jasne −10 K'],[-18,'północ −18 K'],[-25,'zacienienie −25 K']];
-  SCEN.forEach(([dt,lbl])=>{
-    const th=theta(dt), x=X(th);
-    if(x<P.l-2||x>P.l+pw+2)return;
-    c.beginPath();c.arc(x,P.t+ph-9,4,0,TAU);
-    c.fillStyle=COL.alu;c.fill();c.strokeStyle='rgba(0,0,0,.5)';c.lineWidth=1;c.stroke();
-    mono(c,8.4);c.save();c.translate(x+4,P.t+ph-16);c.rotate(-Math.PI/2.4);
-    c.textAlign='left';c.fillStyle='rgba(159,176,182,.85)';c.fillText(lbl,0,0);c.restore();
-  });
-
-  // stan bieżący
-  const xs=X(m.TH), ys=Y(clamp(S.A,0,AMax));
-  c.strokeStyle=COL.text;c.lineWidth=1.4;
-  c.beginPath();c.moveTo(xs-9,ys);c.lineTo(xs+9,ys);c.moveTo(xs,ys-9);c.lineTo(xs,ys+9);c.stroke();
-  c.beginPath();c.arc(xs,ys,5.5,0,TAU);c.strokeStyle=COL.text;c.lineWidth=2;c.stroke();
-  c.fillStyle=m.dM>0?COL.conv:COL.ok;c.fill();
-
-  mono(c,9.5,500);c.textAlign='left';c.fillStyle=COL.mid;
-  c.fillText('warstwa: '+G('sL').selectedOptions[0].text+'  ·  µ = '+pl(S.mu,1)+'  ·  ΔP = '+pl(S.dP,0)+' Pa',P.l,P.t-11);
-}
-
-
-/* ══════ RYCINY 1,2,3,8,9,7 ══════ */
-/* ═══ E — PRZEKRÓJ ═══ */
-function drawE(){
-  const cv=G('cE');if(!cv)return;const {c,W,H}=fit(cv);
-  const MMW=760,sc=Math.min(W/MMW,H/430),ox=W/2,oy=42;
-  const X=mm=>ox+mm*sc,Y=mm=>oy+mm*sc,L=mm=>mm*sc;
-  const AL=25*Math.PI/180,TAN=Math.tan(AL),tv=140/Math.cos(AL),XE=360;
-
-  const hatch=(pts,fill,stroke)=>{
-    c.beginPath();pts.forEach(([x,y],i)=>i?c.lineTo(X(x),Y(y)):c.moveTo(X(x),Y(y)));
-    c.closePath();c.fillStyle=fill;c.fill();c.strokeStyle=stroke;c.lineWidth=1.1;c.stroke();};
-
-  // pokrycie ciemne
-  [[-1],[1]].forEach(([s])=>{
-    hatch([[s*25,-46],[s*XE,(XE-25)*TAN-46],[s*XE,(XE-25)*TAN-28],[s*25,-28]],'rgba(46,54,58,.95)','rgba(120,135,140,.35)');
-  });
-  c.beginPath();c.moveTo(X(-25),Y(-46));c.lineTo(X(25),Y(-46));c.lineTo(X(25),Y(-28));c.lineTo(X(-25),Y(-28));
-  c.closePath();c.fillStyle='rgba(46,54,58,.95)';c.fill();c.strokeStyle='rgba(120,135,140,.35)';c.stroke();
-
-  // płyty PIR
-  [[-1],[1]].forEach(([s])=>{
-    hatch([[s*25,0],[s*XE,(XE-25)*TAN],[s*XE,(XE-25)*TAN+tv],[s*25,tv]],'rgba(216,195,138,.17)','rgba(216,195,138,.5)');
-    // okładziny Al
-    hatch([[s*25,0],[s*XE,(XE-25)*TAN],[s*XE,(XE-25)*TAN+7],[s*25,7]],'rgba(159,176,182,.7)','rgba(159,176,182,.8)');
-    hatch([[s*25,tv-7],[s*XE,(XE-25)*TAN+tv-7],[s*XE,(XE-25)*TAN+tv],[s*25,tv]],'rgba(159,176,182,.7)','rgba(159,176,182,.8)');
-  });
-
-  // pianka ocSPF w szczelinie
-  hatch([[-25,0],[25,0],[25,80],[-25,80]],'rgba(143,184,168,.26)','rgba(143,184,168,.7)');
-  c.save();c.beginPath();c.rect(X(-25),Y(0),L(50),L(80));c.clip();
-  c.strokeStyle='rgba(143,184,168,.3)';c.lineWidth=.8;
-  for(let i=-60;i<120;i+=9){c.beginPath();c.moveTo(X(-25)+L(i),Y(0));c.lineTo(X(-25)+L(i+60),Y(80));c.stroke();}
-  c.restore();
-  // pustka pod pianką
-  hatch([[-25,80],[25,80],[25,tv],[-25,tv]],'rgba(0,0,0,.28)','rgba(180,210,210,.16)');
-
-  // taśma Al
-  c.beginPath();
-  c.moveTo(X(-170),Y((170-25)*TAN-2));c.lineTo(X(-25),Y(-2));c.lineTo(X(25),Y(-2));
-  c.lineTo(X(170),Y((170-25)*TAN-2));
-  c.strokeStyle=COL.alu;c.lineWidth=Math.max(2.6,L(7));c.lineJoin='round';c.stroke();
-
-  // więźba
-  hatch([[-70,tv+4],[70,tv+4],[70,tv+150],[-70,tv+150]],'rgba(168,121,74,.2)','rgba(168,121,74,.55)');
-  c.save();c.beginPath();c.rect(X(-70),Y(tv+4),L(140),L(146));c.clip();
-  c.strokeStyle='rgba(168,121,74,.3)';c.lineWidth=.9;
-  for(let i=-160;i<200;i+=13){c.beginPath();c.moveTo(X(-70)+L(i),Y(tv+4));c.lineTo(X(-70)+L(i+150),Y(tv+150));c.stroke();}
-  c.restore();
-
-  // warstwa wewnętrzna
-  const hasLayer=S.layer!=='none';
-  const lw=Math.max(2,L(4));
-  const drawInner=()=>{
-    const col=S.layer==='pe'?'rgba(224,96,76,.9)':S.layer==='vcl'?'rgba(87,192,138,.9)':'rgba(147,163,164,.5)';
-    const yAt=x=>Math.abs(x)<=25?tv+9:(Math.abs(x)-25)*TAN+tv+9;
-    c.lineWidth=lw;c.strokeStyle=col;c.setLineDash(hasLayer?[]:[5,5]);
-    if(S.cont==='cont'){
-      c.beginPath();c.moveTo(X(-XE),Y(yAt(-XE)));
-      for(let x=-XE;x<=XE;x+=8)c.lineTo(X(x),Y(yAt(x)));
-      c.stroke();
-    }else{
-      c.beginPath();c.moveTo(X(-XE),Y(yAt(-XE)));
-      for(let x=-XE;x<=-62;x+=8)c.lineTo(X(x),Y(yAt(x)));c.stroke();
-      c.beginPath();c.moveTo(X(48),Y(yAt(48)));
-      for(let x=48;x<=XE;x+=8)c.lineTo(X(x),Y(yAt(x)));c.stroke();
-    }
-    c.setLineDash([]);
-    mono(c,9.4,500);c.textAlign='left';c.fillStyle=col;
-    c.fillText(hasLayer?LAYERS[S.layer].n+' · S_d '+(S.layer==='vcl'?'25 / 0,3 m':'15 m'):'brak warstwy wewnętrznej',
-      X(-XE)+4,Y(yAt(-XE))+L(38));
-  };
-  drawInner();
-
-  // ścieżki transportu
-  const showW=S.season==='winter'||S.season==='both';
-  const showS=S.season==='summer'||S.season==='both';
-  const leak=S.cont==='broken';
-
-  if(showW){
-    if(leak){
-      arrow(c,X(5),Y(tv+96),X(5),Y(tv+16),COL.conv,3.2,9);
-      arrow(c,X(5),Y(tv+12),X(0),Y(92),COL.conv,3.2,9);
-      arrow(c,X(0),Y(88),X(0),Y(14),COL.conv,3.2,9);
-      // kondensat
-      const gx=c.createRadialGradient(X(0),Y(8),0,X(0),Y(8),L(34));
-      gx.addColorStop(0,'rgba(79,168,216,.55)');gx.addColorStop(1,'rgba(79,168,216,0)');
-      c.fillStyle=gx;c.beginPath();c.arc(X(0),Y(8),L(34),0,TAU);c.fill();
-      mono(c,9.6,600);c.textAlign='left';c.fillStyle=COL.moist;
-      c.fillText('kondensacja na granicy faz',X(34),Y(10));
-      mono(c,8.8);c.fillStyle=COL.mid;
-      c.fillText('adhezja 15–40 kPa · P_kryst ≈ 66 kPa',X(34),Y(24));
-      mono(c,9.4,500);c.textAlign='right';c.fillStyle=COL.conv;
-      c.fillText('konwekcja  ΔP = 10 Pa',X(-2),Y(tv+64));
-      mono(c,8.8);c.fillStyle=COL.mid;
-      c.fillText('A_leak = '+pl(S.A,1)+' mm²/mb',X(-2),Y(tv+78));
-    }
-    // dyfuzja
-    [-14,14].forEach(dx=>{arrow(c,X(dx),Y(tv+4),X(dx),Y(86),COL.moist,1.6,5);});
-    mono(c,8.8);c.textAlign='left';c.fillStyle=COL.moist;
-    c.fillText('dyfuzja  Δp̄_z = 600 Pa',X(34),Y(tv-6));
-  }
-  if(showS){
-    for(let i=0;i<4;i++){const x=-130+i*86;
-      arrow(c,X(x-26),Y(-108),X(x),Y((Math.abs(x)>25?(Math.abs(x)-25)*TAN:0)-52),COL.dry,1.7,6);}
-    mono(c,9.4,500);c.textAlign='center';c.fillStyle=COL.dry;
-    c.fillText('promieniowanie słoneczne · T_zł do 60 °C',X(0),Y(-120));
-    const blocked=S.layer==='pe';
-    const col=blocked?'rgba(224,96,76,.85)':COL.dry;
-    arrow(c,X(-8),Y(16),X(-8),Y(tv+2),col,3,9);
-    if(blocked){
-      c.strokeStyle=COL.conv;c.lineWidth=3;
-      c.beginPath();c.moveTo(X(-8)-L(16),Y(tv+2));c.lineTo(X(-8)+L(16),Y(tv+26));
-      c.moveTo(X(-8)+L(16),Y(tv+2));c.lineTo(X(-8)-L(16),Y(tv+26));c.stroke();
-      mono(c,9.4,600);c.textAlign='right';c.fillStyle=COL.conv;
-      c.fillText('droga wysychania zamknięta',X(-34),Y(tv+40));
-    }else{
-      arrow(c,X(-8),Y(tv+14),X(-8),Y(tv+86),col,3,9);
-      mono(c,9.4,500);c.textAlign='right';c.fillStyle=COL.dry;
-      c.fillText('wysychanie do wnętrza',X(-34),Y(tv+62));
-    }
-  }
-
-  // wymiary
-  if(S.dim==='on'){
-    const dim=(x1,y1,x2,y2,txt,off)=>{
-      c.strokeStyle='rgba(147,163,164,.55)';c.lineWidth=1;c.setLineDash([]);
-      c.beginPath();c.moveTo(X(x1),Y(y1));c.lineTo(X(x2),Y(y2));c.stroke();
-      const t=6;const a=Math.atan2(Y(y2)-Y(y1),X(x2)-X(x1));
-      [[x1,y1],[x2,y2]].forEach(([x,y])=>{c.beginPath();
-        c.moveTo(X(x)-t*Math.sin(a),Y(y)+t*Math.cos(a));c.lineTo(X(x)+t*Math.sin(a),Y(y)-t*Math.cos(a));c.stroke();});
-      mono(c,8.8,500);c.fillStyle=COL.mid;c.textAlign='center';
-      c.fillText(txt,(X(x1)+X(x2))/2+(off?off[0]:0),(Y(y1)+Y(y2))/2+(off?off[1]:-5));
-    };
-    dim(-25,-62,25,-62,'b = 50');
-    dim(40,0,40,80,'d = 80',[26,0]);
-    dim(200,(200-25)*TAN+2,200,(200-25)*TAN+tv-2,'140',[24,0]);
-    mono(c,8.8);c.textAlign='left';c.fillStyle=COL.mute;
-    c.fillText('A_zł = 0,05 m²/mb   ·   S_d,zł = µ·d = '+pl(S.mu*0.08,3)+' m   ·   S_d,pola ≥ 1000 m',X(-XE),Y(tv+178));
-  }
-  // etykieta połaci
-  mono(c,9,500);c.textAlign='right';c.fillStyle='rgba(216,195,138,.8)';
-  c.fillText('płyta PIR + okładzina Al',X(XE)-4,Y((XE-25)*TAN+tv/2));
-  c.textAlign='center';c.fillStyle=COL.alu;
-  c.fillText('taśma aluminiowa',X(0),Y(-16));
-}
-
-/* ═══ F — MECHANIZMY ═══ */
-function drawF(){
-  const cv=G('cF');if(!cv)return;const {c,W,H}=fit(cv);
-  const P={l:Math.min(178,W*.3),r:28,t:40,b:40},pw=W-P.l-P.r,ph=H-P.t-P.b;
-  const lo=-6,hi=2;const X=r=>P.l+(clamp(Math.log10(r),lo,hi)-lo)/(hi-lo)*pw;
-  const m=model(S);
-  const rows=[
-    {n:'Pe',d:'konwekcja w matrycy',v:Pe(S.K,S.mu),t:1,u:''},
-    {n:'Ra_D',d:'konwekcja w ośrodku porowatym',v:RaD(S.K,S.dTj),t:4*Math.PI*Math.PI,u:''},
-    {n:'S_T·ΔT',d:'termodyfuzja',v:1.7e-4*S.dTj,t:0.1,u:''},
-    {n:'Λ/Δp_res',d:'konwekcja przez nieciągłości',v:m.dpres>0?m.lam1*S.A/m.dpres:99,t:1,u:''}];
-
-  mono(c,9);c.fillStyle=COL.mute;
-  for(let e=lo;e<=hi;e++){const x=X(Math.pow(10,e));
-    c.beginPath();c.moveTo(x,P.t-12);c.lineTo(x,P.t+ph+6);
-    c.strokeStyle=e===0?COL.line2:COL.line;c.lineWidth=e===0?1.4:1;c.stroke();
-    c.textAlign='center';c.fillText('10'+String(e).split('').map(k=>SUP[k]).join(''),x,P.t+ph+22);}
-  c.setLineDash([5,4]);c.beginPath();c.moveTo(X(1),P.t-12);c.lineTo(X(1),P.t+ph+6);
-  c.strokeStyle=COL.text;c.lineWidth=1.6;c.stroke();c.setLineDash([]);
-  mono(c,9,600);c.textAlign='center';c.fillStyle=COL.text;c.fillText('PRÓG',X(1),P.t-20);
-  mono(c,9);c.fillStyle=COL.mute;c.fillText('wartość / próg',P.l+pw/2,P.t+ph+36);
-
-  const rh=ph/rows.length;
-  rows.forEach((r,i)=>{
-    const y=P.t+rh*(i+.5),bh=15,over=r.v>=r.t;
-    const ratio=r.v/r.t,x=X(ratio),x0=X(Math.pow(10,lo));
-    c.fillStyle=over?'rgba(224,96,76,.22)':'rgba(87,192,138,.16)';
-    c.fillRect(x0,y-bh/2,Math.max(1,x-x0),bh);
-    c.fillStyle=over?COL.conv:COL.ok;c.fillRect(x-3,y-bh/2-3,3,bh+6);
-    c.beginPath();c.arc(x,y,5,0,TAU);c.fillStyle=over?COL.conv:COL.ok;c.fill();
-    mono(c,11,600);c.textAlign='right';c.fillStyle=over?COL.conv:COL.text;
-    c.fillText(r.n,P.l-14,y-1);
-    mono(c,8.6);c.fillStyle=COL.mute;c.fillText(r.d,P.l-14,y+12);
-    mono(c,9.2,500);c.textAlign=x>P.l+pw*.6?'right':'left';c.fillStyle=over?COL.conv:COL.ok;
-    const dec=Math.log10(r.t/r.v);
-    const txt=sci(r.v,2)+'  ·  próg '+(r.t>=10?pl(r.t,1):pl(r.t,r.t<1?2:0))+
-      (over?'  ·  przekroczony ×'+pl(r.v/r.t,2):'  ·  '+pl(dec,1)+' rzędu poniżej');
-    c.fillText(txt,x+(x>P.l+pw*.6?-12:12),y-11);
-  });
-  mono(c,8.8);c.textAlign='left';c.fillStyle=COL.mute;
-  c.fillText('K = '+sci(S.K,1)+' m²  ·  ΔT = '+pl(S.dTj,0)+' K  ·  µ = '+pl(S.mu,1)+
-    '  ·  v = '+sci(vFilt(S.K),1)+' m/s',P.l,P.t-20);
-}
-
-/* ═══ G — RAYLEIGH ═══ */
-function drawG(){
-  const cv=G('cG');if(!cv)return;const {c,W,H}=fit(cv);
-  const P={l:58,r:86,t:32,b:46},pw=W-P.l-P.r,ph=H-P.t-P.b;
-  const T1=10,T2=45,hMax=13;
-  const X=t=>P.l+(t-T1)/(T2-T1)*pw,Y=h=>P.t+ph*(1-h/hMax);
-
-  c.strokeStyle=COL.line;mono(c,9);c.fillStyle=COL.mute;
-  for(let h=0;h<=12;h+=3){const y=Y(h);c.beginPath();c.moveTo(P.l,y);c.lineTo(P.l+pw,y);c.stroke();
-    c.textAlign='right';c.fillText(h+' mm',P.l-8,y+3);}
-  for(let t=T1;t<=T2;t+=5){const x=X(t);c.beginPath();c.moveTo(x,P.t);c.lineTo(x,P.t+ph);c.stroke();
-    c.textAlign='center';c.fillText(t,x,P.t+ph+18);}
-  c.textAlign='center';c.fillStyle=COL.mute;c.fillText('ΔT w szczelinie [K]',P.l+pw/2,P.t+ph+34);
-
-  // obszary
-  c.beginPath();c.moveTo(P.l,P.t);
-  for(let i=0;i<=120;i++){const t=T1+(T2-T1)*i/120;c.lineTo(X(t),Y(hcr(t)*1e3));}
-  c.lineTo(P.l+pw,P.t);c.closePath();c.fillStyle='rgba(224,96,76,.13)';c.fill();
-  c.beginPath();c.moveTo(P.l,P.t+ph);
-  for(let i=0;i<=120;i++){const t=T1+(T2-T1)*i/120;c.lineTo(X(t),Y(hcr(t)*1e3));}
-  c.lineTo(P.l+pw,P.t+ph);c.closePath();c.fillStyle='rgba(87,192,138,.08)';c.fill();
-
-  c.beginPath();
-  for(let i=0;i<=120;i++){const t=T1+(T2-T1)*i/120;const y=Y(hcr(t)*1e3);i?c.lineTo(X(t),y):c.moveTo(X(t),y);}
-  c.strokeStyle=COL.text;c.lineWidth=2.4;c.stroke();
-
-  mono(c,9.6,500);c.textAlign='center';c.fillStyle=COL.conv;
-  c.fillText('konwekcja naturalna czynna  ·  Ra > 1708',P.l+pw*.55,P.t+22);
-  c.fillStyle='rgba(87,192,138,.85)';
-  c.fillText('przewodzenie  ·  Ra < 1708',P.l+pw*.5,P.t+ph-16);
-
-  [[20],[35]].forEach(([t])=>{
-    const x=X(t),y=Y(hcr(t)*1e3);
-    c.setLineDash([3,4]);c.beginPath();c.moveTo(x,Y(0));c.lineTo(x,y);c.lineTo(P.l,y);
-    c.strokeStyle='rgba(159,176,182,.5)';c.lineWidth=1;c.stroke();c.setLineDash([]);
-    c.beginPath();c.arc(x,y,5,0,TAU);c.fillStyle=COL.alu;c.fill();
-    mono(c,9.4,600);c.textAlign='left';c.fillStyle=COL.text;
-    c.fillText(pl(hcr(t)*1e3,1)+' mm',x+9,y-7);});
-
-  // bieżące ΔT
-  const xc=X(clamp(S.dTj,T1,T2)),yc=Y(hcr(clamp(S.dTj,T1,T2))*1e3);
-  c.beginPath();c.moveTo(xc,P.t);c.lineTo(xc,P.t+ph);c.strokeStyle='rgba(242,169,59,.5)';c.lineWidth=1.4;c.stroke();
-  c.beginPath();c.arc(xc,yc,6,0,TAU);c.fillStyle=COL.dry;c.fill();
-  c.strokeStyle=COL.panel;c.lineWidth=2;c.stroke();
-
-  // prawa oś — ciśnienie krystalizacji
-  const pk=r=>2*0.033/r;
-  mono(c,8.8);c.textAlign='left';c.fillStyle=COL.alu;
-  c.fillText('ciśnienie krystalizacji',P.l+pw+10,P.t+2);
-  const bars=[['r = 1 µm',pk(1e-6)/1000,COL.conv],['adhezja 15–40 kPa',27.5,COL.alu],['r = 50 µm',pk(50e-6)/1000,COL.ok]];
-  bars.forEach((b,i)=>{
-    const y=P.t+30+i*40,wmax=62,w=Math.max(2,Math.min(1,b[1]/70)*wmax);
-    c.fillStyle=b[2];c.fillRect(P.l+pw+10,y,w,9);
-    mono(c,8.4);c.fillStyle=COL.mid;c.fillText(b[0],P.l+pw+10,y-3);
-    mono(c,8.8,600);c.fillStyle=b[2];c.fillText(pl(b[1],b[1]<10?1:0)+' kPa',P.l+pw+10,y+20);});
-
-  mono(c,9.6,600);c.textAlign='left';c.fillStyle=COL.text;
-  c.fillText('h_cr = [1708·ν·α / (g·β·ΔT)]^(1/3)',P.l,P.t-12);
-}
-
-/* ═══ H — CZUŁOŚCI ═══ */
-function drawH(){
-  const cv=G('cH');if(!cv)return;const {c,W,H}=fit(cv);
-  const split=Math.min(W*.52,W-250);
-  const s=sens(S),m=model(S);
-  // --- tornado ---
-  const P={l:92,t:46,b:70},ph=H-P.t-P.b,pw=split-P.l-24;
-  const names={A:'A_leak',Th:'Θ',Cd:'C_d',mu:'µ',w:'w_sat',dp:'Δp̄_z'};
-  const keys=Object.keys(s.Sx).sort((a,b)=>Math.abs(s.Sx[b])-Math.abs(s.Sx[a]));
-  const mx=Math.max(...keys.map(k=>Math.abs(s.Sx[k])),1.2)*1.15;
-  const cx0=P.l+pw/2,X=v=>cx0+v/mx*(pw/2);
-  mono(c,9.6,600);c.textAlign='left';c.fillStyle=COL.text;
-  c.fillText('Czułości znormalizowane S_x',P.l-70,P.t-24);
-  mono(c,8.8);c.fillStyle=COL.mute;
-  c.fillText('ΔM = '+pl(s.dM,3)+' kg/mb  ·  A_leak = '+pl(S.A,1),P.l-70,P.t-10);
-  c.strokeStyle=COL.line;
-  for(let i=-2;i<=2;i++){const x=X(mx*i/2);c.beginPath();c.moveTo(x,P.t);c.lineTo(x,P.t+ph);
-    c.strokeStyle=i===0?COL.line2:COL.line;c.lineWidth=i===0?1.4:1;c.stroke();
-    mono(c,8.6);c.textAlign='center';c.fillStyle=COL.mute;c.fillText(pl(mx*i/2,1),x,P.t+ph+16);}
-  const rh=ph/keys.length;
-  keys.forEach((k,i)=>{
-    const v=s.Sx[k],y=P.t+rh*i+rh*.5,bh=Math.min(20,rh*.52);
-    const x1=X(0),x2=X(v);
-    c.fillStyle=v<0?'rgba(224,96,76,.75)':'rgba(87,192,138,.75)';
-    c.fillRect(Math.min(x1,x2),y-bh/2,Math.abs(x2-x1),bh);
-    mono(c,9.6,500);c.textAlign='right';c.fillStyle=COL.text;c.fillText(names[k],P.l-10,y+4);
-    mono(c,8.8,600);c.textAlign=v<0?'right':'left';c.fillStyle=v<0?COL.conv:COL.ok;
-    c.fillText(pl(v,2),x2+(v<0?-6:6),y+4);
-    // udział w wariancji
-    const share=Math.pow(s.Sx[k]*SIG[k],2)/s.var;
-    const sy=y+bh/2+3,sw=share*(pw/2);
-    c.fillStyle='rgba(79,168,216,.55)';c.fillRect(cx0,sy,Math.max(1,sw),3);
-    mono(c,7.8);c.textAlign='left';c.fillStyle=COL.moist;
-    c.fillText(pl(share*100,1)+' %',cx0+sw+5,sy+4);
-  });
-  mono(c,8.6);c.textAlign='center';c.fillStyle=COL.mute;
-  c.fillText('S_x  (pasek cienki — udział w wariancji)',cx0,P.t+ph+32);
-
-  // --- σ_rel ---
-  const Q={l:split+56,r:24,t:46,b:70},qw=W-Q.l-Q.r,qh=H-Q.t-Q.b;
-  const Amin=Math.max(m.Acr*1.02,0.05),Amax=Math.max(20,S.A*1.15);
-  const XA=a=>Q.l+(a-Amin)/(Amax-Amin)*qw,YS=v=>Q.t+qh*(1-clamp(v,0,3)/3);
-  mono(c,9.6,600);c.textAlign='left';c.fillStyle=COL.text;
-  c.fillText('Niepewność względna σ_rel',Q.l,Q.t-24);
-  mono(c,8.8);c.fillStyle=COL.mute;
-  c.fillText('rozbieganie w pobliżu progu ~ 1/ΔM',Q.l,Q.t-10);
-  c.strokeStyle=COL.line;mono(c,8.6);
-  for(let i=0;i<=3;i++){const y=YS(i);c.beginPath();c.moveTo(Q.l,y);c.lineTo(Q.l+qw,y);c.stroke();
-    c.textAlign='right';c.fillStyle=COL.mute;c.fillText(pl(i,1),Q.l-7,y+3);}
-  // pas σ>1
-  c.fillStyle='rgba(224,96,76,.1)';c.fillRect(Q.l,Q.t,qw,YS(1)-Q.t);
-  mono(c,8.6);c.textAlign='left';c.fillStyle=COL.conv;
-  c.fillText('σ_rel > 1 — wynik nieoznaczony',Q.l+6,YS(1)-8);
-  c.beginPath();
-  for(let i=0;i<=160;i++){const a=Amin+(Amax-Amin)*i/160;
-    const v=sens({...S,A:a}).sigma;const y=YS(v);i?c.lineTo(XA(a),y):c.moveTo(XA(a),y);}
-  c.strokeStyle=COL.dry;c.lineWidth=2.4;c.stroke();
-  [6,8,10].forEach(a=>{if(a<Amin||a>Amax)return;
-    const v=sens({...S,A:a}).sigma;
-    c.beginPath();c.arc(XA(a),YS(v),4,0,TAU);c.fillStyle=COL.alu;c.fill();
-    mono(c,8.4);c.textAlign='center';c.fillStyle=COL.mid;c.fillText(pl(v,2),XA(a),YS(v)-9);});
-  const xs=XA(clamp(S.A,Amin,Amax));
-  c.beginPath();c.arc(xs,YS(s.sigma),6,0,TAU);c.fillStyle=s.sigma>1?COL.conv:COL.ok;c.fill();
-  c.strokeStyle=COL.panel;c.lineWidth=2;c.stroke();
-  for(let i=0;i<=4;i++){const a=Amin+(Amax-Amin)*i/4;const x=XA(a);
-    c.beginPath();c.moveTo(x,Q.t);c.lineTo(x,Q.t+qh);c.strokeStyle=COL.line;c.lineWidth=1;c.stroke();
-    mono(c,8.6);c.textAlign='center';c.fillStyle=COL.mute;c.fillText(pl(a,1),x,Q.t+qh+16);}
-  mono(c,8.6);c.textAlign='center';c.fillStyle=COL.mute;
-  c.fillText('A_leak [mm²/mb]   (od A_cr = '+pl(m.Acr,2)+')',Q.l+qw/2,Q.t+qh+32);
-}
-
-/* ═══ I — WARSTWA ═══ */
-function drawI(){
-  const cv=G('cI');if(!cv)return;const {c,W,H}=fit(cv);
-  const P={l:150,r:34,t:46,b:50},pw=W-P.l-P.r,ph=H-P.t-P.b;
-  const lo=-2.2,hi=1.1,X=v=>P.l+(clamp(Math.log10(Math.max(v,1e-4)),lo,hi)-lo)/(hi-lo)*pw;
-  const vs=Object.keys(LAYERS).map(k=>{const m=model({...S,layer:k});return {k,n:LAYERS[k].n,...m};});
-
-  mono(c,9);c.fillStyle=COL.mute;
-  for(let e=Math.ceil(lo);e<=hi;e++){const x=X(Math.pow(10,e));
-    c.beginPath();c.moveTo(x,P.t-6);c.lineTo(x,P.t+ph+4);c.strokeStyle=COL.line;c.lineWidth=1;c.stroke();
-    c.textAlign='center';c.fillText('10'+String(e).split('').map(k=>SUP[k]).join(''),x,P.t+ph+20);}
-  c.textAlign='center';c.fillStyle=COL.mute;
-  c.fillText('A_leak,cr [mm²/mb] — skala logarytmiczna',P.l+pw/2,P.t+ph+36);
-
-  // granica wykonawcza
-  const xw=X(0.1);
-  c.fillStyle='rgba(224,96,76,.1)';c.fillRect(P.l,P.t-6,xw-P.l,ph+10);
-  c.setLineDash([5,4]);c.beginPath();c.moveTo(xw,P.t-6);c.lineTo(xw,P.t+ph+4);
-  c.strokeStyle=COL.conv;c.lineWidth=1.5;c.stroke();c.setLineDash([]);
-  mono(c,8.8,500);c.save();c.translate(xw-8,P.t+10);c.rotate(Math.PI/2);c.textAlign='left';
-  c.fillStyle=COL.conv;c.fillText('poniżej możliwości wykonawczych',0,0);c.restore();
-
-  const rh=ph/vs.length;
-  vs.forEach((v,i)=>{
-    const y=P.t+rh*i+rh*.42,bh=Math.min(18,rh*.3);
-    const x0=X(1e-4),x1=X(v.Acr),x3=X(v.Acr/3);
-    c.fillStyle=v.k===S.layer?'rgba(87,192,138,.8)':'rgba(87,192,138,.35)';
-    c.fillRect(x0,y-bh/2,Math.max(2,x1-x0),bh);
-    c.fillStyle='rgba(159,176,182,.5)';c.fillRect(x0,y+bh/2+2,Math.max(2,x3-x0),5);
-    c.beginPath();c.arc(x1,y,5,0,TAU);c.fillStyle=COL.ok;c.fill();
-    mono(c,10.4,v.k===S.layer?600:500);c.textAlign='right';
-    c.fillStyle=v.k===S.layer?COL.text:COL.mid;c.fillText(v.n,P.l-12,y+2);
-    mono(c,8.4);c.fillStyle=COL.mute;
-    c.fillText('S_d '+pl(v.SW,2)+' / '+pl(v.SS,2)+' m',P.l-12,y+15);
-    mono(c,9.4,600);c.textAlign='left';c.fillStyle=COL.ok;
-    c.fillText(pl(v.Acr,v.Acr<1?3:2),x1+10,y+3);
-    mono(c,8.4);c.fillStyle=COL.alu;
-    c.fillText('wymaganie '+pl(v.Acr/3,v.Acr<1?3:2),x3+8,y+bh/2+11);
-  });
-  const ratio=vs[2].Acr/vs[1].Acr;
-  mono(c,9.2,500);c.textAlign='left';c.fillStyle=COL.text;
-  c.fillText('membrana zmiennooporowa podnosi próg ×'+pl(ratio,0)+' względem folii PE',P.l-138,P.t-22);
-}
-
-/* ═══ J — TERMIKA ═══ */
-function drawJ(){
-  const cv=G('cJ');if(!cv)return;const {c,W,H}=fit(cv);
-  const P={l:62,r:Math.min(220,W*.3),t:44,b:48},pw=W-P.l-P.r,ph=H-P.t-P.b;
-  const yMax=0.5,X=s=>P.l+s*pw,Y=l=>P.t+ph*(1-l/yMax);
-  c.strokeStyle=COL.line;mono(c,9);c.fillStyle=COL.mute;
-  for(let i=0;i<=5;i++){const v=yMax*i/5,y=Y(v);c.beginPath();c.moveTo(P.l,y);c.lineTo(P.l+pw,y);c.stroke();
-    c.textAlign='right';c.fillText(pl(v,2),P.l-8,y+3);}
-  for(let i=0;i<=5;i++){const s=i/5,x=X(s);c.beginPath();c.moveTo(x,P.t);c.lineTo(x,P.t+ph);c.stroke();
-    c.textAlign='center';c.fillText(pl(s,1),x,P.t+ph+18);}
-  c.textAlign='center';c.fillStyle=COL.mute;c.fillText('stopień nasycenia S [–]',P.l+pw/2,P.t+ph+34);
-  c.save();c.translate(15,P.t+ph/2);c.rotate(-Math.PI/2);c.textAlign='center';
-  c.fillText('λ_eff [W·m⁻¹K⁻¹]',0,0);c.restore();
-
-  c.beginPath();c.moveTo(X(0),Y(0));
-  for(let i=0;i<=100;i++){const s=i/100;c.lineTo(X(s),Y(lamEff(s)));}
-  c.lineTo(X(1),Y(0));c.closePath();c.fillStyle='rgba(242,169,59,.09)';c.fill();
-  c.beginPath();
-  for(let i=0;i<=100;i++){const s=i/100,y=Y(lamEff(s));i?c.lineTo(X(s),y):c.moveTo(X(s),y);}
-  c.strokeStyle=COL.dry;c.lineWidth=2.4;c.stroke();
-  c.setLineDash([3,4]);c.beginPath();c.moveTo(X(0),Y(0.038));c.lineTo(X(1),Y(0.038));
-  c.strokeStyle='rgba(159,176,182,.45)';c.lineWidth=1.2;c.stroke();c.setLineDash([]);
-  mono(c,8.6);c.textAlign='left';c.fillStyle=COL.alu;c.fillText('λ_dry = 0,038 — stan suchy',X(0)+6,Y(0.038)-6);
-
-  [0.1,0.3,0.7].forEach(s=>{c.beginPath();c.arc(X(s),Y(lamEff(s)),4,0,TAU);c.fillStyle=COL.alu;c.fill();
-    mono(c,8.4);c.textAlign='center';c.fillStyle=COL.mid;c.fillText(pl(lamEff(s),3),X(s),Y(lamEff(s))-9);});
-  const sx=X(S.sat),sy=Y(lamEff(S.sat));
-  c.beginPath();c.moveTo(sx,P.t);c.lineTo(sx,P.t+ph);c.strokeStyle='rgba(242,169,59,.45)';c.lineWidth=1.3;c.stroke();
-  c.beginPath();c.arc(sx,sy,6,0,TAU);c.fillStyle=COL.dry;c.fill();c.strokeStyle=COL.panel;c.lineWidth=2;c.stroke();
-
-  // panel boczny
-  const bx=P.l+pw+26;
-  const psi=psiOf(S.sat),dU=psi/6,share=dU/0.10*100;
-  mono(c,9.6,600);c.textAlign='left';c.fillStyle=COL.text;
-  c.fillText('Przy S = '+pl(S.sat,2),bx,P.t+2);
-  const rows=[['λ_eff',pl(lamEff(S.sat),3),'W·m⁻¹K⁻¹',COL.dry],
-    ['ψ',pl(psi,4),'W·m⁻¹K⁻¹',COL.moist],
-    ['ΔU',pl(dU,4),'W·m⁻²K⁻¹',COL.moist],
-    ['ΔU / U',pl(share,1)+' %','wobec U = 0,10',share>20?COL.conv:COL.alu]];
-  rows.forEach((r,i)=>{const y=P.t+30+i*40;
-    mono(c,8.4);c.fillStyle=COL.mute;c.fillText(r[0],bx,y);
-    mono(c,13,600);c.fillStyle=r[3];c.fillText(r[1],bx,y+18);
-    mono(c,7.8);c.fillStyle=COL.mute;c.fillText(r[2],bx+c.measureText('').width+56,y+18);});
-  const by=P.t+ph-24,bw=Math.min(150,W-bx-20);
-  c.fillStyle='rgba(180,210,210,.1)';c.fillRect(bx,by,bw,10);
-  c.fillStyle=share>20?COL.conv:COL.moist;c.fillRect(bx,by,clamp(share/40,0,1)*bw,10);
-  mono(c,8);c.fillStyle=COL.mute;c.fillText('udział mostka w U połaci',bx,by-6);
-}
-
-
-/* ══════ WALIDACJA ══════ */
-function validate(){
-  const b=model(REF), s=sens(REF);
-  const T=[
-    ['Θ, scenariusz odniesienia',b.TH,1.359e7,'tab. 3'],
-    ['Θ, pokrycie jasne −10 K',theta(-10),5.94e6,'tab. 10'],
-    ['Θ, orientacja północna −18 K',theta(-18),2.67e6,'tab. 10'],
-    ['Θ, zacienienie −25 K',theta(-25),1.16e6,'tab. 10'],
-    ['Θ_min, zanik A_cr',DPZ*TZ_H,3.0e6,'§ 6.4'],
-    ['ṁ_a (1 mm², 10 Pa)',b.ma,2.94e-6,'§ 3.4'],
-    ['ṁ_v,cond (1 mm²)',b.mv,1.62e-8,'§ 3.4'],
-    ['Δp_res',b.dpres,2117,'§ 5.3'],
-    ['Λ przy A = 10 mm²/mb',b.Lam,4268,'§ 5.3'],
-    ['dopływ dyfuzyjny',b.inD,0.409,'tab. 4'],
-    ['odpływ letni',b.out,1.853,'tab. 4'],
-    ['ΔM przy A = 10',b.dM,1.466,'tab. 4'],
-    ['ΔM przy A = 20',model({...REF,A:20}).dM,4.376,'tab. 4'],
-    ['A_leak,cr — bez warstwy',b.Acr,4.96,'tab. 9'],
-    ['A_leak,cr — folia PE',model({...REF,layer:'pe'}).Acr,0.086,'tab. 9'],
-    ['A_leak,cr — membrana',model({...REF,layer:'vcl'}).Acr,2.97,'tab. 9'],
-    ['S_d lato — membrana',model({...REF,layer:'vcl'}).SS,0.564,'tab. 9'],
-    ['A_leak,cr przy −10 K',model({...REF,dTs:-10}).Acr,1.38,'tab. 10'],
-    ['Δp_res przy −18 K',model({...REF,dTs:-18}).dpres,-66,'tab. 10'],
-    ['M_cap',0.7*0.55*0.004*1000,1.540,'§ 5.6'],
-    ['prędkość filtracji (K = 10⁻¹²)',vFilt(1e-12),6.9e-6,'§ 4.2'],
-    ['Pe (K = 10⁻¹², µ = 4)',Pe(1e-12,4),0.09,'tab. 2'],
-    ['Ra_D (ΔT = 24 K)',RaD(1e-12,24),1.3e-3,'tab. 2'],
-    ['Ra_D,cr = 4π²',4*Math.PI*Math.PI,39.5,'§ 4.2'],
-    ['K przy Ra_D = Ra_D,cr',4*Math.PI*Math.PI/RaD(1e-12,24)*1e-12,3e-8,'§ 4.2'],
-    ['h_cr przy ΔT = 20 K [mm]',hcr(20)*1e3,9.1,'§ 4.2'],
-    ['h_cr przy ΔT = 35 K [mm]',hcr(35)*1e3,7.6,'§ 4.2'],
-    ['S_T·ΔT przy ΔT = 35 K',1.7e-4*35,6e-3,'aneks B'],
-    ['K_ref z ASTM E2178',2e-5/75*ETA*0.089,4.3e-13,'§ 3.3'],
-    ['S_A przy A = 10',s.Sx.A,-1.985,'tab. 7'],
-    ['S_Θ',s.Sx.Th,1.264,'tab. 7'],
-    ['S_µ',s.Sx.mu,-0.985,'tab. 7'],
-    ['S_Δp̄z',s.Sx.dp,-0.279,'tab. 7'],
-    ['σ_rel przy A = 6',sens({...REF,A:6}).sigma,2.09,'tab. 8'],
-    ['σ_rel przy A = 8',sens({...REF,A:8}).sigma,0.89,'tab. 8'],
-    ['σ_rel przy A = 10',s.sigma,0.65,'tab. 8'],
-    ['λ_eff przy S = 0,3',lamEff(.3),0.196,'§ 5.5'],
-    ['λ_eff przy S = 0,7',lamEff(.7),0.408,'§ 5.5'],
-    ['ψ liniowy mostek',psiOf(.3),0.091,'§ 5.5'],
-    ['ΔU',psiOf(.3)/6,0.0152,'§ 5.5'],
-    ['P_kryst przy r = 1 µm [kPa]',2*0.033/1e-6/1000,66,'§ 5.5'],
-    ['a_w przy r = 50 µm',Math.exp(-2*0.0728*1.8e-5/(50e-6*8.314*293)),0.99998,'§ 5.1'],
-  ];
-  const tb=G('vbody');if(!tb)return;tb.innerHTML='';let ok=0;
-  T.forEach(([n,calc,pap,src])=>{
-    const dev=Math.abs(calc-pap)/(Math.abs(pap)||1)*100, pass=dev<3; if(pass)ok++;
-    const f=v=>(Math.abs(v)>=1e4||(Math.abs(v)<0.01&&v!==0))?sci(v,3):pl(v,Math.abs(v)<1?4:3);
-    const tr=document.createElement('tr');
-    tr.innerHTML='<td>'+n+' <span style="color:var(--mute)">· '+src+'</span></td>'+
-      '<td class="n">'+f(calc)+'</td><td class="n">'+f(pap)+'</td>'+
-      '<td class="n">'+pl(dev,2)+' %</td>'+
-      '<td class="'+(pass?'pass':'fail')+'">'+(pass?'zgodne':'sprawdź')+'</td>';
-    tb.appendChild(tr);});
-  G('vsum').innerHTML=ok+' / '+T.length+' pozycji zgodnych w tolerancji 3 % · '+
-    '<span class="'+(ok===T.length?'pass':'fail')+'">'+
-    (ok===T.length?'model odtwarza tabele opracowania':'rozbieżność wymaga rozstrzygnięcia')+'</span>';
-}
-
-/* ══════ RENDER ══════ */
-function render(){
-  const m=model(S);
-  const set=(id,v)=>{const e=G(id);if(e)e.textContent=v;};
-  set('vA',pl(S.A,1)+' mm²/mb');
-  set('vP',pl(S.dP,0)+' Pa');
-  set('vTs',(S.dTs>0?'+':'')+pl(S.dTs,0)+' K');
-  set('vTj',pl(S.dTj,0)+' K');
-  set('vM',pl(S.mu,1));
-  set('vK',sci(S.K,1));
-  set('vS',pl(S.sat,2));
-  set('oAcr',m.Acr>0?pl(m.Acr,2):'brak');
-  set('oDpres',pl(m.dpres,0));
-  set('oLam',pl(m.Lam,0));
-  set('oDM',(m.dM>0?'+':'')+pl(m.dM,3));
-  set('oTh',sci(m.TH,2));
-  const out=G('oRegime');
-  if(out){
-    let lbl,col;
-    if(m.Acr<=0){lbl='brak rozwiązania';col='var(--conv)';}
-    else if(Math.abs(S.A-m.Acr)/Math.max(m.Acr,1e-9)<0.08){lbl='graniczny';col='var(--dry)';}
-    else if(m.dM>0){lbl='akumulacja';col='var(--conv)';}
-    else{lbl='wysychanie sezonowe';col='var(--ok)';}
-    out.textContent=lbl;out.style.color=col;
-  }
-  [drawE,drawF,drawG,drawC,drawA,drawB,drawJ,drawH,drawI,drawD].forEach(f=>{try{f(m);}catch(e){}});
-}
-
-/* ══════ STEROWANIE ══════ */
-function seg(id,key){
-  const el=G(id);if(!el)return;
-  el.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
-    el.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
-    b.classList.add('on');S[key]=b.dataset.v;render();});
-}
-function bind(){
-  const on=(id,fn)=>{const e=G(id);if(e)e.addEventListener('input',fn);};
-  on('sA',e=>{S.A=+e.target.value/10;render();});
-  on('sP',e=>{S.dP=+e.target.value/10;render();});
-  on('sTs',e=>{S.dTs=+e.target.value/10;render();});
-  on('sTj',e=>{S.dTj=+e.target.value;render();});
-  on('sM',e=>{S.mu=+e.target.value/10;render();});
-  on('sK',e=>{S.K=Math.pow(10,+e.target.value/10);render();});
-  on('sS',e=>{S.sat=+e.target.value/100;render();});
-  const sl=G('sL');if(sl)sl.addEventListener('change',e=>{S.layer=e.target.value;render();});
-  seg('segSeason','season');seg('segCont','cont');seg('segDim','dim');
-
-  const rb=G('btnReset');
-  if(rb)rb.addEventListener('click',()=>{
-    Object.assign(S,DEF);
-    const v={sA:S.A*10,sP:S.dP*10,sTs:S.dTs*10,sTj:S.dTj,sM:S.mu*10,sK:Math.round(Math.log10(S.K)*10),sS:S.sat*100};
-    for(const k in v){const e=G(k);if(e)e.value=v[k];}
-    if(sl)sl.value=S.layer;
-    document.querySelectorAll('.seg').forEach(g=>{
-      g.querySelectorAll('button').forEach((b,i)=>b.classList.toggle('on',i===0));});
-    S.season='winter';S.cont='broken';S.dim='on';
-    render();});
-
-  const rail=G('rail'),br=G('btnRail');
-  if(br)br.addEventListener('click',()=>{
-    rail.classList.toggle('open');br.classList.toggle('on',rail.classList.contains('open'));
-    if(rail.classList.contains('open'))setTimeout(render,300);});
-
-  const bt=G('btnTheme');
-  if(bt)bt.addEventListener('click',()=>{
-    document.body.classList.toggle('light');
-    try{localStorage.setItem('wk-theme',document.body.classList.contains('light')?'light':'dark');}catch(e){}
-    loadColors();render();});
-  try{if(localStorage.getItem('wk-theme')==='light')document.body.classList.add('light');}catch(e){}
-
-  let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(render,120);});
-
-  // pasek postępu + aktywna sekcja
-  const bar=G('prog');
-  window.addEventListener('scroll',()=>{
-    const h=document.documentElement;
-    if(bar)bar.style.width=(h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight)*100)+'%';
-  },{passive:true});
-  const links=[...document.querySelectorAll('nav a')];
-  const obs=new IntersectionObserver(es=>{
-    es.forEach(e=>{if(!e.isIntersecting)return;
-      links.forEach(l=>l.classList.remove('on'));
-      const a=links.find(l=>l.getAttribute('href')==='#'+e.target.id);
-      if(a)a.classList.add('on');});},{rootMargin:'-20% 0px -70% 0px'});
-  links.forEach(l=>{const t=document.querySelector(l.getAttribute('href'));if(t)obs.observe(t);});
-
-  // druk — wymuszenie jasnej palety i przerysowanie
-  let wasLight=false;
-  const pre=()=>{wasLight=document.body.classList.contains('light');
-    document.body.classList.add('light');loadColors();render();};
-  const post=()=>{if(!wasLight)document.body.classList.remove('light');loadColors();render();};
-  window.addEventListener('beforeprint',pre);
-  window.addEventListener('afterprint',post);
-  if(window.matchMedia){const mq=window.matchMedia('print');
-    if(mq.addEventListener)mq.addEventListener('change',e=>e.matches?pre():post());}
-}
-
-loadColors();bind();validate();render();
-window.addEventListener('load',()=>{loadColors();render();});
-if(document.fonts&&document.fonts.ready)document.fonts.ready.then(render);
-
-</script>
 </body>
 </html>
